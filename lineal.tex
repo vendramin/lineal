@@ -1,0 +1,197 @@
+\documentclass[11pt,a4paper,oneside,spanish]{amsbook}
+
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+\usepackage{lmodern}
+\usepackage{xcolor} 
+\usepackage[left=1.45in, right=1in, top=01in, bottom=1in, includefoot, textwidth = 5.77in, textheight=9.4in]{geometry}
+
+%%% fonts
+%\usepackage[osf,noBBpl]{mathpazo}
+%\usepackage{eulervm}
+\usepackage{mathrsfs}
+
+\usepackage[notref,notcite]{showkeys}
+
+\usepackage{babel}
+\addto\shorthandsspanish{\spanishdeactivate{~<>}}
+
+\usepackage[all]{xy}
+
+\makeatletter
+\swapnumbers
+
+\numberwithin{section}{chapter}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+
+\theoremstyle{plain}
+\newtheorem{thm}{\protect\theoremname}[section]
+
+%%% Enumearate
+\es@enumerate{1)}{a)}{i)}{a$¿$)}
+
+\makeatletter
+\let\c@paragraph\c@thm
+\let\c@equation\c@thm
+\let\c@subsubsection\c@paragraph
+\makeatother
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{\protect\definitionname}
+\newtheorem*{defn*}{\protect\definitionname}
+\theoremstyle{definition}
+\newtheorem{example}[thm]{\protect\examplename}
+\newtheorem*{example*}{\protect\examplename}
+\newtheorem{examples}[thm]{\protect\examplesname}
+\theoremstyle{definition}
+\newtheorem{xca}[thm]{\protect\exercisename}
+\newtheorem*{xca*}{\protect\exercisename}
+\theoremstyle{remark}
+\newtheorem*{solution}{\protect\solutionname}
+\theoremstyle{remark}
+\newtheorem{remark}[thm]{\protect\remarkname}
+\newtheorem*{remark*}{\protect\remarkname}
+\newtheorem*{claim*}{\protect\claimname}
+\newtheorem{remarks}[thm]{\protect\remarksname}
+\newtheorem*{remarks*}{\protect\remarksname}
+\theoremstyle{plain}
+\newtheorem{prop}[thm]{\protect\propositionname}
+\newtheorem*{prop*}{\protect\propositionname}
+\newtheorem*{thm*}{\protect\theoremname}
+\theoremstyle{plain}
+\newtheorem{lem}[thm]{\protect\lemmaname}
+\newtheorem*{lem*}{\protect\lemmaname}
+\newtheorem{problem}[thm]{\protect\problemname}
+\theoremstyle{plain}
+\newtheorem{cor}[thm]{\protect\corollaryname}
+\newtheorem*{cor*}{\protect\corollaryname}
+\newtheorem{corollaries}[thm]{\protect\corollariesname}
+\theoremstyle{remark}
+\newtheorem{block}[thm]{}
+
+\makeatother
+
+\providecommand{\corollaryname}{Corolario}
+\providecommand{\corollariesname}{Corolarios}
+\providecommand{\definitionname}{Definición}
+\providecommand{\examplename}{Ejemplo}
+\providecommand{\exercisename}{Ejercicio}
+\providecommand{\lemmaname}{Lema}
+\providecommand{\propositionname}{Proposición}
+\providecommand{\remarkname}{Observación}
+\providecommand{\remarksname}{Observaciones}
+\providecommand{\solutionname}{Solución}
+\providecommand{\theoremname}{Teorema}
+\providecommand{\examplesname}{Ejemplos}
+\providecommand{\claimname}{Afirmación}
+\providecommand{\problemname}{Problema}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\D}{\mathbb{D}}
+
+\newcommand{\cB}{\mathscr{B}}
+\newcommand{\cE}{\mathscr{E}}
+
+%%% Definitions
+\newcommand{\Aff}{\mathrm{Aff}}
+\newcommand{\Rad}{\mathrm{rad}}
+\newcommand{\Inn}{\mathrm{Inn}}
+\newcommand{\Ext}{\mathrm{Ext}}
+\newcommand{\Img}{\mathrm{Img}}
+\newcommand{\Syl}{\mathrm{Syl}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Irr}{\operatorname{Irr}}
+\newcommand{\GL}{\mathbf{GL}}
+\newcommand{\SL}{\mathbf{SL}}
+\newcommand{\Alt}{\mathbb{A}}
+\newcommand{\Sym}{\mathbb{S}}
+\newcommand{\lcm}{\mathrm{mcm}}
+
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\rg}{\operatorname{rg}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\inv}{\operatorname{I}}
+\newcommand{\adj}{\operatorname{adj}}
+\newcommand{\spec}{\operatorname{spec}}
+
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\ann}{\operatorname{Ann}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\re}{\operatorname{re}}
+
+% column vector
+\newcount\colveccount
+\newcommand*\colvec[1]{
+\global\colveccount#1
+\begin{pmatrix}
+	\colvecnext
+	}
+	\def\colvecnext#1{
+	#1
+	\global\advance\colveccount-1
+	\ifnum\colveccount>0
+	\\
+	\expandafter\colvecnext
+	\else
+\end{pmatrix}
+\fi
+}
+
+%\title{Notas de álgebra lineal}
+%\author{Leandro Vendramin}
+%\address{Departamento de Matemática
+%Facultad de Ciencias Exactas y Naturales
+%Universidad de Buenos Aires
+%Ciudad Universitaria, Pabellón I
+%Buenos Aires, Argentina}
+%\email{lvendramin@dm.uba.ar}
+%%\url{http://mate.dm.uba.ar/~lvendram/}
+
+\makeindex
+
+\begin{document}
+
+%\maketitle
+
+\include{title}
+
+\frontmatter
+\tableofcontents
+
+\mainmatter
+
+%\include{thanks}
+\include{sistemas}
+\include{espacios}
+\include{transformaciones}
+\include{dual}
+\include{determinantes}
+\include{autovalores}
+
+%\include{deprecated/CH}
+\include{jordan}
+\include{interno}
+%\include{bilineal}
+\include{cocientes}
+%\include{variedades}
+\include{soluciones}
+
+\printindex
+
+\end{document}

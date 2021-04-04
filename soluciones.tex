@@ -1,0 +1,492 @@
+\chapter{Soluciones a los ejercicios}
+
+\section{Capítulo 1}
+
+\begin{solution}[ejercicio~\ref{xca:Ax=b_y_Ax=0}]
+	Sea $y$ tal que $Ay=b$. Entonces $y-p$ es solución de $Ax=0$. Luego
+	$y=(y-p)+p\in S+p$. Recíprocamente, si $y$ satisface $Ay=0$ entonces
+	$A(y+p)=Ay+Ap=0+b=b$.
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:I^T=I}]
+\end{solution}
+ 
+\section{Capítulo 2}
+
+\begin{solution}[ejercicio~\ref{xca:subespacio}]
+    Si $S$ es un subespacio entonces es evidente que $v+\lambda w\in S$ para
+    todo $v,w\in S$ y $\lambda\in\K$. Recíprocamente, como $S$ es no vacío,
+    existe un elemento $v_0\in S$ y entonces $0=v_0+(-1)v_0\in S$. Si $v,w\in
+    S$ entonces $v+w=v+1w\in S$. Por último, si $v\in S$ y $\lambda\in\K$
+    entonces $\lambda v=v+(\lambda-1)v\in S$.
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:f(1)=0}]
+	Si $f(1)=0$ entonces
+	$X-1$ divide a $f$ y luego $f=(X-1)g$ para algún $g\in\R[X]$. 
+\end{solution}
+ 
+\begin{solution}[ejercicio~\ref{xca:X^2-3X+2|f}]
+	Como $f(1)=f(2)=0$, el polinomio 
+    \[
+        X^2-3X+2=(X-1)(X-2)
+    \]
+    divide a $f$. Luego 
+	$f=(X^2-3x+2)g$ para algún $g\in\R[X]$.
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:K[X]_no_fg}]
+		
+\end{solution}
+
+\section{Capítulo 3}
+
+\begin{solution}[ejercicio~\ref{xca:Silvester}]
+    Para demostrar la primera afirmación, sea $g_1=g|_{\im f}$. Es evidente que
+    $\ker g_1\subseteq\ker g$. Entonces, por el teorema de la dimensión, 
+    \begin{align*}
+        \dim\ker(gf)&=\dim U-\dim\im(gf)\\
+        &=\dim U-\dim\im f+\dim\im f-\dim\im(gf)\\
+        &=\dim\ker f+\dim\im f-\dim\im(gf)\\
+        &=\dim\ker f+\dim\ker g_1\\
+        &\leq \dim\ker f+\dim\ker g.
+    \end{align*}
+
+    Para demostrar la segunda desigualdad, primero observamos que 
+    \[
+        \dim\im(gf)\leq\dim\im g
+    \]
+    pues 
+    $\im(gf)\subseteq\im g$. Por otro lado, como
+    $\im(gf)\subseteq\im g_1$, tenemos 
+    \begin{align*}
+        \dim\im(gf)\leq\dim\im(g_1)=\dim\im f-\dim\ker g_1\leq\dim\im f.
+    \end{align*}
+    Luego,
+    \[
+    \dim\im(gf)\leq\min\{\dim\im g,\dim\im f\}.
+    \]
+
+    Para demostrar la tercera igualdad, usamos el teorema de la dimensión en
+    $gf$ y el primer ítem y obtenemos
+    \begin{align*}
+        \dim\im(gf)&=\dim U-\dim\ker(gf)\\
+        &\geq\dim U-\dim\ker f-\dim\ker g\\
+        &=\dim U-\dim U+\dim\im f-\dim V+\dim\im g\\
+        &=\dim\im f+\dim\im g-\dim V.
+    \end{align*}
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:proyector(2f-1)^2}]
+    Observemos que $(2f-\id_V)^2=\id_V$ si y sólo si
+    $(2f-\id_V)(2f-\id_V)(v)=v$ para todo $v\in V$. Esto es equivalente a 
+    \[
+        4f^2(v)-4f(v)-v=v
+    \]
+    para todo $v\in V$, que a su vez equivale a $4f^2(v)=4f(v)$ para todo $v\in
+    V$. Como el cuerpo de base es $\R$, esta última igualdad equivale a
+    $f^2(v)=v$ para todo $v\in V$.
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:proyector}]
+	Si $f$ es un proyector y $w\in \im f$ entonces $w=f(v)$ para algún $v\in V$
+	y luego $f(w)=f(f(v))=f(v)=w$.  Recíprocamente, si $f(w)=w$ para todo
+	$w\in\im f$ y $v\in V$ entonces $f(f(v))=f(v)$. 
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:pfp=fp}]
+	Supongamos que $f(S)\subseteq S$ y sea $p\colon V\to V$ con $\im p=S$. Sea
+	$v\in V$. Entonces $(fp)(v)\in S=\im p$ y luego existe $w\in V$ tal que
+	$(fp)(v)=p(w)$. Al aplicar $p$ se obtiene
+	\[
+	(pfp)(v)=p^2(w)=p(w)=(fp)(v),
+	\]
+	que es lo que se quería demostrar.
+
+	Supongamos ahora que $pfp=fp$ para todo proyector $p\colon V\to V$ con $\im
+	p=S$. Si $s\in S$ entonces, como $S=\im p$ y $p(s)=s$,
+	$f(s)=fp(s)=pfp(s)\in S$. 
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:oplus_proyectores}]
+	Para demostrar que (1) implica (2) basta tomar las transformaciones
+	lineales $p_i\colon V\to V$ dado por $v=s_1+\cdots+s_n\mapsto s_i$.
+	Recíprocamente, si $s_1+\cdots+s_n=0$ entonces, al aplicar $p_i$ y utilizar
+	que los $p_i$ son proyectores que satisfacen $p_ip_j=0$ si $i\ne j$, se
+	obtiene que $s_i=0$ para todo $i$.
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:proyector_matriz}]
+	Si $f$ es un proyector entonces $V=\ker f\oplus\im f$ y además $f(w)=w$
+	para todo $w\in\im f$.  Sea $\{v_1,\dots,v_r\}$ una base de $\im f$ y
+	$\{v_{r+1},\dots,v_n\}$ una base de $\ker f$.  Luego
+	$\cB=\{v_1,\dots,v_n\}$ es base de $V$ y la matriz de $f$ en la base $\cB$
+	tiene la forma deseada.
+
+	Recíprocamente, si $\{v_1,\dots,v_r\}$ es base de $\im f$ y
+	$\{v_{r+1},\dots,v_n\}$ es base de $\ker f$ entonces $f(w)=w$ para todo
+	$w\in\im f$. Luego $f$ es un proyector por el
+	ejercicio~\ref{xca:proyector}.
+\end{solution}
+
+\section{Capítulo 4}
+
+\begin{solution}[ejercicio~\ref{xca:traza}]
+    Si $i\ne j$ entonces 
+    \[
+        \delta(E^{ij})=\delta(E^{ii}E^{ij})=\delta(E^{ij}E^{ii})=\delta(0)=0.
+    \]
+    Por otro lado, para cada $i,k\in\{1,\dots,n\}$ tenemos 
+    \[
+        \delta(E^{ii})=\delta(E^{ik}E^{ki})=\delta(E^{ki}E^{ik})=\delta(E^{kk}).
+    \]
+    Sea entonces $\lambda=\delta(E^{11})$. Si
+    escribimos a $A$ en la base de los $E^{ij}$ tenemos
+    \begin{align*}
+        \delta(A) & %\delta\left(\sum_{1\leq i,j\leq n}a_{ij}E^{ij}\right)
+        =\sum_{1\leq i,j\leq n}a_{ij}\delta(E^{ij})
+        =\sum_{i=1}^n a_{ii}\delta(E^{ii})
+        =\lambda\sum_{i=1}^na_{ii}
+        =\lambda\tr(A),
+    \end{align*}
+    tal como queríamos demostrar.
+\end{solution}
+\begin{solution}[ejercicio~\ref{xca:v=0<=>f(v)=0}]\
+    Si $v=0$ entonces $f(v)=0$ para todo $f\in V^*$.
+    Recíprocamente, si $v\ne0$, extendemos el conjunto linealmente
+    independiente $\{v\}$ a una base $\cB$ de $V$. La existencia de la
+    base dual a la base $\cB$ garantiza la existencia de un $f\in V^*$ tal que
+    $f(v)=1$. 
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:V=<v>+kerf}]
+    Como $f(v)\ne0$, todo $w\in V$ puede
+    escribirse como 
+    \begin{align*}
+        w=w-\frac{f(w)}{f(v)}v+\frac{f(w)}{f(v)}v,
+    \end{align*}
+    donde $f\left(w-\frac{f(w)}{f(v)}v\right)=0$, y entonces $V=\ker
+    f+\langle v\rangle$.  Si $w\in\ker f\cap\langle v\rangle$ entonces
+    $f(w)=0$ y $w=\lambda v$ para algún $\lambda\in\K$. Luego $\lambda
+    f(v)=0$ y entonces, como $f(v)\ne0$, $\lambda=0$ y $w=0$.
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:kerf=kerg}]
+    Si existe $\lambda\in\K$ tal que $f=\lambda g$ entonces es
+    evidente que $\ker f=\ker g$. Recíprocamente, supongamos que
+    $f\ne0$ (de lo contrario, el resultado es trivial) y sea
+    $\{v_1,\dots,v_{n-1}\}$ una base de $\ker f$. La extendemos a una
+    base $\{v_1,\dots,v_n\}$ de $V$ y entonces, por construcción,
+    $f(v_n)\ne0$ y $g(v_n)\ne0$.  Si definimos $\lambda=f(v_n)/g(v_n)$
+    entonces $\lambda\ne0$ y luego $f=\lambda g$ pues coinciden en la
+    base $\{v_1,\dots,v_n\}$.
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:annX=<X>}]
+    Si $v\in\langle X\rangle$ entonces existen $x_1,\dots,x_n\in X$ y
+    $\alpha_1,\dots,\alpha_n\in\K$ tales que $v=\sum_{i=1}^n\alpha_ix_i$.
+    Luego $f(v)=0$ para toda $f\in\ann X$ y entonces $\ann
+    X\subseteq\ann\langle X\rangle$. La recíproca es cierta pues si
+    $f\in\ann\langle X\rangle$ entonces $X\subseteq\langle
+    X\rangle\subseteq\ker f$.
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:dual:LI}]
+	Supongamos que $\{f_1,\dots,f_n\}$ son linealmente independientes y sea
+	$\{v_1,\dots,v_n\}$ una base de $V$ que tiene a la base de las $f_i$ como
+	su base dual. Si escribimos $v=\sum_{i=1}^n\alpha_iv_i$ entonces para cada
+	$j$ se tiene 
+	\[
+	0=f_j(v)=f_j\left(\sum_{i=1}^n\alpha_iv_i\right)=\sum_{i=1}^n\alpha_if_j(v_i)=\sum_{i=1}^n\alpha_i\delta_{ji}=\alpha_j.
+	\]
+	Luego $v=0$, una contradicción.
+\end{solution}
+
+\section{Capítulo 5}
+
+\begin{solution}[ejercicio~\ref{xca:disjuntas_conmutan}]
+	Sea $j\in\{1,\dots,n\}$. Si $\alpha(j)\ne j$ entonces $\beta(j)=j$ y además
+	$\beta(\alpha(j))=\alpha(j)$ (pues de lo contrario tendríamos
+	$\alpha(\alpha(j))=\alpha(j)$ que implica $\alpha(j)=j$). Luego
+	\[
+		(\alpha\beta)(j)=\alpha(\beta(j))=\alpha(j)=\beta(\alpha(j)).
+	\]
+	Similarmente se hace el caso en que $\beta(j)\ne j$. Por último, si
+	$\alpha(j)=\beta(j)=j$ entonces trivialmente se obtiene
+	$(\alpha\beta)(j)=(\beta\alpha)(j)$. 
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:permutaciones}]
+	Si $k\geq0$ entonces
+	\[
+		\sigma^{k}(i)=(\alpha\beta)^{k}(i)=\alpha^{k}\left(\beta^{k}(i)\right)=\alpha^{k}(i). 
+	\]
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:dA=(detA)dI}]
+    Supongamos que $d$ es una función $n$-lineal y alternada sea $A\in\K^{n\times
+    n}$. Escribamos a cada fila de $A$ como $A_i=\sum_{j=1}^n a_{ij}e_j$
+    donde $\{e_1,\dots,e_n\}$ es la base canónica de $\K^{1\times n}$.
+    Entonces
+    \begin{align*}
+        d(A)&=d(A_1,\dots,A_n)
+        =\sum_{j_1=1}^n\cdots\sum_{j_n=1}^na_{1j_1}\cdots a_{nj_n}d(e_{j_1},\dots,e_{j_n}).
+    \end{align*}
+    Como $d$ es alternada, la suma es no nula únicamente cuando todos los
+    $j_k$ son distintos, es decir cuando $|\{j_1,\dots,j_n\}|=n$. Entonces,
+    la suma anterior se hace sobre todas las $n$-uplas $(j_1,\dots,j_n)$ de
+    elementos distintos del conjunto $\{1,\dots,n\}$. Luego, por el
+    lema~\ref{lem:sigma},  
+    \begin{align*} 
+        d(A)&=\sum_{\sigma\in\Sym_n}a_{1\sigma(1)}\cdots a_{n\sigma(n)}d(e_{\sigma(i)},\dots,e_{\sigma(n)})\\
+        &=\sum_{\sigma\in\Sym_n}\sgn(\sigma)a_{1\sigma(1)}\cdots a_{n\sigma(n)}d(e_1,\dots,e_n)\\
+        &=(\det A)d(I).
+    \end{align*}
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:bloques_2x2}]
+	Escribimos
+	\[
+	\det\begin{pmatrix}
+		A & B\\
+		0 & C
+	\end{pmatrix}
+	=\begin{pmatrix}
+		I & 0\\
+		0 & C
+	\end{pmatrix}
+	\begin{pmatrix}
+		A & B\\
+		0 & I
+	\end{pmatrix}
+	\]
+	y observamos que 
+	\begin{align*}
+		\det\begin{pmatrix}
+			I & 0\\
+			0 & C
+		\end{pmatrix}
+		=\det C,
+		&&
+		\det\begin{pmatrix}
+			A & B\\
+			0 & I
+		\end{pmatrix}
+		=\det A.
+	\end{align*}
+\end{solution}
+
+%\begin{solution}[ejercicio~\ref{xca:rango_submatriz}]
+%	Si $\rg A\geq r$ entonces existen al menos $r$ columnas de $A$ que son
+%	linealmente independientes. 
+%\end{solution}
+
+
+\begin{solution}[ejercicio~\ref{xca:lagrange}]
+	Si $f=a_0+a_1X+\cdots+a_nX^n$ y $f(x_i)=y_i$ para todo
+	$i\in\{1,\dots,n+1\}$ entonces 
+	\[
+	\begin{cases}
+		\begin{aligned}
+			& a_0+a_1x_1+\cdots+a_nx_1^n = y_1,\\
+			& a_0+a_1x_2+\cdots+a_nx_2^n = y_2,\\
+			&\quad\vdots\\
+			& a_0+a_1x_{n+1}+\cdots+a_nx_{n+1}^{n} = y_{n+1}.
+		\end{aligned}
+	\end{cases}
+	\]
+	Este sistema tiene solución única pues el determinante de la matriz
+	asociada es el determinante de Vandermonde \[
+		V(x_1,\dots,x_{n+1})=\prod_{i<j}(x_i-x_j)\ne0.
+	\]
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:adjadjA}]
+	Como $A^{-1}=(\det A)^{-1}(\adj A)$ entonces $(\det A)A=(\adj A)^{-1}$. Por
+	otro lado, al aplicar determinante en la igualdad $(\adj A)A=(\det A)I$, se
+	obtiene $\det\adj A=(\det A)^{n-1}$. Luego
+	\[
+	\adj(\adj A)=(\det A)^{n-1}(\adj A)^{-1}=(\det A)^{n-2}A.
+	\]
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:adj(BAB^(-1))}]
+		Sabemos que \[
+			\adj(BAB^{-1})(BAB^{-1})=\det(BAB^{-1})I=(\det A)I.
+		\]
+		Entonces
+		\[
+			\adj(BAB^{-1})=(\det A)BA^{-1}B=B(\adj A)B^{-1}
+		\]
+		pues $A^{-1}=(\det A)^{-1}\adj A$. 
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:determinante:A1000}]
+    Sean $\alpha,\beta\in\R$ tales que $\alpha A^{1000}+\beta A^{1001}=0$. Si
+    aplicamos la función determinante a la igualdad $\alpha A^{1000}=-\beta
+    A^{1001}$, obtenemos $\alpha^4(\det A)^{1000}=(-\beta)^4(\det A)^{1001}$. Luego $\alpha^4+\beta^4=0$ y entonces
+    $\alpha=\beta=0$.
+
+\end{solution}
+\section{Capítulo 6}
+
+\begin{solution}[ejercicio~\ref{xca:spec(fg)=spec(gf)}]
+    Sea $\lambda\in\spec(fg)$. Si $\lambda=0$ entonces $fg\not\in\Aut V$.
+    Luego, como $f\not\in\Aut V$ o $g\not\in Aut V$, se tiene que
+    $gf\not\in\Aut V$. Si $\lambda\ne0$ sea $v\in V\setminus\{0\}$ tal que
+    $(fg)(v)=\lambda v\ne0$. Entonces, como $w=g(v)\ne0$, 
+    \[
+        (gf)(w)=(fgf)(v)=g(\lambda v)=\lambda g(v)=\lambda w.
+    \]
+    Luego $\lambda\in\spec(gf)$ y entonces $\spec(fg)\subseteq\spec(gf)$. 
+\end{solution}
+\section{Capítulo 7}
+
+\begin{solution}[ejercicio~\ref{xca:f_invariante}]
+    La primera afirmación es consecuencia de lo visto en~\ref{block:XY}.
+    Demostremos la segunda afirmación. Sea 
+	\[
+        p=\lcm(m_{f|_S},m_{f|_T}).
+    \]
+    Como $m_{f|_S}$ y $m_{f|_T}$ dividen a $f$, entonces $p$ divide a $m_f$.
+    Por otro lado, como $V=S\oplus T$, para cada $v\in V$ existe únicos $s\in
+    T$ y $T\in T$ tales que $v=s+t$. Luego
+    \[
+        p(f)(v)=p(f)(s+t)=p(f)(s)+p(f)(t)=p(f|_S)(s)+p(f|_T)(t).
+    \]
+    Como $m_{f|_S}$ y $m_{f|_T}$ ambos dividen a $p$, entonces
+    $p(f|_S)(s)=p(f|_T)(t)=0$. Luego $m_f$ divide a $p$ y entonces, como $m_f$
+    y $p$ son mónicos, $m_f=p$.
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:auxiliar}]\
+    \begin{enumerate}
+        \item Primero observemos que, como $p(f)\circ f=f\circ p(f)$, entonces
+            \[
+            p(f)(f^i(v))=f^i(p(f)(v))\in C(p(f)(v))
+            \]
+            para todo $i\geq0$ y luego $p(C(v))\subseteq C(p(v))$. Recíprocamente, 
+            \[
+            f^i(p(f)(v))=p(f)(f^i(v))\in p(f)(C(v))
+            \]
+            para todo $i\geq0$ y luego $p(C(v))\supseteq C(p(v))$.
+        \item Como $p(f)$ es un endomorfismo de $V$, entonces \[
+            p(V)=p(V_1)+\cdots+p(V_k). 
+            \]
+            Para $i\in\{1,\dots,k\}$ sean $v_i\in V_i$ tales que
+            $v_1+\cdots+v_k=0$. Entonces
+            $p(f)(v_1)+\cdots+p(f)(v_k)=p(f)(v_1+\cdots+v_k)=0$. Como
+            los $V_i$ son $p$-invariantes, $p(f)(v_i)\in V_i$ y luego, como
+            los $V_i$ están en suma directa, $p(f)(v_i)=0$ para cada 
+            $i\in\{1,\dots,k\}$. 
+        \item Por definición, 
+            \[
+            0=m_{p(v)}(f)(p(f)(v))=(m_{p(v)}p)(f)(v)
+            \]
+            y entonces $m_v=m_w$ divide al polinomio $m_{p(v)}p$. En
+            particular, como $m_{p(v)}p$ da cero al ser evaluado en $w$, obtememos
+            \[
+            0=(m_{p(v)}p)(f)(w)=m_{p(v)}(f)(p(f)(w)).
+            \]
+            Luego $m_{p(w)}$ divide a $m_{p(v)}$. Análogamente $p_{p(v)}$
+            divide a $m_{p(w)}$ y  entonces, como $m_{p(v)}$ y $m_{p(w)}$ son
+            mónicos, $m_{p(v)}=m_{p(w)}$. 
+
+            Como $m_{p(v)}=m_{p(w)}$ y que $\deg
+            m_{p(v)}=\dim C(p(v))$ por el lema~\ref{lem:dimC(v)=degm_v}, entonces
+            $\dim C(p(v))=\dim C(p(w))$.
+    \end{enumerate}
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:nilpotente_y_diagonalizable=0}]\
+    Sean $\lambda_1,\dots,\lambda_n$ los autovalores de $f$. 
+    Sea $\cB$ una base de $f$ tal que $[f]_{\cB,\cB}$ es una matriz diagonal
+    cuya diagonal principal es $\lambda_1,\dots,\lambda_n$. Como $f$ es
+    nilpotente, existe $m\in\N$ tal que $f^m=0$. Entonces 
+    \[
+    0=[f^m]_{\cB,\cB}=[f]_{\cB,\cB}^m.
+    \]
+    Esto implica que $\lambda_i^m=0$ para todo $i$ y por lo
+    tanto $\lambda_i=0$ para todo $i$. 
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:nilpotente:autovalores}]\
+    \begin{enumerate}
+        \item Sea $r$ el índice de nilpotencia de $f$. Si $r=1$ entonces $f=0$
+            y el ejercicio queda resuelto. Si $r>1$ entonces sea $v\in V$ tal
+            que $f^r(v)=0$ y $f^{r-1}(v)\ne0$. Si $w=f^{r-1}(v)$ entonces
+            $f(w)=0w$. 
+        \item Sea $r$ el índice de nilpotencia de $f$  y sea $v\ne0$ tal que
+            $f(v)=\lambda v$. Entonces $0=f^r(v)=\lambda^rv$. Como $v\ne0$
+            entonces $\lambda^r=0$ y luego $\lambda=0$.
+    \end{enumerate}
+\end{solution}
+
+\section{Capítulo 8}
+
+\begin{solution}[ejercicio~\ref{xca:<v-w,x>=0}]
+	Si $\langle v,x\rangle=\langle w,x\rangle$ entonces $\langle
+	v-w,x\rangle=0$ y luego, al tomar $x=v-w$, se tiene $0=\|v-w\|^2=\langle
+	v-w,v-w\rangle$, que implica que $v=w$. 
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:Pitagoras}]
+	Si $v\perp w$ entonces $\langle v,w\rangle=\langle w,v\rangle=0$. Luego
+	\begin{align*}
+		\|v+w\|^2&=\langle v+w,v+w\rangle\\
+		&=\langle v,v\rangle+\langle v,w\rangle+\langle w,v\rangle+\langle w,w\rangle=\|v\|^2+\|w\|^2.
+	\end{align*}
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:Sperp}]\
+	\begin{enumerate}
+		\item Se deduce trivialmente de $\langle 0,v\rangle=\langle v,0\rangle=0$.
+		\item Si $v\in T^\perp$ entonces $\langle v,w\rangle=0$ para todo $w\in
+			T$. En particular, $v\in S^\perp$ pues, como $S\subseteq T$,
+			$\langle v,w\rangle=0$ para todo $w\in S$.
+		\item Como $S\subseteq S+T$ y $T\subseteq S+T$, entonces, por lo visto
+			en ítem anterior, $(S+T)^\perp\subseteq S^\perp\cap T^\perp$.
+			Recíprocamente, si $v\in S^\perp\cap T^\perp$ entonces, dados $x\in
+			S$, $y\in T$, se tiene 
+			\[
+			\langle v,x+y\rangle=\langle v,x\rangle+\langle v,y\rangle=0+0=0. 
+			\]
+	\end{enumerate}
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:perpperp}]
+	Por definición se tiene que $S\subseteq S^{\perp\perp}$. Por otro lado,
+	como $V$ es de dimensión finita y $S$ y $S^\perp$ son subespacios de $V$,
+	$\dim V=\dim S+\dim S^\perp=\dim S^\perp+\dim S^{\perp\perp}$. Como
+	$\dim S=\dim S^{\perp\perp}$, entonces $S=S^{\perp\perp}$.
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:proyector_ortogonal}]\
+	\begin{enumerate}
+		\item Sea $v\in(im p)^\perp$. Como $v-p(v)\in\ker p$ y $\ker p\perp\im
+			p$, entonces 
+			\[
+			\langle v,p(v)\rangle-\langle p(v),p(v)\rangle=\langle v-p(v),p(v)\rangle=0.
+			\]
+			Como $v\in(\im p)^\perp$ entonces $\langle v,p(v)\rangle=0$ y luego
+			$\|p(v)\|^2$. Esto implica que $p(v)=0$ y que $v\in\ker p$. Por
+			otro lado, como $p$ es un proyector ortogonal, $\ker p\perp\im p$,
+			y entonces es evidente que $\ker p\subseteq(\im p)^\perp$. 
+		\item Como $\ker p\perp\im p$ entonces $\im p\subseteq(\ker p)^\perp$.
+			Por otro lado, si $v\in(\ker p)^\perp$ entonces, como
+			$v-p(v)\in\ker p$ y $\ker p\perp\im p$, 
+			\begin{align*}
+				\|v-p(v)\|^2&=\langle v-p(v),v-p(v)\rangle\\
+				&=\langle v,v-p(v)\rangle-\langle p(v),v-p(v)\rangle=0.
+			\end{align*}
+			Luego $v=p(v)\in\im p$. 
+		\item Se deduce trivialmente de los ítems anteriores.
+	\end{enumerate}
+\end{solution}
+
+\begin{solution}[ejercicio~\ref{xca:pSpT}]
+	Como $\im p_S\perp\im p_T$, entonces 
+	por el ejercicio~\ref{xca:proyector_ortogonal}, 
+	$\im p_T\subseteq (\im p_S)^\perp=\ker
+	p_S$. Luego $p_Sp_T=0$. 
+\end{solution}

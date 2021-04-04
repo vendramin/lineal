@@ -1,0 +1,5 @@
+* Agregar un ejemplo de por qué no vale que V y V** son isomorfos en dimensión infinita.
+* Explicar la "naturalidad"
+* Agregar la demostración del teorema fundamental del álgebra. Se usa que
+los operadores que conmutan tienen un autovalor en común.
+* Demostración de Jordan: https://terrytao.wordpress.com/2007/10/12/the-jordan-normal-form-and-the-euclidean-algorithm/

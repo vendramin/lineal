@@ -1,0 +1,1168 @@
+\chapter{Transformaciones lineales}
+
+\section{Transformaciones lineales}
+
+\begin{block}
+    Sean $V$ y $W$ dos espacios vectoriales sobre $\K$. Una función $f\colon V\to W$ 
+    es una \textbf{transformación lineal} si 
+    \[
+        f(x+y)=f(x)+f(y),\quad
+        f(\lambda x)=\lambda f(x),
+    \]
+	para todo $x,y\in V$ y $\lambda\in\K$. Denotaremos por $\hom(V,W)$ al
+	conjunto de transformaciones lineales $V\to W$.  En $\hom(V,W)$ se tiene
+	una multiplicación y está dada por la composición: si $f\in\hom(U,V)$ y
+	$g\in\hom(V,W)$ entonces la composición $g\circ f\colon U\to W$, dada por
+	$x\mapsto g(f(x))$, es un elemento de $\hom(U,W)$. 
+    
+    Utilizaremos la notación $gf=g\circ f$. 
+    
+    La composición de transformaciones lineales tiene las siguientes
+    propiedades:
+    \begin{enumerate}
+        \item Es asociativa.
+        \item La identidad $\id_V\colon V\to V$, dada por $\id_V(x)=x$, cumple
+            $f\id_V=\id_V$ para toda $f\in\hom(V,W)$. 
+        \item La identidad $\id_W\colon W\to W$ cumple $\id_Wf=\id_W$ para toda
+            $f\in\hom(V,W)$. 
+        \item Valen las propiedades distributivas:
+            \[
+            (f_1+f_2)g=f_1g+f_2g,\quad
+            f(g_1+g_2)=fg_1+fg_2,
+            \]
+            para toda $f_1,f_2,f\in\hom(U,V)$ y $g_1,g_2,g\in\hom(V,W)$.
+    \end{enumerate}
+    Tal como sucede con las matrices, la composición de aplicaciones lineales
+    en general no es conmutativa. 
+\end{block}
+
+\begin{xca}
+	Una función $f\colon V\to W$ es una transformación lineal si y sólo si
+	$f(v+\lambda w)=f(v)+\lambda f(w)$ para todo $v,w\in V$ y $\lambda\in\K$.
+\end{xca}
+
+\begin{block}
+    Si $V$ es un espacio vectorial, la mayoría de las funciones, digamos $V\to
+    V$, no son transformaciones lineales.  De hecho, supongamos por ejemplo que
+    $V=\Z_2^4$ como espacio vectorial sobre el cuerpo $\Z_2$. Entonces $V$
+    tiene $2^4=16$ elementos y hay $16^{16}$ funciones $V\to V$. Por otro lado, cada
+    transformación lineal queda determinada por su valor en una base, y como cada base de $V$ 
+    tiene cuatro elementos, hay, como mucho, $16^4$ transformaciones lineales $V\to V$. Luego
+    la probabilidad de que una función $V\to V$ elegida al azar sea una transformación lineal
+    es menor o igual a $1/16^{12}$.
+\end{block}
+
+\begin{examples}\
+    \begin{enumerate}
+        \item Sea $A\in\K^{m\times n}$. La función $f\colon\K^{n\times1}\to\K^m$ dada
+            por $x\mapsto Ax$ es una transformación lineal pues
+            \begin{align*}
+                &f(x+y)=A(x+y)=Ax+Ay=f(x)+f(y),\\
+                &f(\lambda x)=A(\lambda x)=\lambda Ax=\lambda f(x).
+            \end{align*}
+        \item Sea $A\in\K^{m\times n}$. La función $f\colon\K^{m}\to\K^n$ dada por
+            \[
+                (x_1,\dots,x_m)\mapsto \left(\sum_{i=1}^m a_{i1}x_i,\dots,\sum_{i=1}^n a_{in}x_i\right)
+            \]
+            es una transformación lineal. 
+        \item La traza $\tr\colon\K^{n\times n}\to\K$ es una transformación
+            lineal.
+        \item La derivada 
+            \[
+            K[X]\to\K[X],\quad
+                f\mapsto f'
+            \]
+            donde $f'$ denota el polinomio derivado de $f$, 
+            es una transformación lineal. 
+        \item La derivada 
+            \[
+                C^{\infty}(\R)\to C^{\infty}(\R), \quad
+                f\mapsto f',
+            \]
+            donde $f'$ denota la función derivada de $f$, es una transformación
+            lineal.
+        \item Sean $a,b\in\R$ con $a<b$. La aplicación 
+            \[
+                C(\R)\to C(\R), \quad 
+                f\mapsto\int_{a}^{b}f(x)dx
+            \]
+            es una transformación lineal.
+		\item Las funciones $f\colon\K^{\infty}\to\K^{\infty}$ y $g\colon\K^{\infty}\to\K^{\infty}$, 
+			\begin{align*}
+            &f(x_1,x_2,x_3\dots)=(x_2,x_3,\dots),\\
+			&g(x_1,x_2,x_3,\dots)=(0,x_1,x_2,\dots),
+			\end{align*}
+            son transformaciones lineales.
+    \end{enumerate}
+\end{examples}
+
+\begin{thm}[Propiedad fundamental de las transformaciones lineales]
+    Sea $V$ un espacio vectorial sobre $\K$ de dimensión finita y sea
+    $\{v_1,\dots,v_n\}$ una base de $V$.  Sea $W$ un espacio vectorial sobre
+    $\K$ y sean $w_1,\dots,w_n\in W$. Entonces existe una única 
+    $f\in\hom(V,W)$ tal que $f(v_i)=w_i$ para todo $i\in\{1,\dots,n\}$. 
+
+    \begin{proof}
+        Demostremos la existencia: todo $v\in V$ se escribe unívocamente como
+        $v=\sum_{i=1}^n\alpha_iv_i$. Definimos entonces a $f$ como
+        $f(v)=\sum_{i=1}^n\alpha_iw_i$. Es evidente que $f$ es una
+        transformación lineal.
+        
+        Demostremos ahora la unicidad: si 
+        $g\in\hom(V,W)$ y $g(v_i)=w_i=f(v_i)$ para todo $i\in\{1,\dots,n\}$ entonces 
+        \[
+        g(v)=g\left(\sum_{i=1}^n\alpha_iv_i\right)=\sum_{i=1}^n\alpha_ig(v_i)=\sum_{i=1}^n\alpha_if(v_i)=f\left(\sum_{i=1}^n\alpha_iv_i\right)=f(v),
+        \] y luego $f=g$.
+    \end{proof}
+\end{thm}
+
+\begin{example}
+    Encontraremos explícitamente las transformaciones lineales $f\colon\R^2\to\R^3$ tales que $f(1,2)=(1,0,2)$ y $f(-1,3)=(0,0,1)$. Como $\{(1,2),(-1,3)\}$ es base de $\R^2$,
+    el teorema anterior nos dice que existe una única $f$. Si $(x,y)\in\R^2$ entonces
+    \[
+        (x,y)=\frac{3x+y}{5}(1,2)+\frac{-2x+y}{5}(-1,3)
+    \]
+    y luego 
+    \[
+        f(x,y)=\frac{3x+y}{5}(1,0,2)+\frac{-2x+y}{5}(0,0,1).
+    \]
+\end{example}
+
+%\section{Una aplicación: baldosas cuadradas}
+%
+%\begin{problem}
+%	Demuestre que no es posible cubrir el piso de una habitación rectangular de
+%	$1\times\sqrt{2}$ con un número finito de bandosas cuadradas (Las baldosas
+%	no tienen que ser todas necesariamente del mismo tamaño.)
+%
+%	\begin{solution}
+%		Supongamos que se tienen $B_1,\dots,B_k$ baldosas cuadradas, donde la
+%		baldosa $B_i$ tiene lado $b_i$.  Consideremos a $\R$ como espacio
+%		vectorial sobre $\Q$ y sea $V$ el espacio vectorial sobre $\Q$ generado
+%		por $\{1,\sqrt{2},b_1,\dots,b_k\}$.  Definimos la transformación lineal
+%		$f\colon V\to\Q$, $f(1)=1$,  $f(\sqrt{2})=-1$ y $f(b_j)=0$ para todo
+%		$b_j\not\in\langle 1,\sqrt{2}\rangle$.  Al comparar las áreas, tenemos
+%		\begin{align}
+%			\label{eq:sqrt2}
+%			\sqrt{2}=b_1^2+\cdots+b_k^2.
+%		\end{align}
+%		Si escribimos a cada $b_i\in\langle 1,\sqrt{2}\rangle$ como
+%		$b_i=x_i+y_i\sqrt{2}$ con $x_i,y_i\in\Q$, entonces
+%		\[
+%			b_i^2=(x_i+y_i\sqrt{2})^2=x_i^2+2x_iy_i\sqrt{2}+y_i^2. 
+%		\]
+%		Luego $f(b_i^2)\geq0$ para todo $b_i$ tal que $b_i\not\in\langle1,\sqrt{2}\rangle$ pues 
+%		\[
+%			f(b_i^2)=f(x_i^2+2x_iy_i\sqrt{2}+y_i^2)=x_i^2-2x_iy_i+y_i^2=(x_i-y_i)^2\geq0.
+%		\]
+%		Al aplicar $f$ en la ecuación~\eqref{eq:sqrt2} obtenemos 
+%		\[
+%			-1=f(b_1^2)+\cdots+f(b_k^2)\geq0,
+%		\]
+%		una contradicción.
+%	\end{solution}
+%\end{problem}
+
+\section{Subespacios asociados a transformaciones lineales}
+
+\begin{xca}
+	\label{xca:imagen_y_preimagen}
+	Sean $V$ y $W$ dos espacios vectoriales sobre $\K$ y $f\in\hom(V,W)$.
+	Demuestre las siguientes afirmaciones:
+	\begin{enumerate}
+		\item Si $S\subseteq V$ es subespacio entonces $f(S)\subseteq W$ es
+			subespacio. 
+		\item Si $T\subseteq W$ es subespacio entonces $f^{-1}(T)\subseteq V$ es
+			subespacio. 
+	\end{enumerate}
+\end{xca}
+
+\begin{block}
+	Sean $V$ y $W$ dos espacios vectoriales sobre $\K$ y $f\in\hom(V,W)$. 
+	Se define el \textbf{núcleo} de $f$ como el conjunto
+	\[
+		\ker f=\{v\in V: f(v)=0\}
+	\]
+	y la \textbf{imagen} de $f$ como 
+	\[
+    \im f=f(V)=\{f(v):v\in V\}.
+	\]
+	Como consecuencia del ejercicio~\ref{xca:imagen_y_preimagen} se tiene que
+	$\ker f\subseteq V$ e $\im f\subseteq W$ son subespacios.
+\end{block}
+
+\begin{example}
+	Sea $A\in\K^{m\times n}$ y sea $f$ la transformación $x\mapsto Ax$. Más precisamente:
+	\[
+	f\colon\K^{n\times1}\to\K^{m\times1},
+	\quad
+	\begin{pmatrix}
+		x_1\\
+		\vdots\\
+		x_n
+	\end{pmatrix}
+	\mapsto
+	\begin{pmatrix}
+		\sum_{j=1}^n a_{1j}x_j\\
+		\vdots\\
+		\sum_{j=1}^n a_{mj}x_j
+	\end{pmatrix}.
+	\]
+	Entonces $\ker f$ es el conjunto de soluciones del sistema homogéneo $Ax=0$
+	y la imagen $\im f$ es el conjunto de matrices $b$ de $m\times1$ tales que
+	existe $x$ de tamaño $n\times1$ con $Ax=b$. 
+\end{example}
+
+\begin{block}
+	Sea $f\in\hom(V,W)$. Entonces $f$ es inyectiva si y sólo si $\ker f=0$. En
+	efecto, si $f$ es inyectiva y $v\in\ker f$ entonces $f(0)=0=f(v)$ y luego
+	$v=0$. Recíprocamente, si $\ker f=0$ y $f(v)=f(v')$ entonces $f(v-v')=0$ y
+	por lo tanto $v-v'=0$.
+\end{block}
+
+\begin{block}
+	Sea $f\in\hom(V,W)$. Diremos que $f$ es \textbf{monomorfismo} si $\ker f=0$, $f$
+	es \textbf{epimorfismo} si $f$ es sobreyectiva, $f$ es \textbf{isomorfismo}
+	si $f$ es monomorfismo y epimorfismo. Una transformación lineal $f\in\hom(V,V)$
+	se denomina \textbf{endomorfismo}.  Un endomorfismo biyectivo se denomina
+	\textbf{automorfismo}.
+\end{block}
+
+\begin{xca}
+	\label{xca:fg=id}
+	Sean $f\in\hom(V,W)$ y $g\in\hom(W,V)$ tales que $fg=\id$. Pruebe que $f$ es
+	epimorfismo y $g$ es monomorfismo. 
+
+	\begin{solution}
+		Si $w\in W$ entonces $g(w)\in V$ y $w=f(g(w))$. Si $w\in\ker g$ entonces
+		$g(w)=0$ y luego $w=(fg)(w)=f(0)=0$. 
+	\end{solution}
+\end{xca}
+
+\begin{examples}
+	Veamos algunos ejemplos de transformaciones lineales:
+	\begin{enumerate}
+		\item $\R^2\to\R^3$, $(x,y)\mapsto(x,y,x)$, es monomorfismo y no es epimorfismo.
+		\item $\R^3\to\R$, $(x,y,y)\mapsto x$, es epimorfismo y no es monomorfismo. 
+		\item $\K^{n+1}\to\K_n[X]$, $(a_0,\dots,a_n)\mapsto\sum_{i=0}^na_0X^i$, es isomorfismo.
+		\item Si $A\in\K^{2\times2}$ es inversible entonces
+			\[
+				\K^{2\times1}\to\K^{2\times1},
+				\quad			
+				\begin{pmatrix}x\\y\end{pmatrix}\mapsto
+				A\begin{pmatrix}x\\y\end{pmatrix},
+			\]
+			es un automorfismo de $\R^{2\times1}$.
+	\end{enumerate}
+\end{examples}
+
+\begin{block}
+	Si $f\in\hom(V,W)$ es un isomorfismo y $g$ es la inversa de $f$ entonces
+	$g\in\hom(W,V)$. Sean $w,w'\in W$. Entonces existen $v,v'\in V$ tales que
+	$f(v)=w$ y $f(v')=w'$. Luego
+	$g(w+w')=g(f(v)+f(v'))=g(f(v+v'))=v+v'=g(w)+g(w')$. Además, si
+	$\lambda\in\K$, entonces $g(\lambda w)=g(\lambda f(v))=g(f(\lambda
+	v))=\lambda v=\lambda g(w)$.
+\end{block}
+
+\begin{block}
+	Sean $V$ y $W$ dos espacios vectoriales sobre $\K$. Si existe un
+	isomorfismo $V\to W$ entonces $V$ y $W$ se dicen \textbf{isomorfos}. La
+	notación es: $V\simeq W$.
+\end{block}
+
+\begin{lem}
+	\label{lem:mono}
+	Sean $V$ y $W$ dos espacios vectoriales sobre $\K$, y $f\in\hom(V,W)$ un
+	monomorfismo.  Si $\{v_1,\dots,v_n\}\subseteq V$ es linealmente
+	independiente entonces $\{f(v_1),\dots,f(v_n)\}$ es linealmente
+	independiente.
+
+	\begin{proof}
+		Si $\sum_{i=1}^n\alpha_if(v_i)=0$ entonces
+		$f\left(\sum_{i=1}^n\alpha_iv_i\right)=0$ y luego, como $f$ es
+		monomorfismo, $\sum_{i=1}^n\alpha_iv_i=0$. Como los $v_i$ son
+		linealmente independientes, $\alpha_i=0$ para todo $i$.
+	\end{proof}
+\end{lem}
+
+\begin{lem}
+	\label{lem:epi}
+	Sean $V$ y $W$ dos espacios vectoriales sobre $\K$, y $f\in\hom(V,W)$ un
+	epimorfismo.  Si 	$\{v_1,\dots,v_n\}\subseteq V$ es un conjunto 
+	de generadores de $V$ entonces $\{f(v_1),\dots,f(v_n)\}$ genera $W$.
+
+	\begin{proof}
+		Sea $w\in W$. Como $f$ es epimorfismo, existe $v\in V$ tal que
+		$w=f(v)$. Si escribimos
+		$v=\sum_{i=1}^n\alpha_iv_i$ entonces 
+		$w=f(v)=\sum_{i=1}^n\alpha_if(v_i)$. 
+	\end{proof}
+\end{lem}
+
+\begin{prop}
+	\label{pro:iso}
+	Sean $V$ y $W$ dos espacios vectoriales sobre $\K$ y supongamos que $V$
+	tiene dimensión finita y que $\{v_1,\dots,v_n\}$ es una base de $V$. Sea
+	$f\in\hom(V,W)$.  Entonces $f$ es un isomorfismo si y sólo si
+	$\{f(v_1),\dots,f(v_n)\}$ es base de $W$.
+
+	\begin{proof}
+		Si $f$ es un isomorfismo, es monomorfismo y entonces, por el
+		lema~\ref{lem:mono}, el conjunto $\{f(v_1),\dots,f(v_n)\}$ es
+		linealmente independiente. Como $f$ es también un epimorfismo,
+		$\{f(v_1),\dots,f(v_n)\}$ genera a $W$ por el lema~\ref{lem:epi}.
+
+		Supongamos ahora que los $f(v_i)$ son base de $W$.  Probemos que $f$ es
+		epimorfismo: si $w\in W$ entonces $w\in\im f$ pues $w=\sum_{i=1}^n\alpha_if(v_i)=f(\sum_{i=1}^n \alpha_i
+		v_i)$. Probemos ahora que $f$ es monomorfismo: sea $v$ tal que
+		$f(v)=0$. Entonces $v=\sum_{i=1}^n\alpha_iv_i$ y luego
+		$0=f(v)=f(\sum_{i=1}^n\alpha_iv_i)=\sum_{i=1}^n\alpha_if(v_i)$. Como los $f(v_i)$ son
+		base, $\alpha_i=0$ para todo $i$. Luego $v=0$.
+	\end{proof}
+\end{prop}
+
+%\begin{prop}
+%	\label{pro:transformacion_lineal}
+%	Sean $V$ y $W$ dos espacios vectoriales sobre $\K$.
+%	\begin{enumerate}
+%		\item Si $V=\langle v_1,\dots,v_n\rangle$ entonces $\im f=\langle
+%			f(v_1),\dots,f(v_n)\rangle$. 
+%		\item Sean $\{w_1,\dots,w_m\}\in\im f$ linealmente independiente y
+%			$v_1,\dots,v_m\in V$ tales que $f(v_i)=w_i$ para todo $i$. Entonces
+%			$\{v_1,\dots,v_m\}$ es linealmente independiente. 
+%		\item Sea $\{v_1,\dots v_n\}\subseteq V$ linealmente independiente. Si
+%			$f$ es monomorfismo entonces $\{f(v_1),\dots,f(v_n)\}$ es
+%			linealmente independiente.
+%		\item Supongamos que $\dim V=n$ y sea $\{v_1,\dots,v_n\}$ una base de
+%			$V$. Entonces $f$ es isomorfismo si y sólo si
+%			$\{f(v_1),\dots,f(v_n)\}$ es base de $W$.
+%	\end{enumerate}
+%
+%	\begin{proof}\
+%		\begin{enumerate}
+%			\item Si $w\in \im f$ entonces existe $v\in V$ tal que $f(v)=w$.
+%				Como $v=\sum\alpha_i v_i$, entonces $f(v)=f(\sum\alpha_i
+%				v_i)=\sum\alpha_if(v_i)$. 
+%			\item Si $0=\sum\alpha_i v_i$ entonces
+%				$0=f(\sum\alpha_iv_i)=\sum\alpha_iw_i$. Como los $w_i$ son
+%				independientes, $\alpha_i=0$ para todo $i$.
+%			\item Si $0=\sum\alpha_if(v_i)$ entonces $0=f(\sum\alpha_iv_i)$.
+%				Como $f$ es monomorfismo, $\sum\alpha_iv_i=0$. Como los $v_i$
+%				son linealmente independientes, $\alpha_i=0$ para todo $i$.
+%			\item Supongamos que $f$ es isomorfismo. Entonces, como $f$ es
+%				monomorfismo, $\{f(v_1),\dots,f(v_n)\}$ es linealmente independiente
+%				por el tercer ítem. Por el primer ítem, $\{f(v_1),\dots,f(v_n)\}$
+%				genera a $\im f=W$. Supongamos ahora que los $f(v_i)$ son base de $W$.
+%				Probemos que $f$ es epimorfismo: si $w\in W$ entonces
+%				$w=\sum\alpha_if(v_i)=f(\sum\alpha v_i)$. Probemos ahora que $f$ es
+%				monomorfismo: sea $v$ tal que $f(v)=0$. Entonces $v=\sum\alpha_iv_i$ y
+%				luego $0=f(v)=f(\sum\alpha_iv_i)=\sum\alpha_if(v_i)$. Como los $f(v_i)$
+%				son base, $\alpha_i=0$ para todo $i$. Luego $v=0$.
+%		\end{enumerate}
+%	\end{proof}
+%\end{prop}
+
+\begin{thm}
+	Sean $V$ y $W$ dos espacios vectoriales sobre $\K$ de dimensión finita.
+	Entonces $V\simeq W$ si y sólo si $\dim V=\dim W$. 
+
+	\begin{proof}
+		Supongamos que $V\simeq W$ y sea $f\colon V\to W$ un isomorfismo. Si
+		$\{v_1,\dots,v_n\}$ es una base de $V$ entonces
+		$\{f(v_1),\dots,f(v_n)\}$ es una base de $W$ por la
+		proposición~\ref{pro:iso}. Luego $\dim V=\dim W$.
+
+		Recíprocamente, supongamos que $\dim V=\dim W$ y sean
+		$\{v_1,\dots,v_n\}$ un base de $V$ y $\{w_1,\dots,w_n\}$ una base de
+		$W$. Entonces la función $f\colon V\to W$ que cumple $f(v_i)=w_i$ para
+		todo $i$, es un isomorfismo por la 
+		proposición~\ref{pro:iso}.
+	\end{proof}
+\end{thm}
+
+\begin{thm}[teorema de la dimensión]
+	\label{thm:dimension}
+	Sean $V$ y $W$ dos espacios vectoriales sobre $\K$ y $f\in\hom(V,W)$.
+	Supongamos que $V$ es de dimensión finita.  Entonces
+	\[
+		\dim V=\dim\ker f+\dim\im f.
+	\]
+
+    \begin{proof} 
+        Sea $\{v_1,\dots,v_k\}$ una base de $\ker f$. Consideremos la
+        extensión a una base $\{v_1,\dots,v_k,v_{k+1},\dots,v_n\}$ de $V$.
+        Afirmamos que $\{f(v_{k+1}),\dots,f(v_n)\}$ es una base de $\im f$. 
+        Veamos que es un conjunto linealmente independiente: si 
+        \[
+            0=\sum_{i=k+1}^n\alpha_if(v_i)=f\left(\sum_{i=k+1}^n\alpha_iv_i\right)
+        \]
+        entonces, como $\{v_1,\dots,v_k\}$ es base de $\ker f$, 
+        existen $\beta_1,\dots,\beta_k\in\K$ tales que 
+        \[
+            \sum_{i=k+1}^n \alpha_i v_i-\sum_{j=1}^k \beta_jv_j=0.
+        \]
+        Como los $v_i$ son linealmente independientes, $\alpha_i=0$ para todo $i\in\{k+1,\dots,n\}$ y $\beta_j=0$ para
+        todo $j\in\{1,\dots,k\}$. Veamos ahora que $\im f$ está generado por $\{f(v_{k+1}),\dots,f(v_n)\}$: si $v\in V$ 
+        entonces $v=\sum_{i=1}^n\alpha_iv_i$. Luego 
+        \[
+            f(v)=\sum_{i=1}^n\alpha_if(v_i)=\sum_{i=k+1}^n\alpha_if(v_i)
+        \]
+        pues $f(v_j)=0$ para todo $j\in\{1,\dots,k\}$. Esto demuestra el teorema.
+    \end{proof}
+%	\begin{proof}
+%		Si $f=0$ el resultado es trivialmente válido. Supongamos entonces que
+%		$f\ne0$.  Sea $\{w_1,\dots,w_l\}$ una base de $\im f$ y sean
+%		$v_1',\dots,v_l'\in V$ tales que $f(v_i')=w_i$ para todo $i$. Como los
+%		$w_i$ son linealmente independientes, los $v_i'$ son linealmente
+%		independientes pues si $0=\sum_{i=1}^n\alpha_iv_i'$ entonces 
+%		\[
+%		0=f(0)=f\left(\sum_{i=1}^n\alpha_iv_i'\right)=\sum_{i=1}^n\alpha_if(v_i')=\sum_{i=1}^n\alpha_iw_i
+%		\]
+%		y luego $\alpha_i=0$ para todo $i$.
+%		Sea $\{v_1,\dots,v_k\}$ una base de $\ker f$. Vamos a demostrar que 
+%		$\{v_1,\dots,v_k,v_1',\dots,v_l'\}$ 
+%		es una base de $V$. Veamos primero que es un conjunto de generadores de
+%		$V$: si $v\in V$ entonces $f(v)\in\im f$ y luego \[
+%		f(v)=\sum_{i=1}^l\alpha_i w_i=\sum_{i=1}^l\alpha_if(v_i')=f\left(\sum_{i=1}^l\alpha_iv_i'\right). 
+%		\]
+%		Entonces $v-\sum_{i=1}^l\alpha_iv_i'\in\ker f$ y, como los $v_j$ son base de
+%		$\ker f$, tenemos 
+%		\[
+%		v=\sum_{i=1}^l\alpha_iv_i'+\sum_{j=1}^k\beta_jv_j. 
+%		\]
+%
+%		Veamos ahora que 
+%		$\{v_1,\dots,v_k,v_1',\dots,v_l'\}$ 
+%		es
+%		linealmente independiente: si 
+%		\[
+%		\sum_{i=1}^l\alpha_iv_i'+\sum_{j=1}^k\beta_jv_j=0
+%		\]
+%		entonces $0=\sum_{i=1}^l\alpha_if(v_i')=\sum_{i=1}^l\alpha_iw_i$. Como los $w_i$ son
+%		linealmente independientes, $\alpha_i=0$ para todo $i$. Luego
+%		$\sum\beta_jv_j=0$ y entonces $\beta_j=0$ para todo $j$ pues los $v_j$
+%		son linealmente independientes.
+%	\end{proof}
+\end{thm}
+
+\begin{cor}
+	\label{cor:no_monomorfismo}
+	Sean $V$ y $W$ dos espacios vectoriales sobre $\K$ de dimensión finita. 
+	Sea $f$ un monomorfismo. Entonces $\dim V\leq \dim W$.
+
+	\begin{proof}
+        Si $f$ es monomorfismo entonces $\ker f=\{0\}$. Luego,  
+		por el teorema de la dimensión,
+		\[
+			0=\dim\ker f=\dim V-\dim\im f\geq \dim V-\dim W,
+		\]
+		como se quería demostrar.
+	\end{proof}
+\end{cor}
+
+\begin{cor}
+	\label{cor:no_epimorfismo}
+	Sean $V$ y $W$ dos espacios vectoriales sobre $\K$ de dimensión finita. Sea $f$ un epimorfismo. Entonces
+    $\dim V\geq\dim W$.
+
+	\begin{proof}
+        Si $f$ es un epimorfismo entonces $\im f=W$. Luego, por el teorema de la dimensión,
+		\[
+			\dim W=\dim\im f=\dim V-\dim\ker f\leq \dim V,
+		\]
+		tal como se quería demostrar.
+	\end{proof}
+\end{cor}
+
+\begin{cor}
+    \label{cor:mono<=>epi<=>iso}
+	Sean $V$ y $W$ dos espacios vectoriales sobre $\K$ de dimensión finita tales que $\dim V=\dim
+	W$ y sea $f\in\hom(V,W)$. Son equivalentes:
+	\begin{enumerate}
+		\item $f$ es isomorfismo.
+		\item $f$ es monomorfismo.
+		\item $f$ es epimorfismo.
+	\end{enumerate}
+
+	\begin{proof}
+		La implicación $(1)\Rightarrow(2)$ es trivial. Para demostrar
+		$(2)\Rightarrow(3)$ observemos que, si $f$ es monomorfismo, $\ker
+		f=\{0\}$ y luego $\im f=W$, ya que por el teorema de la dimensión se
+		tiene $\dim V=\dim\im f$. Queda demostrar que $(3)\Rightarrow(1)$. Si
+		$f$ es epimorfismo entonces $\im f=W$ y luego, por el teorema de la
+		dimensión, $\dim V=\dim\ker f+\dim W$. Como $\dim V=\dim W$, $\ker
+		f=\{0\}$ y entonces $f$ es isomorfismo.
+	\end{proof}
+\end{cor}
+
+\begin{example}
+	El corolario anterior no vale en dimensión infinita. Por ejemplo, si
+	$f\colon\K^{\infty}\to\K^{\infty}$ es la transformación dada por
+	$f(x_1,x_2,x_3,\dots)=(x_2,x_3,\dots)$, $g\colon\K^{\infty}\to\K^{\infty}$
+	está dada por $g(x_1,x_2,\dots)=(0,x_1,x_2,\dots)$ entonces $fg=\id$ pues 
+	\begin{align*}
+		(fg)(x_1,x_2,\dots)=f(0,x_1,x_2,\dots)=(x_1,x_2,\dots).
+	\end{align*}
+	Por el ejercicio~\ref{xca:fg=id} sabemos que entonces $f$ es epimorfismo y
+	$g$ es monomorfismo.  Sin embargo, $f$ no es monomorfismo y $g$ no es
+	epimorfismo.
+\end{example}
+
+\begin{xca}
+    \label{xca:Silvester}
+    Sean $U,V,W$ espacios vectoriales de dimensión finita y sean
+    $f\in\hom(U,V)$ y $g\in\hom(V,W)$. Demuestre las siguientes afirmaciones:
+    \begin{enumerate}
+        \item $\dim\ker(gf)\leq\dim\ker f+\dim\ker g$.
+        \item $\dim\im(gf)\leq\min\{\dim\im f,\dim\im g\}$.
+        \item $\dim\im f+\dim\im g-\dim V\leq \dim\im(gf)$.
+    \end{enumerate}
+\end{xca}
+
+%\begin{prop}
+%	\label{pro:inversa}
+%	Sean $A,B,C\in\K^{n\times n}$. 
+%	\begin{enumerate}
+%		\item Si $CA=I$ entonces $A$ es inversible.
+%		\item Si $AB=I$ entonces $A$ es inversible.
+%	\end{enumerate}
+%
+%	\begin{proof}
+%		Supongamos primero que $CA=I$. Consideremos el sistema lineal $Ax=0$. Como 
+%		\[
+%			x=Ix=(CA)x=C(Ax)=C0=0,
+%		\]
+%		el sistema $Ax=0$ tiene solución única, y entonces $Ax=b$ también tiene
+%		solución única para cualquier $b\in\K^{n\times1}$ por el
+%		teorema~\ref{thm:sistemas:n=m}. En particular, al tomar como $b$ a los
+%		$e_1,\dots,e_n$, donde $(e_i)_j=\delta_{ij}$, tenemos la existencia de
+%		una matriz $B\in\K^{n\times n}$ tal que $AB=I$.  Por~\ref{rem:inversa}
+%		sabemos que entonces $B=C$ y luego $A$ es inversible.
+%
+%		Supongamos ahora que $AB=I$. Por el primer ítem, $B$ es inversible y
+%		entonces $A=B^{-1}$ es también inversible. 
+%	\end{proof}
+%\end{prop}
+%
+%\begin{cor}
+%	Sean $A,B\in\K^{n\times n}$. Entonces $AB$ es inversible si y sólo si $A$ y
+%	$B$ son inversibles.
+%
+%	\begin{proof}
+%		Si $A$ y $B$ son inversibles entonces $AB$ es inversible por lo visto
+%		en~\ref{rem:inversa}. Supongamos entonces que $AB$ es inversible.
+%		Entonces existe $C\in\K^{n\times n}$ tal que $(AB)C=C(AB)=I$. En
+%		particular, como $A(BC)=I$ y $(CA)B=I$, la matrices $A$ y $B$ son
+%		inversibles por la proposición~\ref{pro:inversa}.
+%	\end{proof}
+%\end{cor}
+%
+%\begin{prop}
+%	Sea $A\in\K^{n\times n}$. Son equivalentes:
+%	\begin{enumerate}
+%		\item $A$ es inversible.
+%		\item $Ax=0$ tiene una única solución.
+%		\item Para cada $b\in\K^{n\times 1}$ el sistema $Ax=b$ tiene una única solución.
+%		\item Para cada $b\in\K^{n\times 1}$ el sistema $Ax=b$ tiene al menos una solución.
+%	\end{enumerate}
+%
+%	\begin{proof}
+%		Demostremos primero $(1)\Rightarrow(2)$. Si $Ax=0$ entonces, como $A$
+%		es inversible, $x=Ix=(A^{-1}A)x=A^{-1}(Ax)=A^{-1}0=0$ y $Ax=0$ tiene
+%		una única solución. La implicación $(2)\Rightarrow(3)$ es el
+%		teorema~\ref{thm:sistemas:n=m}.  La implicación $(3)\Rightarrow(4)$ es
+%		trivial. Finalmente, para demostrar $(4)\Rightarrow(1)$ basta tomar $b$
+%		igual a los $e_j$ para construir una matriz $B$ tal que $AB=I$ y
+%		utilizar la proposición~\ref{pro:inversa}.
+%	\end{proof}
+%\end{prop}
+
+\section{Proyectores}
+
+\begin{block}
+    Una transformación lineal $f\colon V\to V$ es un \textbf{proyector} si
+    $f^2=f$. 
+\end{block}
+
+\begin{example}
+	La transformación lineal $f\colon \R^3\to\R^3$ dada por
+	\[
+		f(x,y,z)=(3x-2z,-x+y+z,3x-2z)
+	\]
+	es un proyector.
+\end{example}
+
+\begin{xca}
+	\label{xca:proyector}
+    Sea $f\in\hom(V,V)$.  Pruebe que $f$ es un proyector si y sólo si $f(w)=w$
+    para todo $w\in\im f$. 
+\end{xca}
+
+\begin{xca}
+    \label{xca:proyector(2f-1)^2}
+    Sea $V$ un espacio vectorial sobre $\R$. Demuestre que $f\in\hom(V,V)$ es
+    un proyector si y sólo si $(2f-\id_V)^2=\id_V$. 
+\end{xca}
+
+\begin{prop}
+    Sea $f\in\hom(V,V)$ un proyector. Entonces 
+    \[
+        V=\ker f\oplus \im f.
+    \]
+
+    \begin{proof}
+        Veamos primero que $V=\ker f+\im f$. En efecto, si $v\in V$ entonces
+        $v=v-f(v)+f(v)\in \ker f+\im f$ pues $f(v-f(v))=f(v)-f^2(v)=0$. Si
+        $v\in\ker f\cap \im f$ entonces, como $v\in\im f$, existe $x\in V$ tal
+        que $v=f(x)$. Luego, como $v\in\ker f$, $0=f(v)=f(f(x))=f(x)$ y
+        entonces $v=0$. 
+    \end{proof}
+\end{prop}
+
+\begin{xca}
+	\label{xca:pfp=fp}
+	Sean $V$ un espacio vectorial y $f\in\hom(V,V)$. Pruebe que $S\subseteq V$
+	es un \textbf{subespacio invariante} por $f$ (es decir: $f(S)\subseteq S$)
+	si y sólo si $pfp=fp$ para todo proyector $p\colon V\to V$ con $\im p=S$.
+\end{xca}
+
+\begin{prop}
+	Sea $V$ un espacio vectorial y sean $S$ y $T$ dos subespacios de $V$ tales que 
+	$V=S\oplus T$. Entonces existe un único proyector $f\colon
+	V\to V$ tal que $\im f=T$ y $\ker f=S$.
+
+		\begin{proof}
+			Demostremos primero la existencia: sea $f\colon V\to V$ dado por
+			$f(s+t)=t$ para todo $s\in S$ y $t\in T$.  Como $V=S\oplus T$, $f$
+			está bien definida. Es claro que $\ker f=S$ y que $\im f=T$.
+			Además $f$ es un proyector pues si $v\in V$ entonces $v$ se escribe
+			unívocamente como $v=s+t\in S+T$ y entonces $f(f(v))=t=f(v)$. 
+
+			Demostremos la unicidad: si $g\in\hom(V,V)$ es un proyector tal que
+			$\im g=T$ y $\ker f=S$ entonces, como todo $v\in V$ se escribe
+			unívocamente como $v=s+t$ con $s\in S$ y $t\in T$, se tiene que
+			$g(v)=g(s)+g(t)=g(t)$. Como $g$ es proyector, $g(y)=y$ para todo
+			$y\in\im g$ por el ejercicio~\ref{xca:proyector}. Luego
+			$g(v)=t=f(v)$. 
+		\end{proof}
+\end{prop}
+
+\begin{xca}
+	\label{xca:oplus_proyectores}
+	Sea $V$ un espacio vectorial y sean $S_1,\dots,S_n\subseteq V$ subespacios.
+	Pruebe que las siguientes afirmaciones son equivalentes:
+	\begin{enumerate}
+		\item $V=S_1\oplus\cdots\oplus S_n$.
+		\item Existen proyectores $p_1,\dots,p_n\in\hom(V,V)$ con $S_i=\im p_i$
+			para todo $i$ tales que $p_ip_j=0$ si $i\ne j$ y
+			$p_1+\cdots+p_n=\id_V$.
+	\end{enumerate}
+\end{xca}
+
+\begin{xca}
+	\label{xca:proyector_matriz}
+	Sean $V$ un espacio vectorial de dimensión finita sobre $\K$ y
+	$f\in\hom(V,V)$. Pruebe que $f$ es un proyector si y sólo si existe una
+	base $\cB$ de $V$ tal que 
+	\[
+	\|f\|_{\cB}=
+	\left(
+	\begin{array}{c|c}
+		\id_r & 0\\ \hline
+		0 & 0
+	\end{array}
+	\right)
+	\]
+	para algún $r\leq\dim V$.
+\end{xca}
+
+\section{Matriz de una transformación lineal}
+
+\begin{block}
+    Sean $V$ y $W$ dos espacios vectoriales sobre $\K$ de dimensión finita y
+    sean $\cB_V=\{v_1,\dots,v_n\}$ y $\cB_W=\{w_1,\dots,w_m\}$ bases ordenadas
+    de $V$ y $W$ respectivamente.  Sea $f\in\hom(V,W)$. Si escribimos cada
+    $f(v_j)$ en la base $\cB_W$
+    \[
+        f(v_j)=\sum_{i=1}^m a_{ij}w_i
+    \]
+    se define la \textbf{matriz de la transformación lineal} $f$ con respecto a
+    las bases $\cB_V$ y $\cB_W$ como la matriz
+    $\|f\|_{\cB_V,\cB_W}\in\K^{m\times n}$ dada por
+    \[
+        \|f\|_{\cB_V,\cB_W}
+        =
+        \begin{pmatrix}
+            a_{11} & \cdots & a_{1n}\\
+            a_{21} & \cdots & a_{2n}\\
+            \vdots & \ddots & \vdots\\
+            a_{m1} & \cdots & a_{mn}
+        \end{pmatrix}.
+    \]
+\end{block}
+
+\begin{examples}\
+    \begin{enumerate}
+        \item Si $V=W$ y $\cB$ y $\cB'$ son dos bases de $V$ 
+            entonces la matriz de la identidad $\id_V\colon V\to V$,
+            $v\mapsto v$, es $\|\id_V\|_{\cB,\cB'}=C(\cB,\cB')$.
+%        \item Si $A=(a_{ij})\in\K^{m\times n}$ y $f\colon\K^n\to\K^m$ 
+%            es la transformación lineal dada por
+%            \[
+%                f(x_1,\dots,x_n)=(x_1\;\dots\;x_n)A^T,
+%            \]
+%            entonces la matriz de $f$ con respecto a las bases canónicas de
+%            $\K^n$ y $\K^m$ es $\|f\|=A$.
+		\item Si $A\in\K^{m\times n}$ y $f\colon\K^{n\times1}\to\K^{m\times1}$ 
+            es la transformación lineal dada por
+            \[
+			f\colvec{3}{x_1}{\vdots}{x_n}=A\colvec{3}{x_1}{\vdots}{x_n},
+            \]
+            entonces la matriz de $f$ con respecto a las bases canónicas de
+			$\K^{n\times1}$ y $\K^{m\times1}$ es $\|f\|=A$.
+    \end{enumerate}
+\end{examples}
+
+\begin{example}
+    Sea $v=(a,b,c)\in\R^3$ y sea $f_v\colon\R^3\to\R^3$ la transformación
+    lineal dada por $w\mapsto v\times w$, donde $v\times w$ denota el producto
+    vectorial entre $v$ y $w$. Como $f_v(1,0,0)=(0,c,-b)$,
+    $f_v(0,1,0)=(-c,0,a)$ y $f_v(0,0,1)=(b,-a,0)$, la matriz de $f_v$ con
+    respecto a las bases canónicas es
+    \[
+        \|f_v\|=
+        \begin{pmatrix}
+            0 & -c & b\\
+            c & 0 & -a\\
+            -b & a & 0
+        \end{pmatrix}.
+    \]
+\end{example}
+
+\begin{example}
+    Consideremos la transformación lineal $\partial\colon\K_n[X]\to\K_{n}[X]$
+    dada por 
+    \[
+        \partial(a_0+a_1X+\cdots+a_nX^n)=a_1+a_2X+2a_3X^2+\cdots+na_nX^{n-1}.
+    \]
+    Como $\partial(1)=0$ y $\partial(X^j)=jX^{j-1}$ para todo
+    $j\in\{1,\dots,n\}$, la matriz de $\partial$ con respecto a las bases
+    canónicas es
+    \[
+    \|\partial\|
+    =
+    \begin{pmatrix}
+        0 & 1 & 0 & \cdots & 0\\
+        0 & 0 & 2 & \cdots & 0\\
+        \vdots & \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & 0 & \cdots & n\\
+        0 & 0 & 0 & \cdots & 0\\
+    \end{pmatrix}\in\K^{(n+1)\times{(n+1)}}.
+    \]
+\end{example}
+
+\begin{block}
+    Como toda transformación lineal queda unívocamente determinada por su valor
+    en una base, se obtiene el siguiente resultado: Sean $f,g\in\hom(V,W)$ y
+    sean $\cB_V$ y $\cB_W$ bases de $V$ y $W$ respectivamente. Entonces $f=g$
+    si y sólo si $\|f\|_{\cB_V,\cB_W}=\|g\|_{\cB_V,\cB_W}$. 
+\end{block}
+
+\begin{prop}
+    \label{pro:|f|a=b}
+	Sean $\cB_V=\{v_1,\dots,v_n\}$ y $\cB_W=\{w_1,\dots,w_m\}$ bases ordenadas de $V$ y
+	$W$ respectivamente.  Sea $f\in\hom(V,W)$, sea $v\in V$ y supongamos que 
+    \[
+        v=\sum_{i=j}^n\alpha_jv_j,\quad
+        f(v)=\sum_{i=1}^m\beta_iw_i,
+    \]
+    es decir: $(v)_{\cB_V}=(\alpha_1,\dots,\alpha_n)$ y
+    $\left(f(v)\right)_{\cB_W}=(\beta_1,\dots,\beta_m)$.  Entonces
+    \[
+        \|f\|_{\cB_V,\cB_W}\colvec{3}{\alpha_1}{\vdots}{\alpha_n}=\colvec{3}{\beta_1}{\vdots}{\beta_m}.
+    \]
+
+    \begin{proof}
+        La matriz de $f$ con respecto a $\cB_V$ y $\cB_W$ es $(a_{ij})\in\K^{m\times n}$ donde
+        $f(v_j)=\sum_{i=1}^m a_{ij}w_i$ para todo $j$. 
+        Como $v=\sum_{j=1}^n\alpha_jv_j$ entonces 
+        \begin{align*}
+            f(v)&=\sum_{j=1}^n\alpha_jf(v_j)=\sum_{j=1}^n\alpha_j\left(\sum_{i=1}^ma_{ij}w_i\right)
+            =\sum_{i=1}^m\left(\sum_{j=1}^na_{ij}\alpha_j\right)w_i.
+        \end{align*}
+        Como los $w_i$ son base de $W$ entonces
+        $\sum_{j=1}^na_{ij}\alpha_j=\beta_i$ para todo $i$, que es lo que
+        queríamos demostrar.
+    \end{proof}
+\end{prop}
+
+\begin{thm}
+    \label{thm:|gf|=|g||f|}
+    Sean $U$, $V$ y $W$ espacios vectoriales sobre $\K$ de dimensión finita, y
+    sean $\cB_U=\{u_1,\dots,u_r\}$, $\cB_V=\{v_1,\dots,v_n\}$ y
+    $\cB_W=\{w_1,\dots,w_m\}$ son bases ordenadas de $U$, $V$ y $W$,
+    respectivamente.  Si $f\in\hom(U,V)$ y $g\in\hom(V,W)$ entonces
+    \[
+        \|gf\|_{\cB_U,\cB_W}=\|g\|_{\cB_V,\cB_W}\|f\|_{\cB_U,\cB_V}.
+    \]
+
+    \begin{proof}
+        Supongamos que 
+        \begin{align*}
+        f(u_j)=\sum_{k=1}^n b_{kj}v_k,&&
+        g(v_k)=\sum_{i=1}^ma_{ik}w_i,&&
+        (gf)(u_j)=\sum_{i=1}^m c_{ij}w_i,
+        \end{align*}
+        para todo $j\in\{1,\dots,r\}$ y $k\in\{1,\dots,n\}$, es decir: 
+        \begin{align*}
+            \|f\|_{\cB_U,\cB_V}=(b_{ij}),
+            && 
+            \|g\|_{\cB_V,\cB_W}=(a_{ij}),
+            &&
+            \|gf\|_{\cB_U,\cB_W}=(c_{ij}).
+        \end{align*}
+        Para cada $j\in\{1,\dots,r\}$ se tiene entonces
+        \begin{align*}
+            (gf)(u_j)&=g(f(u_j))=g\left(\sum_{k=1}^n b_{kj}v_k\right)=\sum_{k=1}^n b_{kj}g(v_k)\\
+            &=\sum_{k=1}^n b_{kj}\left(\sum_{i=1}^ma_{ik}w_i\right)
+            =\sum_{i=1}^m\left(\sum_{k=1}^na_{ik}b_{kj}\right)w_i.
+        \end{align*}
+        Como los $w_k$ son base de $W$ y $(gf)(u_j)=\sum_{i=1}^mc_{ij}w_i$ para todo $j$, se tiene
+        que $c_{ij}=\sum_{k=1}^na_{ik}b_{kj}$, tal como se quería demostrar.
+    \end{proof}
+\end{thm}
+
+\begin{cor}
+    \label{cor:iso<=>|f|inversible}
+    Sean $V$ y $W$ dos espacios vectoriales sobre $\K$ de dimensión $n$, y
+    sean $\cB_V$ y $\cB_W$ bases ordenadas de $V$ y $W$ respectivamente.  Si
+    $f\in\hom(V,W)$ entonces $f$ es un isomorfismo si y sólo si
+    $\|f\|_{\cB_V,\cB_W}$ es inversible.
+
+    \begin{proof}
+        Supongamos que $\cB_V=\{v_1,\dots,v_n\}$, $\cB_W=\{w_1,\dots,w_n\}$.
+        Si $\|f\|_{\cB_V,\cB_W}$ es inversible, sean
+        $v=\sum_{i=1}^n\alpha_iv_i\in\ker f$ y $f(v)=\sum_{j=1}^n\beta_jw_j$.
+        Entonces $\beta_j=0$ para todo $j$. Por la
+        proposición~\ref{pro:|f|a=b},
+        \[
+        \|f\|_{\cB_V,\cB_W}\colvec{3}{\alpha_1}{\vdots}{\alpha_n}=\colvec{3}{0}{\vdots}{0}
+        \]
+        y entonces $\alpha_i=0$ para todo $i$ pues $\|f\|_{\cB_V,\cB_W}$ es
+        inversible. Luego $f$ es monomorfismo y entonces $f$ es isomorfismo por
+        el corolario~\ref{cor:mono<=>epi<=>iso}. 
+
+        Recíprocamente, supongamos que $f$ es un isomorfismo y sea $g\in\hom(W,V)$
+        la inversa de $f$. Entonces $\id_V=gf$ y $\id_W=fg$. Por el
+        teorema~\ref{thm:|gf|=|g||f|},
+        \begin{align*}
+            &I=\|\id_V\|_{\cB_V,\cB_W}=\|gf\|_{\cB_V,\cB_W}=\|g\|_{\cB_W,\cB_V}\|f\|_{\cB_V,\cB_W}.
+        \end{align*}
+        Análogamente se obtiene que $\|f\|_{\cB_V,\cB_W}\|g\|_{\cB_W,\cB_V}=I$
+        y entonces la matriz $\|f\|_{\cB_V,\cB_W}$ es inversible.
+    \end{proof}
+\end{cor}
+
+\begin{cor}
+    \label{cor:semejanza:tls}
+    Sea $V$ un espacio vectorial de dimensión $n$ y sean $\cB_V$ y $\cB_V'$
+    bases ordenadas de $V$. Sea $W$ un espacio vectorial de dimensión $m$ y sean $\cB_W$
+    y $\cB_W'$ bases ordenadas de $W$. Si $f\in\hom(V,W)$ entonces
+    \[
+        \|f\|_{\cB_V',\cB_W'}=C(\cB_W,\cB_W')\|f\|_{\cB_V,\cB_W}C(\cB_V,\cB_V')^{-1}.
+    \]
+    
+    \begin{proof}
+		El teorema~\ref{thm:|gf|=|g||f|} implica que
+		\begin{align*}
+			\|f\|_{\cB_V',\cB_W'}&=\|\id_W\circ f\|_{\cB_V',\cB_W'}\\
+			&=\|\id_W\|_{\cB_W,\cB_W'}\|f\|_{\cB_V',\cB_W}\\
+			&=C(\cB_W,\cB_W')\|f\circ\id_V\|_{\cB_V',\cB_W}\\
+			&=C(\cB_W,\cB_W')\|f\|_{\cB_V,\cB_W}\|\id_V\|_{\cB_V',\cB_V}\\
+			&=C(\cB_W,\cB_W')\|f\|_{\cB_V,\cB_W}C(\cB_V',\cB_V),
+		\end{align*}
+		de donde se deduce el corolario.
+%        Vamos a demostrar que 
+%        \[
+%            \|f\|_{\cB_V',\cB_W'}C(\cB_V,\cB_V')=C(\cB_w,\cB_W')\|f\|_{\cB_V,\cB_W}.
+%        \]
+%        Sea $v\in V$ y sea $(v)_{\cB_V}$ el vector de coordenadas de $v$ en la
+%        base $\cB_V$. Con la proposición~\ref{pro:coordenadas} se obtiene:
+%        \[
+%        C(\cB_W,\cB_W')\|f\|_{\cB_V,\cB_W}(v)_{\cB_V}=C(\cB_W,\cB_W')(f(v))_{\cB_W}=(f(v))_{\cB_W'}.
+%        \]
+%        Por otro lado, también con la proposición~\ref{pro:coordenadas}: 
+%        \[
+%        \|f\|_{\cB_V',\cB_W'}C(\cB_V,\cB_V')(v)_{\cB_V}=\|f\|_{\cB_V',\cB_W'}(v)_{\cB_V'}=(f(v))_{\cB_W'}.
+%        \]
+%        De esto se deduce el corolario.
+    \end{proof}
+\end{cor}
+
+\begin{block}
+    Diremos que dos matrices cuadradas $A\in\K^{n\times n}$ y $B\in\K^{n\times
+    n}$ son \textbf{semejantes} si existe una matriz inversible
+    $C\in\K^{n\times n}$ tal que $B=CAC^{-1}$. 
+\end{block}
+
+\begin{cor}
+    \label{cor:semejanza}
+    Dos matrices $A,B\in\K^{n\times n}$ son semejantes si y sólo si existe
+    $f\in\hom(\K^{n\times1},\K^{n\times1})$ y existen $\cB$ y $\cB'$ bases ordenadas de 
+    $\K^{n\times1}$ tales que $\|f\|_{\cB,\cB}=A$ y $\|f\|_{\cB',\cB'}=B$.
+
+    \begin{proof}
+        Supongamos que $\|f\|_{\cB,\cB}=A$ y que $\|f\|_{\cB',\cB'}=B$. Para
+        demostrar que las matrices $A$ y $B$ son semejantes hay que aplicar el
+        corolario~\ref{cor:semejanza:tls} con $V=W=\K^{n\times1}$,
+        $\cB_V=\cB_W=\cB$ y $\cB_V'=\cB_W'=\cB'$. 
+
+		Recíprocamente, supongamos que $B=CAC^{-1}$. Sea
+		$f\colon\K^{n\times1}\to\K^{n\times1}$ la transformación lineal
+		definida por $f(x)=Ax$. Entonces $\|f\|=A$.  Como $C$ es una matriz
+		inversible, la proposición~\ref{pro:C(-,B)} nos dice que existe una
+		base $\cB$ de $\K^{n\times1}$ tal que $C$ es la matriz de cambio de
+		base entre $\cB$ y la base canónica $\{e_1,\dots,e_n\}$, es decir
+		$C=C(\cB,\{e_1,\dots,e_n\})$. 
+		Entonces, por el corolario~\ref{cor:semejanza:tls},
+		\[
+		\|f\|_{\cB,\cB}=C\|f\|C^{-1}=CAC^{-1}=B,
+		\]
+		tal como queríamos demostrar.
+		%por $g(x)=C^{-1}x$. Como $C^{-1}$ es inversible, $g$ es un isomorfismo.
+		%Si $\cE=\{e_1,\dots,e_n\}$ es la base canónica de $\K^{n\times1}$
+		%entonces $\cB=\{g(e_1),\dots,g(e_n)\}=\{C^{-1}e_1,\dots,C^{-1}e_n\}$ es
+		%base de $\K^{n\times1}$.  Las columnas de la matriz $C^{-1}$ son los
+		%$C^{-1}e_j$ y entonces $C(\cB,\cE)=C^{-1}$. Luego $C(\cE,\cB)=C$ y
+		%entonces, el corolario \ref{cor:semejanza:tls} con $V=W=\K^{n\times1}$,
+		%$\cB_V=\cB_W=\cE$ y $\cB_V'=\cB_W'=\cB$ implica que $B=\|f\|_{\cB,\cB}$.
+    \end{proof}
+\end{cor}
+
+\begin{remark}
+    Sean $A\in\K^{m\times n}$ y \[
+	f\colon\K^{n\times1}\to\K^{m\times1},
+	\quad
+	x\mapsto Ax.
+	\]
+	Si $\{e_1,\dots,e_n\}$ es la base
+    canónica de $\K^{n\times1}$. Entonces $\im f=\langle
+	Ae_1,\dots,Ae_n\rangle$ y luego, como los $Ae_j$ son las columnas de 
+	$A$, obtenemos $\dim\im f=\rg(A)$. 
+\end{remark}
+
+\section{El espacio vectorial $\hom(V,W)$}
+
+\begin{block}
+	Sean $V$ y $W$ dos espacios vectoriales. El conjunto $\hom(V,W)$ de
+	transformaciones lineales $V\to W$ con las operaciones 
+    \begin{align*}
+        & (f+g)(x)=f(x)+g(x),\\
+        & (\lambda f)(x)=\lambda f(x),
+    \end{align*}
+    es un espacio vectorial sobre $\K$. 
+\end{block}
+
+\begin{prop}
+    \label{pro:hom(V,W)}
+    Sean $V$ y $W$ dos espacios vectoriales de dimensión finita y supongamos
+    que $\dim V=n$ y $\dim W=m$. Entonces $\hom(V,W)\simeq\K^{m\times n}$. En
+    particular, $\dim\hom(V,W)=(\dim V)(\dim W)$.
+
+    \begin{proof}
+        Sean $\cB_V=\{v_1,\dots,v_n\}$ y $\cB_W=\{w_1,\dots,w_m\}$ bases de $V$
+        y $W$ respectivamente.  La función
+        \[
+            T\colon\hom(V,W)\to\K^{m\times n},\quad f\mapsto\|f\|_{\cB_V,\cB_W}.
+        \]
+		es una transformación lineal.  Primero observemos que $T$ es
+		monomorfismo pues si $Tf=0$ entonces $f(v_j)=0$ para todo $j$ y luego
+		$f=0$. Además $T$ es epimorfismo pues si $(a_{ij})\in\K^{m\times n}$
+		entonces la función $f\colon V\to W$, $f(v_j)=\sum_{i=1}^ma_{ij}w_i$
+		para todo $j$, es una función lineal que cumple
+		$\|f\|_{\cB_V,\cB_W}=(a_{ij})$.    Luego $\hom(V,W)\simeq\K^{m\times
+		n}$ y entonces $\dim\hom(V,W)=mn$.
+    \end{proof}
+\end{prop}
+
+\section{Aplicaciones a sistemas lineales}
+
+%\begin{block}
+%	El corolario~\ref{cor:no_monomorfismo} da una demostración sencilla y
+%	elegante de un resultado importante en la teoría de sistemas lineales, ver
+%	corolario~\ref{cor:homogeneo}.
+%
+%	\begin{cor*}
+%		\label{cor:mas_X_que_ecuaciones}
+%		Un sistema lineal homogéneo que tiene más incógnitas que ecuaciones
+%		tiene al menos una solución no trivial.		
+%
+%		\begin{proof}
+%			Sean $A=(a_{ij})\in\K^{m\times n}$ y $f\colon\K^n\to\K^m$ la
+%			transformación lineal dada por 
+%			\[
+%				(x_1,\dots,x_n)\mapsto\left(\sum_{i=1}^na_{1i}x_i,\dots,\sum_{i=1}^na_{mi}x_i\right).
+%			\]
+%
+%			Observemos que $\ker f=0$ es un sistema homogéneo de $m$ ecuaciones
+%			y $n$ incógnitas cuya matriz asociada es $A$.  El
+%			corolario~\ref{cor:no_monomorfismo} nos dice que si $n>m$ entonces
+%			$\ker f\ne0$, es decir: existe una solución no trivial del sistema
+%			lineal homogéneo asociado a la matriz $A$.
+%		\end{proof}
+%	\end{cor*}
+%\end{block}
+%
+%\begin{block}
+%	El corolario~\ref{cor:no_epimorfismo} puede usarse para demostrar que un
+%	sistema lineal no homogéneo que tiene más ecuaciones que incógnitas puede
+%	no tener solución.
+%\end{block}
+
+\begin{block}
+	\label{cor:Ax=0<=>Ax=b}
+	El corolario~\ref{cor:mono<=>epi<=>iso} nos permite demostrar el siguiente
+	resultado.
+
+	\begin{cor*}
+		Un sistema lineal no homogéneo de $n\times n$ tiene solución única si y
+		sólo si el sistema lineal homogéneo asociado tiene solución única.
+
+		\begin{proof}
+			Sean $A=(a_{ij})\in\K^{n\times n}$ y
+			$f\in\hom(\K^{n\times1},\K^{n\times1})$ dada por $x\mapsto Ax$.  El
+			resultado se deduce de la proposición~\ref{cor:mono<=>epi<=>iso}
+			que afirma que $f$ es monomorfismo si y sólo si $f$ es epimorfismo.
+		%	$f\colon\K^n\to\K^n$ la
+		%	transformación lineal dada por 
+		%	\[
+		%		(x_1,\dots,x_n)\mapsto\left(\sum_{i=1}^na_{1i}x_i,\dots,\sum_{i=1}^na_{ni}x_i\right).
+		%	\]
+		%	Luego el resultado es consecuencia directa de la
+		%	proposición~\ref{cor:mono<=>epi<=>iso}.
+		\end{proof}
+	\end{cor*}
+\end{block}
+
+\begin{prop}
+    Sea $A=(a_{ij})$ una matriz de tamaño $m\times n$. Entonces 
+    \[
+        \dim\{x\in\K^{n\times1}:Ax=0\}=n-\rg(A).
+    \]
+
+    \begin{proof}
+        Sea $f\colon\K^{n\times1}\to\K^{m\times1}$ la transformación lineal
+        definida por $x\mapsto Ax$. Entonces $\ker
+        f=\{x\in\K^{n\times1}:Ax=0\}$ y luego \[
+            \dim\ker f=n-\dim\im f=n-\rg(A),
+        \]
+        tal como se quería demostrar.
+    \end{proof}
+\end{prop}
+
+\begin{prop}
+    Sean $A=(a_{ij})\in\K^{m\times n}$ y $b\in\K^{m\times1}$. Entonces el
+    sistema lineal $Ax=b$ tiene solución si y sólo si $\rg(A|b)=\rg(A)$,
+    donde $(A|b)$ es la matriz ampliada del sistema $Ax=b$. 
+
+    \begin{proof}
+        Primero observemos que el sistema lineal $Ax=b$ puede rescribirse como
+        \begin{equation}
+            \label{eq:rg(A|b)=rg(A)}
+            \colvec{3}{b_1}{\vdots}{b_m}=\sum_{i=1}^m x_i\colvec{3}{a_{1i}}{\vdots}{a_{mi}}.
+        \end{equation}
+        Ahora, $x\in\K^{n\times1}$ es solución de $Ax=b$ si y sólo si $x$ 
+        satisface la ecuación~\eqref{eq:rg(A|b)=rg(A)}, y esto es
+        equivalente a decir que $b$ es combinación lineal de las columnas de
+        $A$, que es equivalente a $\rg(A|b)=\rg(A)$.
+    \end{proof}
+\end{prop}
+
+\section{Aplicaciones a matrices inversibles}
+
+\begin{prop}
+	\label{pro:inversa}
+	Sea $A\in\K^{n\times n}$. Entonces $A$ es inversible si y sólo si
+	existe $B\in\K^{n\times n}$ tal que $AB=I$.
+
+	\begin{proof}
+		Sea $B\in\K^{n\times n}$ tal que $AB=I$. Sea $f\in\K^{n\times
+		n}\to\K^{n\times n}$ la transformación lineal dada por $X\mapsto
+		AX$. Veamos que $f$ es epimorfismo: si $C\in\K^{n\times n}$ entonces
+		$f(BC)=A(BC)=(AB)C=IC=C$. Como
+		\[
+		f(BA-I)=A(BA-I)=A(BA)-AI=(AB)A-A=IA-A=A-A=0,
+		\]
+		y $f$ es monomorfismo por el corolario~\ref{cor:mono<=>epi<=>iso}, se
+		tiene que $BA-I=0$. Luego $A$ es inversible y $A^{-1}=B$.
+	\end{proof}
+\end{prop}
+
+\begin{cor}
+	\label{cor:inversa}
+	Sea $A\in\K^{n\times n}$. Entonces $A$ es inversible si y sólo si
+	existe $C\in\K^{n\times n}$ tal que $CA=I$.
+
+	\begin{proof}
+		Si existe $C\in\K^{n\times n}$ tal que $CA=I$ entonces $C$ es
+		inversible por la proposición anterior.  Luego $C^{-1}=A$ y
+		entonces $A$ es inversible.  
+	\end{proof}
+\end{cor}
+
+\begin{cor}
+	Sean $A,B\in\K^{n\times n}$. Entonces $AB$ es inversible si y sólo si $A$ y
+	$B$ son inversibles.
+
+	\begin{proof}
+		Si $A$ y $B$ son inversibles entonces $AB$ es inversible con inversa
+		$B^{-1}A^{-1}$.  Supongamos que $AB$ es inversible.  Entonces existe
+		$C\in\K^{n\times n}$ tal que $(AB)C=C(AB)=I$. En particular, como
+		$A(BC)=I$ y $(CA)B=I$, la matrices $A$ y $B$ son inversibles por la
+		proposición~\ref{pro:inversa}.
+	\end{proof}
+\end{cor}
+
+\begin{prop}
+	Sea $A\in\K^{n\times n}$. Son equivalentes:
+	\begin{enumerate}
+		\item $A$ es inversible.
+		\item El sistema lineal $Ax=0$ tiene una única solución.
+		\item Para cada $b\in\K^{n\times 1}$ el sistema $Ax=b$ tiene una única solución.
+		\item Para cada $b\in\K^{n\times 1}$ el sistema $Ax=b$ tiene al menos una solución.
+        \item $\rg(A)=n$. 
+	\end{enumerate}
+
+	\begin{proof}
+        Demostremos primero $(1)\Rightarrow(2)$. Si $Ax=0$ entonces, como $A$
+        es inversible, $x=Ix=(A^{-1}A)x=A^{-1}(Ax)=A^{-1}0=0$ y $Ax=0$ tiene
+        una única solución. La implicación $(2)\Rightarrow(3)$ es el
+        corolario~\ref{cor:Ax=0<=>Ax=b}.  La implicación $(3)\Rightarrow(4)$ es
+        trivial. Para demostrar $(4)\Rightarrow(5)$ sea
+        $f\colon\K^{n\times1}\to\K^{n\times1}$ dada por $x\mapsto Ax$. Como $f$
+        es epimorfismo por hipótesis, $\dim\im f=\rg(A)=n$. Finalmente, para
+        demostrar que $(5)\Rightarrow(1)$ basta observar que
+        $f\colon\K^{n\times1}\to\K^{n\times1}$ dada por $x\mapsto Ax$ es un
+        epimorfismo y entonces es un isomorfismo.
+        %Para demostrar
+		%$(4)\Rightarrow(1)$ basta tomar $b$ igual a los $e_j$ para construir
+		%una matriz $B$ tal que $AB=I$ y utilizar la
+		%proposición~\ref{cor:inversa}. 
+	\end{proof}
+\end{prop}
+
+%\begin{prop}
+%    Una matriz $A\in\K^{n\times n}$ es inversible si y sólo si $\rg(A)=n$. 
+%    
+%    \begin{proof}
+%        Sea $f\colon\K^{n\times1}\to\K^{n\times1}$ la transformación lineal
+%        definida por $x\mapsto Ax$. Entonces la matriz de $f$ con respecto a la
+%        base canónica es $\|f\|=A$ y además vale que $\rg(A)=\dim\im f$. Si $A$
+%        es inversible entonces $f$ es isomorfismo y $\rg(A)=\dim\im f=n$.
+%        Recíprocamente, si $\rg(A)=n$ entonces $f$ es epimorfismo y luego $A$
+%        es inversible por los corolarios~\ref{cor:mono<=>epi<=>iso}
+%        y~\ref{cor:iso<=>|f|inversible}.
+%    \end{proof}
+%\end{prop}
+

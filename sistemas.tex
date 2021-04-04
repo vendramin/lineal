@@ -1,0 +1,690 @@
+\chapter{Sistemas lineales y matrices}
+
+Dos clases. Temas: Repaso de sistemas lineales y matrices. 
+
+\section{Cuerpos}
+
+\begin{block}
+    Un \textbf{cuerpo} $\K$ es un conjunto con dos operaciones binarias en $\K$, 
+    %$\K\times\K\to\K$, 
+    una llamada \textbf{suma} y denotada por $(x,y)\mapsto
+    x+y$, y otra llamada \textbf{producto} y denotada por $(x,y)\mapsto xy$,
+    que satisfacen las siguientes propiedades:
+	\begin{enumerate}
+		\item $(x+y)+z=x+(y+z)$ para todo $x,y,z\in\K$,
+		\item existe un único $0\in\K$ tal que $x+0=0+x=x$ para todo $x\in\K$,
+		\item para cada $x\in\K$ existe un único $-x\in\K$ tal que 
+            \[
+                x+(-x)=(-x)+x=0.
+                \]
+		\item $x+y=y+x$ para todo $x,y\in\K$,
+		\item $(xy)z=x(yz)$ para todo $x,y,z\in\K$,
+        \item existe un único $1\in\K\setminus\{0\}$ tal que $x1=1x=x$ para todo $x\in\K$,
+        \item para cada $x\in\K\setminus\{0\}$ existe un único $x^{-1}\in\K$
+            tal que \[
+            xx^{-1}=x^{-1}x=1,
+            \]
+		\item $xy=yx$ para todo $x,y\in\K$,
+		\item $x(y+z)=xy+xz$ para todo $x,y,z\in\K$.
+	\end{enumerate}
+\end{block}
+
+\begin{examples}\
+	\begin{enumerate}
+		\item $\Q$, $\R$ y $\C$ son cuerpos.
+		\item $\Z_p$ es cuerpo si y sólo si $p$ es un número primo.
+        \item $\Q[\sqrt{2}]=\{a+b\sqrt{2}\mid a,b\in\Q\}$ es un cuerpo.
+            Determine el inverso de un elemento de la forma $a+b\sqrt{2}$,
+            donde $a,b\in\Q$.
+	\end{enumerate}
+\end{examples}
+
+\section{Sistemas lineales y matrices}
+
+\begin{block}
+	Estudiaremos \textbf{sistemas de ecuaciones lineales} con $m$
+	ecuaciones y $n$ incógnitas. Dados $a_{ij}$, donde $i\in\{1,\dots,m\}$ y
+	$j\in\{1,\dots,n\}$, el problema consiste en encontrar $n$
+	elementos de $\K$, digamos $x_1,\dots,x_n$, que satisfagan las condiciones
+	\begin{equation}
+		\label{eq:sistema}
+		\begin{cases}
+			\begin{aligned}
+				a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=b_1,\\
+				a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=b_2,\\
+				\vdots\\
+				a_{m1}x_1+a_{m2}x_2+\cdots+a_{mn}x_n&=b_m,
+			\end{aligned}
+		\end{cases}
+	\end{equation}
+	Toda tupla
+	$(x_1,\dots,x_n)$ de elementos de $\K$ que satisface~\eqref{eq:sistema} se
+	denomina \textbf{solución} del sistema. Si $b_1=\cdots=b_m=0$ el
+	sistema~\eqref{eq:sistema} se denomina sistema \textbf{homogéneo}.
+\end{block}
+
+\begin{block}
+	Un sistema lineal es \textbf{compatible determinado} cuando admite una
+	única solución, \textbf{compatible indeterminado} cuando admite más de una
+	solución e \textbf{incompatible} si no tiene soluciones.  Observemos que un
+	sistema homogéneo siempre tiene solución: basta tomar la \textbf{solución
+	trivial} $x_1=x_2=\cdots=x_n=0$.
+\end{block}
+
+\begin{example}
+    Muchos problemas no lineales pueden resolverse mediante un sistema lineal.
+    Como ejemplo demostraremos que existe una única terna $(a,b,c)$ que
+    satisface las ecuaciones 
+    \begin{equation}
+        \label{eq:sistema_nolineal}
+        \begin{aligned}
+            abc=1, && a^2b^2c^3&=8, && a(bc)^{-1}=16, 
+        \end{aligned}
+    \end{equation}
+    En efecto, si aplicamos $\log_2$, las
+    ecuaciones~\eqref{eq:sistema_nolineal}, se transforman en el sistema lineal 
+    \[
+        \begin{cases}
+            \begin{aligned}
+                x+y+z &= 0,\\
+                2x+2y+3z &= 3,\\
+                x-y-z &= 4,
+            \end{aligned}
+        \end{cases}
+    \]
+    que tiene a $(x,y,z)=(2,-5,3)$ como única solución. Luego
+    la única solución del
+    sistema~\eqref{eq:sistema_nolineal} es $(a,b,c)=(4,2^{-5},8)$.
+\end{example}
+
+\begin{block}
+	En ocasiones resulta conveniente escribir al sistema~\eqref{eq:sistema} de
+	la siguiente forma:
+	\begin{equation}
+		\begin{cases}	
+			F_1(x_1,\dots,x_n)=b_1,\\
+			\quad\vdots\\
+			F_m(x_1,\dots,x_n)=b_m,
+		\end{cases}
+	\end{equation}
+	donde $F_1(x_1,\dots,x_n),\dots,F_m(x_1,\dots,x_n)$ son las funciones 
+	definidas por 
+	\[
+	F_i(x_1,\dots,x_n)=a_{i1}x_1+a_{i2}x_2+\cdots+a_{in}x_n
+	\]
+	para $i\in\{1,\dots,m\}$. Observemos que las $F_i$ satisfacen 
+	\begin{align*}
+		& F_i(x_1+y_1,\dots,x_n+y_n)=F_i(x_1,\dots,x_n)+F_i(y_1,\dots,y_n),\\
+		& F_i(\lambda x_1,\dots,\lambda x_n)=\lambda F_i(x_1,\dots,x_n),
+	\end{align*}
+	para todo $\lambda\in\K$.
+\end{block}
+
+\begin{prop}
+    Supongamos que $\K$ tiene infinitos elementos y que el sistema
+    lineal~\eqref{eq:sistema} tiene más de una solución.
+    Entonces~\eqref{eq:sistema} tiene infinitas soluciones.
+
+	\begin{proof}
+        Sean $c$ y $d$ dos soluciones y $\lambda\in\K$. Demostremos que $r=\lambda
+        c+(1-\lambda)d$ es solución del sistema~\eqref{eq:sistema}. En efecto, 
+		\[
+			F_i(r)=\lambda F_i(c)+(1-\lambda)F_i(d)=\lambda b_i+(1-\lambda)b_i=b_i
+		\]
+		para todo $i\in\{1,\dots,m\}$. Para ver que hay infinitas soluciones
+		basta observar que si $\lambda,\mu\in\K$ con $\lambda\ne\mu$ entonces
+		$\lambda c+(1-\lambda)d\ne \mu c+(1-\mu)d$.
+	\end{proof}
+\end{prop}
+
+\begin{example}
+	En $\R^3$ el sistema
+	\begin{equation}
+		\label{eq:sistema:2x3}
+		\begin{cases}
+			\begin{aligned}
+				x+y+z &= 0,\\
+				y+z &= 0,
+			\end{aligned}
+		\end{cases}
+	\end{equation}
+	tiene infinitas soluciones. De hecho, el conjunto de soluciones es la recta 
+	\[
+		\{\lambda(0,1,-1): \lambda\in\R\}.
+	\]
+	En cambio, el conjunto de soluciones en $\Z_3^3$ del
+	sistema~\eqref{eq:sistema:2x3} es el conjunto finito
+	$\{(0,0,0),(0,1,-1),(0,-1,1)\}$. 
+\end{example}
+
+\begin{block}
+	Diremos que dos sistemas lineales son \textbf{equivalentes} si tienen
+	exactamente el mismo conjunto de soluciones.	
+\end{block}
+
+\begin{block}
+	Los sistemas lineales 
+	\begin{align*}
+		\begin{cases}
+			\begin{aligned}
+				x+y+z&=0,\\
+				x+y&=0,
+			\end{aligned}
+		\end{cases}
+		&&
+		\begin{cases}
+			\begin{aligned}
+				x+y+z&=0,\\
+				z&=0,
+			\end{aligned}
+		\end{cases}
+	\end{align*}
+	son equivalentes. En efecto, el conjunto de soluciones es
+	$\{(\lambda,-\lambda,0): \lambda\in\K\}$.
+\end{block}
+
+\begin{block}
+    Dado un sistema lineal como en~\eqref{eq:sistema} vamos a definir dos
+    \textbf{operaciones elementales} que no alteran el conjunto de soluciones
+    del sistema:
+	\begin{enumerate}
+		\item Intercambiar el lugar de dos ecuaciones.
+		\item Reemplazar una ecuación, digamos $F_i(x_1,\dots,x_n)=b_i$, por la
+			ecuación $(F_i+\lambda F_j)(x_1,\dots,x_n)=b_i+\lambda b_j$, donde
+			$\lambda\in\K$. 
+	\end{enumerate}
+
+	\begin{thm*}
+		Al aplicar estas operaciones elementales se obtiene un sistema
+		equivalente al original.
+
+		\begin{proof}
+			El conjunto de soluciones de un sistema lineal es la intersección
+			del conjunto de soluciones de cada ecuación lineal
+			\[
+                F_i(x_1,\dots,x_n)=b_i.
+            \]
+            Como la intersección de conjuntos es conmutativa, intercambiar dos
+            ecuaciones no altera el conjunto de soluciones del sistema lineal.
+
+			Para demostrar que al aplicar la segunda operación elemental el conjunto 
+			de soluciones del sistema lineal no se altera, 
+			observemos que 
+            \[
+            \begin{cases}
+                F_i(x_1,\dots,x_n)=b_i,\\
+                F_j(x_1,\dots,x_n)=b_j,
+            \end{cases}
+            \]
+            si y sólo si  
+            \[
+            \begin{cases}
+                (F_i+\lambda F_j)(x_1,\dots,x_n)=b_i+\lambda b_j,\\
+                F_j(x_1,\dots,x_n)=b_j,
+            \end{cases}
+            \]
+            para todo $\lambda\in\K$.
+		\end{proof}
+	\end{thm*}
+\end{block}
+
+\begin{block}[Método de Gauss]
+	\label{block:sistemas:gauss}
+    Supongamos que se tiene un sistema lineal como en~\eqref{eq:sistema} tal
+    que $a_{11}\ne0$. Para cada $i\in\{2,\dots,m\}$ podemos utilizar la segunda
+    operación elemental y reemplazar la $i$-ésima ecuación
+    $F_i(x_1,\dots,x_n)=b_i$ por 
+	\[
+		F_i(x_1,\dots,x_n)-\frac{a_{i1}}{a_{11}}F_1(x_1,\dots,x_n)=b_i-\frac{a_{i1}}{a_{11}}b_1.
+	\]
+	De esta forma obtenemos un sistema lineal 
+	\begin{equation*}
+		\begin{cases}
+			\begin{aligned}
+				a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=b_1,\\
+				a_{22}'x_2+\cdots+a'_{2n}x_{n}&=b'_2,\\
+				\vdots\\
+				a_{m2}'x_2+\cdots+a'_{mn}x_{n}&=b'_m,
+			\end{aligned}
+		\end{cases}
+	\end{equation*}
+	equivalente a~\eqref{eq:sistema}. 
+\end{block}
+
+\begin{thm}
+    \label{thm:sistemas:n>m}
+    Sean $n,m\in\N$ tales que $n>m$. Un sistema de $m$ ecuaciones con $n$
+    incógnitas es incompatible o compatible indeterminado.
+
+    \begin{proof}
+        Procederemos por inducción en $m$. 
+        
+		Supongamos primero que $m=1$. En este caso tenemos una ecuación tipo
+		$\sum_{i=1}^n a_ix_i=b$. Si todos los $a_i$ son cero, el sistema es
+		incompatible si $b\ne0$ y compatible indeterminado si $b=0$.  En
+		cambio, si existe algún $a_i\ne0$, se tienen infinitas soluciones: las
+		incógnitas $x_j$ con $j\ne i$ pueden tomar cualquier valor en $\K$ y
+		$x_i=\frac1{a_i}\sum_{j\ne i}a_jx_j$.
+
+		Supongamos ahora que $m>1$. Si todos los $a_{ij}$ son cero el resultado
+		es trivialmente válido.  Si suponemos que existe al menos un
+		$a_{ij}\ne0$, después de utilizar la operación elemental de intercambiar filas
+		y (si fuera necesario) de cambiar el nombre de las variables, podemos
+		suponer que $a_{11}\ne0$. El procedimiento visto
+		en~\ref{block:sistemas:gauss} nos da un sistema de la forma
+        \begin{equation*}
+            \begin{cases}
+                \begin{aligned}
+                    a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=b_1,\\
+                    a_{22}'x_2+\cdots+a'_{2n}x_{n}&=b'_2,\\
+                    \vdots\\
+                    a_{m2}'x_2+\cdots+a'_{mn}x_{n}&=b'_m,
+                \end{aligned}
+            \end{cases}
+        \end{equation*}
+        que es equivalente al sistema original. Como 
+        $n-1>m-1$, la hipótesis inductiva aplicada al sistema 
+        \begin{equation*}
+            \begin{cases}
+                \begin{aligned}
+                    a_{22}'x_2+\cdots+a'_{2n}x_{n}&=b'_2,\\
+                    \vdots\\
+                    a_{m2}'x_2+\cdots+a'_{mn}x_{n}&=b'_m,
+                \end{aligned}
+            \end{cases}
+        \end{equation*}
+		de $m-1$ ecuaciones y $n-1$ incógnitas nos dice que ese sistema es
+		compatible indeterminado o incompatible.  Esto implica que el sistema
+		original es compatible indeterminado o incompatible.
+    \end{proof}
+\end{thm}
+
+\begin{cor}
+	\label{cor:homogeneo}
+	En un sistema homogéneo que tiene más incógnitas que ecuaciones existe al
+	menos una solución no trivial.
+
+	\begin{proof}
+		Es consecuencia inmediata del teorema~\ref{thm:sistemas:n>m} ya que los
+		sistemas homogéneos son siempre compatibles.
+	\end{proof}
+\end{cor}
+
+\begin{block}
+    Sean $\K$ un cuerpo y $n,m\in\N$. Una \textbf{matriz} $A=(a_{ij})$ sobre
+    $\K$ de tamaño $m\times n$ es un arreglo de elementos de $\K$ de la forma
+	\[
+		A=\begin{pmatrix}
+			a_{11} & a_{12} & \cdots & a_{1n}\\
+			a_{21} & a_{22} & \cdots & a_{2n}\\
+			\vdots & \vdots & \ddots & \vdots\\
+			a_{m1} & a_{m2} & \cdots & a_{mn}
+		\end{pmatrix}.
+	\]
+	Los $a_{ij}$ son los \textbf{elementos} de la matriz $A$.  El conjunto de
+	matrices de tamaño $m\times n$ con elementos en $\K$ se denotará por
+	$\K^{m\times n}$.
+\end{block}
+
+\begin{block}[Suma de matrices]
+    Sean las matrices $A=(a_{ij})\in\K^{m\times n}$ y $B=(b_{ij})\in\K^{m\times
+    n}$. Se define la \textbf{suma} de $A$ y $B$ como la matriz de $\K^{m\times
+    n}$ dada por 
+	\[
+		(A+B)_{ij}=a_{ij}+b_{ij}
+	\]
+    para todo $i,j$.  Queda como ejercicio demostrar que el neutro para la suma
+    es la matriz $0\in\K^{m\times n}$ dada por $0_{ij}=0$ para todo $i,j$, que
+    el inverso es $(-A)_{ij}=-a_{ij}$ para todo $i,j$, y que la suma de
+    matrices es asociativa y conmutativa. 
+\end{block}
+
+\begin{block}[Producto por un escalar]
+    Sean $A=(a_{ij})\in\K^{m\times n}$ y $\lambda\in\K$. Se define $\lambda A$ como la
+	matriz de $m\times n$ cuyos elementos son 
+	\[
+		(\lambda A)_{ij}=\lambda a_{ij}
+	\]
+    para todo $i,j$. Queda como ejercicio demostrar que las siguientes
+    propiedades: $(\lambda\mu)A=\lambda(\mu A)$, $(\lambda+\mu)A=\lambda A+\mu
+    A$ y $\lambda(A+B)=\lambda A+\lambda B$ para todo $\lambda,\mu\in\K$ y
+    $A,B\in\K^{m\times n}$.
+\end{block}
+
+\begin{block}[Producto de matrices]
+    Sean las matrices $A=(a_{ij})\in\K^{m\times n}$ y $B=(b_{ij})\in\K^{n\times
+    p}$. Se define el \textbf{producto} $AB$ como la matriz de $m\times p$
+    cuyos elementos son
+	\[
+		(AB)_{ij}=\sum_{k=1}^n a_{ik}b_{kj}
+	\]
+	para todo $i,j$.
+\end{block}
+
+\begin{example}
+	El producto de matrices en general no es conmutativo: 
+	\begin{align*}
+		A=\begin{pmatrix}
+			0 & 1\\
+			0 & 0
+		\end{pmatrix},
+		&&
+		B=\begin{pmatrix}
+			1 & 0\\
+			0 & 0
+		\end{pmatrix},
+		&&
+		AB=\begin{pmatrix}
+			0 & 0\\
+			0 & 0
+		\end{pmatrix},
+		&&
+		BA=\begin{pmatrix}
+			0 & 1\\
+			0 & 0
+		\end{pmatrix}.
+	\end{align*}
+\end{example}
+
+\begin{example}
+    Sea $A=(A_{ij})\in\K^{m\times n}$.  Para $i\in\{1,\dots,n\}$ consideremos
+    el vector columna $e_j\in\K^{n\times1}$ dado por
+	\[
+		(e_i)_j=\delta_{ij}=
+		\begin{cases} 
+			1 & \text{si $i=j$},\\ 
+			0 & \text{si $i\ne j$}.
+		\end{cases}
+	\]
+	Entonces $Ae_i\in\K^{m\times 1}$ y $Ae_i$ es la $i$-ésima columna de la
+	matriz $A$.
+\end{example}
+
+\begin{block}
+	Se define la \textbf{matriz identidad} $I$ de tamaño $n$ como la matriz
+	cuadrada de $n\times n$ dada por $I_{ij}=\delta_{ij}$ para todo $i,j$. 
+	Si $A\in\K^{m\times n}$, se tienen las siguientes dos propiedades:
+	\begin{enumerate}
+		\item Si $I$ es la identidad de $m\times m$ entonces $IA=A$.
+		\item Si $I$ es la identidad de $n\times n$ entonces $AI=A$.
+	\end{enumerate}
+\end{block}
+
+\begin{thm}
+	El producto de matrices es asociativo. 
+	\begin{proof}
+		Supongamos que $A\in\K^{m\times n}$, $B\in\K^{n\times p}$ y
+		$C\in\K^{p\times q}$.  Como el producto en $\K$ es asociativo,
+		\begin{align*}
+			\left(A(BC)\right)_{ij}
+			&=\sum_{k=1}^n A_{ik}(BC)_{kj}
+			=\sum_{k=1}^n A_{ik}\left(\sum_{l=1}^p B_{kl}C_{lj}\right)
+			=\sum_{k=1}^n\sum_{l=1}^p A_{ik}B_{kl}C_{lj}\\
+			&=\sum_{l=1}^p\left(\sum_{k=1}^n A_{ik}B_{kl}\right)C_{lj}
+			=\sum_{l=1}^p (AB)_{il}C_{lj}
+			=\left((AB)C\right)_{ij},
+		\end{align*}
+		tal como se quería demostrar.
+	\end{proof}
+\end{thm}
+
+\begin{block}
+	Observemos que el producto de matrices nos permite escribir el sistema
+	lineal~\eqref{eq:sistema} como la ecuación matricial $Ax=b$, donde
+	\begin{align*}
+		A=\begin{pmatrix}
+			a_{11} & a_{12} & \cdots & a_{1n}\\
+			a_{21} & a_{22} & \cdots & a_{2n}\\
+			\vdots & \vdots & \ddots & \vdots\\
+			a_{m1} & a_{m2} & \cdots & a_{mn}
+		\end{pmatrix},\quad
+		x=\begin{pmatrix}
+			x_1\\
+			\vdots\\
+			x_n\\
+		\end{pmatrix},\quad
+		b=\begin{pmatrix}
+			b_1\\
+			\vdots\\
+			b_m\\
+		\end{pmatrix}.
+	\end{align*}
+    La matriz $A$ se denomina \textbf{matriz del sistema}. La \textbf{matriz
+    ampliada} es la matriz de tamaño $m\times(n+1)$ dada por
+	\[
+		(A|b)=
+        \left(\begin{array}{cccc|c}
+			a_{11} & a_{12} & \cdots & a_{1n} & b_1\\
+			a_{21} & a_{22} & \cdots & a_{2n} & b_2\\
+			\vdots & \vdots & \ddots & \vdots & \vdots\\
+			a_{m1} & a_{m2} & \cdots & a_{mn} & b_m
+		\end{array}\right).
+	\]
+\end{block}
+
+\begin{xca}
+	\label{xca:Ax=b_y_Ax=0}
+	Sea $p$ una solución del sistema $Ax=b$ y $S$ el conjunto de soluciones del
+	sistema homogéneo $As=0$. Entonces toda solucion de $Ax=b$ es de la forma
+	$s+p$ para algún $s\in S$.
+\end{xca}
+
+\begin{block}
+    \label{block:traspuesta}
+	Si $A\in\K^{m\times n}$ se define la \textbf{traspuesta} de $A$ como la
+	matriz $A^T\in\K^{n\times m}$ dada por
+	\[
+		(A^T)_{ij}=A_{ji}
+	\]
+    para todo $i,j$. De la definición es evidente que
+    $(A^T)^T=A$. Vale además que $(AB)^T=B^TA^T$ pues si $A\in\K^{m\times n}$ y
+    $B\in\K^{n\times p}$ entonces
+	\begin{align*}
+		(B^TA^T)_{ij}=\sum_{k=1}^n (B^T)_{ik}(A^T)_{kj}=\sum_{k=1}^n B_{ki}A_{jk}=\sum_{k=1}^n A_{jk}B_{ki}=(AB)_{ji}.
+	\end{align*}
+\end{block}
+
+\begin{xca}
+	\label{xca:I^T=I}
+	Demuestre que si $I$ es la matriz identidad de $n\times n$ entonces
+	$I^T=I$.
+\end{xca}
+
+\begin{block}
+	Si $A\in\K^{n\times n}$ se define la \textbf{traza} de $A$ como
+	\[
+        \tr(A)=A_{11}+A_{22}+\cdots+A_{nn}.
+    \]
+	Valen las siguientes propiedades:
+	\begin{enumerate}
+		\item $\tr(A+B)=\tr(A)+\tr(B)$ para todo $A,B\in\K^{n\times n}$.
+		\item $\tr(\lambda A)=\lambda\tr(A)$ para todo $A\in\K^{n\times n}$ y $\lambda\in\K$.
+		\item $\tr(AB)=\tr(BA)$ para todo $A,B\in\K^{n\times n}$.
+	\end{enumerate}
+	Demostremos la tercera afirmación: 
+	\begin{align*}
+		\tr(AB)
+		&=\sum_{i=1}^n (AB)_{ii}
+		=\sum_{i=1}^n \sum_{j=1}^n A_{ij}B_{ji}\\
+		&=\sum_{j=1}^n\sum_{i=1}^n B_{ji}A_{ij}
+		=\sum_{j=1}^n (BA)_{jj}
+		=\tr(BA).
+	\end{align*}
+\end{block}
+
+\begin{prop}
+	\label{pro:Av=Bv=>A=B}
+	Sean $A$ y $B$ dos matrices de $n\times n$ tales que $Av=Bv$ para todo
+	$v\in\K^{n\times1}$.  Entonces $A=B$.
+	
+	\begin{proof}
+		Basta tomar $v=e_i$ para todo $i\in\{1,\dots,n\}$, donde los $e_i$
+		están dados por $(e_i)_j=\delta_{ij}$.
+	\end{proof}
+\end{prop}
+
+\section{Matrices inversibles}
+
+\begin{block}
+	Una matriz cuadrada $A\in\K^{n\times n}$ es \textbf{inversible} si existe
+	$B\in\K^{n\times n}$ tal que $AB=BA=I$. El conjunto de matrices inversibles
+	de $n\times n$ con elementos en $\K$ se denota por
+	\[
+		\GL(n,\K)=\{A\in\K^{n\times n}\mid A\text{ es inversible}\}.
+	\]
+\end{block}
+
+\begin{remarks}\
+	\label{rem:inversa}
+	\begin{enumerate}
+		\item La identidad $I$ es inversible pues $II=I$.
+		\item Si $AB=I$ y $CA=I$ entonces $B=C$ pues
+			\[
+			B=IB=(CA)B=C(AB)=CI=C.
+			\]
+		\item La inversa de una matriz, si existe, es única.
+		\item Si $A$ es inversible entonces $A^{-1}$ es inversible y
+			$(A^{-1})^{-1}=A$.
+		\item Si $A$ y $B$ son matrices inversibles entonces $AB$ es inversible y
+			$(AB)^{-1}=B^{-1}A^{-1}$. 
+	\end{enumerate}
+\end{remarks}
+
+\begin{remark}
+	Un \textbf{grupo} es un conjunto $G$ junto con una operación binaria
+	$G\times G\to G$, que denotamos por $(x,y)\mapsto xy$, tal que:
+	\begin{enumerate}
+		\item $x(yz)=(xy)z$ para todo $x,y,z\in G$.
+		\item Existe $e\in G$ tal que $xe=ex=x$ para todo $x\in G$.
+		\item Para cada $x\in G$ existe $x^{-1}\in G$ tal que $xx^{-1}=x^{-1}x=e$.
+	\end{enumerate}
+
+	Lo hecho en~\ref{rem:inversa} nos permite demostrar que $\GL(n,\K)$ es un
+	\textbf{grupo}. Este grupo se denomina \textbf{grupo lineal general} de
+	grado $n$ sobre $\K$. En general $\GL(n,\K)$ es no conmutativo. 
+\end{remark}
+
+\begin{xca}
+	Encuentre dos matrices inversibles $A,B\in\R^{2\times2}$ tales que $AB\ne
+	BA$.
+\end{xca}
+
+\begin{example}
+	Vamos a calcular la inversa de la matriz $A=\begin{pmatrix}2 & 7\\1 &
+		4\end{pmatrix}$. Sea $B=(b_{ij})$ tal que $AB=I$. Las ecuaciones
+		correspondientes a $AB=I$ son
+	\[
+			\begin{aligned}
+			2b_{11}+7b_{21}&=1, 
+			&& 
+			b_{11}+4b_{21}&=0, 
+			&& 
+			2b_{12}+7b_{22}&=0,
+			&& 
+			b_{12}+4b_{22}&=1.
+		\end{aligned}
+	\]
+	Observemos que para resolver este sistema de $4\times 4$ alcanza con
+	aplicar el método de Gauss en la matriz ampliada 
+	\[
+	\left(
+	\begin{array}{cc|cc}
+		2 & 7 & 1 & 0\\
+		1 & 4 & 0 & 1
+	\end{array}
+	\right)
+	\]
+
+	El método de Gauss nos da un matriz 
+	$B=\begin{pmatrix}
+		4 & -7
+		\\-1& 2
+	\end{pmatrix}$
+	que cumple $AB=I$. Esta matriz $B$ 
+	también cumple que $BA=I$. ¿Por qué?
+\end{example}
+
+\begin{xca}
+	Calcule la inversa de la matriz 
+	$\begin{pmatrix}
+		1 & 0 & 1\\
+		1 & 1 & 1\\
+		1 & 1 & 0
+	\end{pmatrix}$.
+\end{xca}
+
+\begin{block}
+    Si $A$ es inversible entonces $A^T$ es inversible y
+    $(A^T)^{-1}=(A^{-1})^T$. En efecto, si $A$ es inversible entonces
+    $AA^{-1}=A^{-1}A=I$. Entonces, al aplicar la traspuesta y
+    utilizar las propiedades de la traza vistas en~\ref{block:traspuesta},
+    \[
+    (A^{-1})^TA^T=I=A^T(A^{-1})^T, 
+    \]
+    es decir: $A^T$ es inversible y $(A^T)^{-1}=(A^{-1})^T$.
+\end{block}
+
+\section{Una aplicación a la criptografía}
+
+\begin{block}%[Una aplicación a la criptografía]
+    Vamos a utilizar matrices inversibles para codificar mensajes.  Supongamos
+    que queremos codificar el mensaje:
+    \begin{center}
+        \textsf{la pelota no se mancha}
+    \end{center}
+    Si a cada letra del alfabeto le asignamos un número tal como vemos en la tabla 
+    \begin{align*}
+        \textsf{a} && \textsf{b} && \textsf{c} && \textsf{d} && \textsf{e} && \cdots && \textsf{z}\\
+        1 && 2 && 3 && 4 && 5 && \cdots && 26
+    \end{align*}
+    y al espacio le asignamos el número 27, el mensaje a encriptar se
+    transforma en la siguiente tira de números:
+    \begin{align}
+        \label{eq:lapelotanosemancha}
+        12 \; 1 \; 27 \; 16 \; 5 \; 12 \; 15 \; 20 \; 1 \; 27 \; 14 \; 15 \; 27 \; 19 \; 5 \; 27 \; 13 \; 1 \; 14 \; 3 \; 8 \; 1
+    \end{align}
+    Identificaremos a nuestro mensaje con la tira~\eqref{eq:lapelotanosemancha}.
+    Para encriptar el mensaje utilizaremos una matriz inversible $A$ de
+    $\R^{2\times2}$ y es por eso que necesitamos escribir
+    a~\eqref{eq:lapelotanosemancha} como una matriz en $\R^{2\times 11}$:
+    \[
+    B=\left(\begin{array}{ccccccccccc}
+        12 & 27 &  5 & 15 &  1 & 14 & 27 &  5 & 13 & 14 & 8\\
+         1 & 16 & 12 & 20 & 27 & 15 & 19 & 27 &  1 &  3 & 1
+        \end{array}
+        \right).
+    \]
+    Nuestro método de encriptación consiste en multiplicar a izquierda a la
+    matriz $B$ por $A$. Si, por ejemplo, elegimos la matriz inversible 
+    \[
+    A=\begin{pmatrix}
+        -4 & 3\\
+        3 & -2
+    \end{pmatrix},
+    \]
+    el mensaje encriptado será entonces
+    \[
+        AB=\left(\begin{array}{ccccccccccc}
+        -45 & -60 & 16 & 0 & 77 & -11 & -51 & 61 & -49 & -47 & -29\\
+         34 & 49 & -9 & 5 & -51 & 12 & 43 & -39 & 37 & 36 & 22
+        \end{array}
+        \right).
+    \]
+    Observemos que al multiplicar al mensaje encriptado por $A^{-1}$ a
+    izquierda se obtiene el mensaje original.
+%    \begin{xca*}
+%        Encuentre el mensaje encriptado con la matriz en la matriz 
+%        \[
+%        \begin{pmatrix}
+%               -11 & -48 &  22 & 17 & -48 & -65 & -20 &  34\\
+%                12 &  41 & -13 & -9 &  41 &  51 &  20 & -21
+%        \end{pmatrix}.
+%        \]
+%    \end{xca*}
+\end{block}
+
+%%% TODO
+%%% * algún sistemita con números complejos
+%%% * toda matriz es producto de elementales
+%%% * en la sección XXX veremos otros resultados como aplicación
+

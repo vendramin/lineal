@@ -1,0 +1,1335 @@
+\chapter{Forma de Jordan}
+
+\section{Subespacios invariantes}
+
+\begin{block}
+    \index{subespacio invariante}
+    Sea $V$ un espacio vectorial y sea $f\in\hom(V,V)$. Un subespacio
+    $S\subseteq V$ es \textbf{$f$-invariante} si $f(S)\subseteq S$.
+\end{block}
+
+\begin{examples}
+	Sea $f\in\hom(V,V)$. Entonces:
+	\begin{enumerate}
+		\item $\{0\}$ y $V$ entonces son $f$-invariantes. 
+		\item $\ker f$ e $\im f$ son subespacios $f$-invariantes. 
+		\item $S\subseteq V$ es un subespacio $f$-invariante de dimensión $1$
+			si y sólo si $S=\langle v\rangle$ para algún autovector $v$ de
+			$f$.
+	\end{enumerate}
+\end{examples}
+
+\begin{example}
+	Sea $f\colon\R^4\to\R^4$ dada por \[
+		f(x_1,x_2,x_3,x_4)=(x_1,x_1+x_2,2x_3,x_4),
+	\]
+	y sea $\{e_1,e_2,e_3,e_4\}$ la base canónica de $\R^4$. Algunos
+	subespacios $f$-invariantes son $\langle e_1,e_2\rangle$, $\langle
+	e_3\rangle$, $\langle e_4\rangle$ y $\langle e_1,e_2,e_4\rangle$.
+\end{example}
+
+\begin{xca}
+	Sea $f\colon\R^2\to\R^2$ dada por $f(x,y)=(x,2x+y)$. Demuestre que
+	$S=\langle(0,1)\rangle$ es el único subespacio de dimensión $1$ que es
+	$f$-invariante.
+\end{xca}
+
+\begin{xca}
+	Sea $V$ un espacio vectorial y sea $f\in\hom(V,V)$. Demuestre que si
+	$S,T\subseteq V$ son subespacios $f$-invariantes entonces $S\cap T$ y $S+T$
+	son $f$-invariantes.
+\end{xca}
+
+\begin{block}
+    \index{transformación lineal!restricción}
+	Si $V$ es un espacio vectorial de dimensión finita, $f\in\hom(V,V)$ y
+	$S\subseteq V$ es un subespacio $f$-invariante entonces la restricción de
+	$f$ a $S$, 
+	\[
+		f|_S\colon S\to S,\quad
+		s\mapsto f(s)
+	\]
+	es una transformación lineal, es decir: $f|_S\in\hom(S,S)$.
+\end{block}
+
+\begin{prop}[diagonalización simultánea]
+    \index{Diagonalización simultánea}
+    Sea $V$ de dimensión finita y sean $f,g\in\hom(V,V)$ tales que $f$ y $g$
+    son diagonalizables y $fg=gf$. Entonces existe una base de $V$ donde las
+    matrices de $f$ y $g$ son simultáneamente diagonalizables.
+
+    \begin{proof}
+        Como $f$ es diagonalizable, $V=S(\lambda_1)\oplus\cdots\oplus S(\lambda_k)$, donde
+        $S(\lambda_i)=\{v\in V:f(v)=\lambda_iv\}$. Cada $S(\lambda_i)$ es $g$-invariante pues
+        \[
+            f(g(v))=(fg)(v)=(gf)(v)=g(f(v))=g(\lambda v)=\lambda g(v).
+        \]
+        Luego $g|_{S(\lambda_i)}\in\hom(S(\lambda_i),S(\lambda_i))$ y además
+        $g|_{S(\lambda_i)}$ conmuta con $f$. Como $g$ es diagonalizable, para
+        cada $i\in\{1,\dots,k\}$ existe una base de $S(\lambda_i)$ formada por 
+        autovectores de $g|_{S(\lambda_i)}$. Como estos autovectores son
+        también autovectores de $f$, entonces $f|_{S(\lambda_i)}$ y
+        $g|_{S(\lambda_i}$ son simultáneamente diagonalizables.
+    \end{proof}
+\end{prop}
+
+\begin{prop}
+    Sea $V$ un espacio vectorial de dimensión finita y sea $f\in\hom(V,V)$. Si
+    $S\subseteq V$ es $f$-invariante entonces
+	\begin{enumerate}
+		\item $m_{f|_S}$ divide a $m_f$.
+		\item $\chi_{f|_S}$ divide a $\chi_f$.
+	\end{enumerate}
+
+	\begin{proof}
+		Supongamos que $\dim V=n$ y sea $\cB_S=\{v_1,\dots,v_s\}$ una base de $S$. Si
+		extendemos esta base de $S$ a una base
+		\[
+			\cB=\{v_1,\dots,v_s,v_{s+1},\dots,v_n\}
+		\]
+		de $V$ entonces
+		$m_{f|_S}=\lcm(m_{v_1},\dots,m_{v_s})$ y
+		$m_f=\lcm(m_{v_1},\dots,m_{v_n})$. Como entonces $m_{v_i}$ divide a
+		$m_f$ para cada $i\in\{1,\dots,s\}$, se tiene entonces que $m_{f|_S}$
+		divide a $m_f$.
+
+		Para demostrar la segunda afirmación, si escribamos a $f$ en la base
+		$\cB$ obtenemos la siguiente matriz por bloques:
+		\[
+			[f]_{\cB,\cB}=\begin{pmatrix}
+				A & \star\\
+				0 & \star
+			\end{pmatrix},
+		\]
+		donde $A=[f|_S]_{\cB_S,\cB_S}$. Existe entonces un polinomio
+		$q\in\K[X]$ tal que $\chi_f=\chi_{f|_S}q$, tal como queríamos
+		demostrar.
+	\end{proof}
+\end{prop}
+
+\begin{block}
+	Sea $V$ un espacio vectorial y sea $f\in\hom(V,V)$. Si $S\subseteq V$ es
+	$f$-invariante, un subespacio $T\subseteq V$ es un \textbf{complemento
+	invariante} para $S$ si $T$ es $f$-invariante y $S\oplus T=V$. 
+\end{block}
+
+\begin{example}
+	No siempre existen complementos invariantes: si
+	\[
+		f\colon\R^2\to\R^2,\quad
+		(x,y)\mapsto (0,x)
+	\]
+	entonces $S=\langle(0,1)\rangle$ es $f$-invariante pero no admite
+	complemento invariante pues todo autovector de $f$ pertenece a $S$.
+\end{example}
+
+\begin{block}
+	\label{block:XY}
+	Sean $V$ un espacio vectorial de dimensión finita, $f\in\hom(V,V)$ y
+	$S,T\subseteq V$ subespacios $f$-invariantes tales que $S\oplus T=V$. Si
+	$\cB_S=\{v_1,\dots,v_s\}$ es una base de $S$ y $\cB_T=\{w_1,\dots,w_t\}$ es
+	una base de $T$, entonces 
+	\[
+	\cB=\{v_1,\dots,v_s,w_1,\dots,w_t\}
+	\]
+	es una base de $V$. La matriz de $f$ en la base $\cB$ es la siguiente
+	matriz por bloques:
+	\[
+		[f]_{\cB,\cB}=\begin{pmatrix}
+			X & 0\\
+			0 & Y
+		\end{pmatrix},
+	\]
+	donde $X=[f|_S]_{\cB_S,\cB_S}$ y $Y=[f|_T]_{\cB_T,\cB_T}$. 
+\end{block}
+
+\begin{xca}
+    \label{xca:f_invariante}
+    Sea $V$ un espacio vectorial de dimensión finita, sea $f\in\hom(V,V)$ y 
+    sean $S$ y $T$ subespacios $f$-invariantes tales que $S\oplus T=V$.
+    Demuestre que entonces:
+	\begin{enumerate}
+		\item $\chi_f=\chi_{f|_S}\chi_{f|_T}$. 
+		\item $m_f=\lcm(m_{f|_S},m_{f|_T})$.
+	\end{enumerate}
+%
+%	\begin{proof}
+%		La primera afirmación es una consecuencia inmediata de lo visto
+%		en~\ref{block:XY}. Demostremos entonces la segunda afirmación. Sea
+%		$p=\lcm(m_{f|_S},m_{f|_T})$. Como $m_{f|_S}$ y $m_{f|_T}$ dividen a
+%		$f$, entonces $p$ divide a $m_f$. Por otro lado, por definición sabemos
+%		que $m_{f|_S}$ y $m_{f|_T}$ dividen a $p$.  Sea utilizamos la expresión
+%		por bloques para $f$ dada en~\ref{block:XY}, \framebox{completar}
+%	\end{proof}
+\end{xca}
+
+
+\begin{block}
+    \index{subespacio cíclico}
+    Sean $V$ un espacio vectorial, $v\in V$ y $f\in\hom(V,V)$. El subespacio
+    $C(v)=\langle v,f(v),f^2(v),\dots\rangle$ se denomina el \textbf{subespacio
+    cíclico} con respecto a $f$ generado por $v$. Queda como ejercicio
+    demostrar que $C(v)$ es un subespacio $f$-invariante.
+\end{block}
+
+\begin{lem}
+    \label{lem:dimC(v)=degm_v}
+	Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$. Si $v\in
+	V\setminus\{0\}$ entonces $\deg m_v=\dim C(v)$. En particular, si $\deg
+	m_v=d$ entonces el conjunto $\{v,f(v),\dots,f^{d-1}(v)\}$ es base de
+	$C(v)$. 
+
+	\begin{proof}
+		Supongamos que $\deg m_v=d$. 
+		Todo elemento de $C(v)$ es de la forma $p(f)(v)$ para algún
+		$p\in\K[X]$. Si $p\in\K[X]$, el algoritmo de división implica que
+		existen $r,q\in\K[X]$ tales que $p=qm_v+r$, donde $r=0$ o $\deg r<\deg 
+		m_v$. Al especializar esta igualdad en $f$ y evaluar en $v$,
+		\[
+			p(f)(v)=q(f)m_v(f)(v)+r(f)(v)=r(f)(v),
+		\]
+		y entonces $r(f)(v)\in C(v)$. Si escribimos $r=\sum_{i=0}^{d-1}\gamma_i
+		X^i$ entonces hemos demostrado que todo elemento de $C(v)$ puede
+		escribirse como combinación lineal de $\{v,\dots,f^{d-1}(v)\}$ Para ver
+		que $\{v,f(v),\dots,f^{d-1}(v)\}$ es linealmente independiente basta
+		observar que en caso contrario existiría un polinomio no nulo de grado
+		$<d$ que anula a $v$ con respecto a $f$, algo que contradice la
+		minimalidad de $m_v$. 
+	\end{proof}
+\end{lem}
+
+\begin{xca}
+	\label{xca:auxiliar}
+	Sea $V$ de dimensión finita, sea $f\in\hom(V,V)$ y sea $p\in\K[X]$.
+	Demuestre las siguientes afirmaciones:
+	\begin{enumerate}
+		\item $p(C(v))=C(p(v))$.
+		\item Si $V=V_1\oplus\cdots\oplus V_k$ donde cada $V_i$ es $p$-invariante, entonces
+			$p(V)=p(V_1)\oplus\cdots\oplus p(V_k)$. 
+        \item Si $m_v=m_w$ entonces $m_{p(v)}=m_{p(w)}$ y \[
+                \dim C(p(v))=\dim C(p(w)). 
+              \]
+	\end{enumerate}
+\end{xca}
+
+%\begin{block}
+%	Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$. Si $v\in
+%	V\setminus\{0\}$ entonces $m_{f|_C(v)}=m_v$. En efecto, si $p\in\K[X]$ entonces, como
+%	\[
+%		m_v\left(f|_{C(v)}\right)(p(f)(v))=m_v(f)(p(f)(v))=0,
+%	\]
+%	$m_v\left(f|_{C(v)}\right)=0$. Si $q\in\K[X]$ con $\deg q<\deg m_v$, entonces $q\left(f|_{C(v)}\right)(v)=q(f)(v)
+%\end{block}
+
+\begin{lem}
+	Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$. Entonces existe
+	$k\leq\dim V$ tal que $\{v,f(v),f^2(v),\dots,f^{k-1}(v)\}$ es base de
+	$C(v)$. Más aún, la matriz de $f$ con respecto a esa base es:
+	\[
+		\begin{pmatrix}
+			0 & 0 & \cdots & 0 & a_0\\
+			1 & 0 & \cdots & 0 & a_1\\
+			0 & 1 & \cdots & 0 & a_2\\
+			\vdots & \vdots & \ddots & \vdots & \vdots\\
+			0 & 0 & \cdots & 1 & a_{k-1}
+		\end{pmatrix},
+	\]
+	donde $f^k(v)=\sum_{i=0}^{k-1}a_if^i(v)$.
+
+	\begin{proof}
+        Sea $k$ el menor entero positivo tal que el conjunto
+        $\{v,f(v),\dots,f^{k-1}(v)\}$ es linealmente independiente y 
+		\[
+			f^k(v)\in\langle v,f(v),\dots,f^{k-1}(v)\rangle.
+		\]
+		Vamos a demostrar que $f^m(v)\in\langle v,f(v),\dots,f^{k-1}(v)\rangle$
+		para todo $m\geq k$. Procederemos por inducción en $m$. Como el caso
+		$m=k$ es trivial, suponemos que el resultado es válido para algún
+		$m\geq k$. Si
+		\[
+			f^{m}(v)\in\langle v,f(v),\dots,f^{k-1}(v)\rangle
+		\]
+		entonces existen
+		$\alpha_0,\dots,\alpha_{k-1}\in\K$ tales que 
+		\[
+		f^m(v)=\sum_{i=0}^{k-1}\alpha_if^i(v).
+		\]
+		Al aplicar $f$ se obtiene entonces que 
+		\begin{align*}
+			f^{m+1}(v)&=f\left(\sum_{i=0}^{k-1}\alpha_if^i(v)\right)\\
+			&=\sum_{i=0}^{k-2}\alpha_if^{i+1}(v)+\alpha_{k-1}f^k(v)\in\langle v,f(v),\dots,f^{k-1}(v)\rangle.
+		\end{align*}
+		Luego $k\leq\dim V$. Un cálculo directo muestra que la matriz de $f$ en
+		la base $\{v,f(v),\dots,f^{k-1}(v)\}$ tiene la forma deseada. 
+	\end{proof}
+\end{lem}
+
+\begin{thm}[forma racional de Frobenius]
+	\label{thm:subespacios_ciclicos}
+    Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$. Entonces existen
+    vectores no nulos $v_1,\dots,v_k\in V$ y polinomios mónicos $p_1,\dots,p_k\in\K[X]$
+    tales que
+    \begin{align*}
+        &V=C(v_1)\oplus\cdots\oplus C(v_k),
+    \end{align*}
+	$\deg p_i=\dim C(v_i)$, $p_i(f)(v_i)=0$ para todo $i\in\{1,\dots,k\}$ y además $p_i$ divide a $p_{i-1}$
+    para todo $i\in\{2,\dots,k\}$. Más aún, los polinomios $p_1,\dots,p_k$
+    están unívocamente determinados.
+
+	\begin{proof}
+		Procederemos por inducción en $\dim V$. Como el caso $\dim V=1$ es
+		trivial, vamos a suponer que el resultado es válido para todo
+		endomorfismo de un espacio vectorial de dimensión $<\dim V$. Sea $m$ la
+		mayor dimensión que puede tener un subespacio cíclico asociado a $f$.
+		Entonces existe $v_1\in V$ tal que $\dim C(v_1)=m$ y $\dim C(v)\leq m$
+		para todo $v\in V$, es decir: $\{v_1,f(v_1),\dots,f^{m-1}(v_1)\}$ es 
+		linealmente independiente y $f^m(v)\in\langle
+		v,f(v),\dots,f^{m-1}(v)\rangle$ para todo $v\in V$.  Si $m=\dim V$, no
+		hay nada que demostrar. Supongamos entonces que $m<\dim V$. Vamos a
+        construir un complemento de $C(v_1)$ que sea $f$-invariante. Sea $T$ la
+        transformación lineal definida por 
+		\[
+			T\colon V\to\K^{m\times 1},\quad
+			v\mapsto\colvec{4}{\varphi(v)}{\varphi(f(v))}{\vdots}{\varphi(f^{m-1}(v))},
+		\]
+		donde $\varphi\colon V\to\K$ es una funcional lineal que satisface 
+		\[
+			\varphi(f^{i}(v_1))=\begin{cases}
+			1 & \text{si $i=m-1$},\\
+			0 & \text{si $i\in\{0,\dots,m-2\}$}.
+		\end{cases}
+		\]
+		(La existencia de una $\varphi$ que cumple lo pedido queda garantizada
+		por el siguiente argumento: si extendemos
+		$\{v_1,f(v_1),\dots,f^{m-1}(v_1)\}$ a una base de $V$ podemos tomar
+		como $\varphi$ el vector de la base dual que vale uno en $f^{m-1}(v_1)$
+		y cero en el resto de los vectores.)
+
+		La restricción $T|_{C(v_1)}\colon C(v_1)\to\K^{m\times1}$ es un
+    	isomorfismo. En efecto, si $\{e_1,\dots,e_m\}$ es la base canónica de
+        $\K^{m\times1}$, un cálculo sencillo muestra que
+		\[
+		T|_{C(v_1)}(f^i(v_1))=e_{m-i}+\sum_{j=0}^{i-1}\gamma_{m-j}e_{m-j}.
+		\]
+		Luego $T|_{C(v_1)}$ es epimorfismo y como $\dim C(v_1)=m$ entonces
+		$T|_{C(v_1)}$ es un isomorfismo. 
+
+		El subespacio $\ker T$ es $f$-invariante. Para demostrar esta
+		afirmación hay que ver que $f(\ker T)\subseteq \ker T$. Si $v\in\ker T$
+		entonces $T(v)=0$ y luego $T(f^i(v))=0$ para todo
+		$i\in\{0,\dots,m-1\}$. Por otro lado,
+		\[
+		T(f(v))
+		=\colvec{5}{\varphi(f(v))}{\varphi(f^2(v))}{\vdots}{\varphi(f^{m-1}(v))}{\varphi(f^m(v))}
+		=\colvec{5}{0}{0}{\vdots}{0}{\varphi(f^m(v))}
+		\]
+		y $\varphi(f^m(v))=0$ pues $f^m(v)\in\langle
+		v,f(v),\dots,f^{m-1}(v)\rangle$.
+
+		Afirmamos que $V=C(v_1)\oplus \ker T$.  
+        Veamos que $C(v_1)\cap\ker T=\{0\}$.
+		Si $v\in C(v_1)\cap\ker T$ entonces $v\in\ker T|_{C(v_1)}=\{0\}$ pues
+		la restricción $T|_{C(v_1)}$ es un isomorfismo. 
+        Para demostrar que $V=C(v_1)+\ker T$
+		basta observar que
+		\begin{align*}
+			\dim V &= \dim\ker T+\dim\im T = \dim\ker T+m\\
+			&=\dim\ker T+\dim C(v_1)=\dim(\ker T+\dim C(v_1)).
+		\end{align*}
+	
+		Afirmamos que $p_1(f)(v)=0$ para todo $v\in V$.  Como $V=C(v_1)\oplus
+		\ker T$ y $p_1(f)(f^{i}(v))=0$ para todo $i\geq0$ pues $p(f)\circ
+		f=f\circ p(f)$, es necesario demostrar que $p_1(f)(w)=0$ para todo
+		$w\in \ker T$. Si $w\in \ker T$ entonces existen
+		$\gamma_0,\dots,\gamma_{m-1}\in\K$ tales que 
+		\begin{align*}
+			f^m(v_1+w)=\sum_{i=0}^{m-1}\gamma_i f^i(v_1+w)=\sum_{i=0}^{m-1}\gamma_if^i(v_1)+\sum_{i=0}^{m-1}\gamma_if^i(w).
+		\end{align*}
+		Luego, como $\ker T$ es $f$-invariante, 
+		\[
+		f^m(v_1)-\sum_{i=0}^{m-1}\gamma_if^i(v_1))=\sum_{i=0}^{m-1}\gamma_if^i(w)-f^m(w)\in C(v_1)\cap W=\{0\}.
+		\]
+		Como
+		$\sum_{i=0}^{m-1}\gamma_if^i(v_1)=f^m(v_1)=\sum_{i=0}^{m-1}\alpha_if^i(v_1)$,
+		entonces $\alpha_i=\gamma_i$ para todo $i\in\{0,\dots,m-1\}$. Tenemos
+		entonces
+		\[
+			0=p_1(f)(v_1+w)=p_1(f)(v_1)+p_1(f)(w)=p_1(f)(w)
+		\]
+		para todo $w\in \ker T$.
+
+        Hemos demostrado que $p_1=m_{v_1}$ y que $V=C(v_1)\oplus \ker T$, donde
+        $C(v_1)$ y $\ker T$ son subespacios $f$-invariantes.  Esto nos permite
+        descomponer a $f$ en una matriz por bloques
+        \[
+            \begin{pmatrix}
+                C_{p_1} \\
+                & [f|_{\ker T}]
+            \end{pmatrix}.
+        \]
+        Además, como $\dim\ker T<\dim V$, la hipótesis inductiva implica que
+        $\ker T=C(v_2)\oplus\cdots\oplus C(v_k)$ y que la matriz $[f|_{\ker
+        T}]$ puede descomponerse como suma directa de matrices compañeras de
+		ciertos polinomios mónicos $p_2,\dots,p_k\in\K[X]$ tales que: 
+		\begin{enumerate}
+			\item $p_i(f|_{ker T})(v_i)=0$ para cada $i\in\{2,\dots,k\}$,
+			\item $\deg p_i=\dim C(v_i)$ para cada $i\in\{2,\dots,k\}$, 
+			\item $p_j$ divide a $p_{j-1}$ para cada $j\in\{3,\dots,k\}$. 
+		\end{enumerate}
+
+		Demostremos que $p_i(f)(v_i)=0$ para cada $i\in\{1,\dots,k\}$. Ya vimos
+		que $p_1(f)(v_1)=0$. Sea entonces $i\in\{2,\dots,k\}$.  Como
+		$v_i\in\ker T$, 
+		\[
+		p_i(f)(v_i)=p_i\left(f|_{\ker T}\right)(v_i)=0
+		\]
+		por hipótesis inductiva. 
+
+		Demostraremos que $p_2$ divide a $p_1$.  Sea $d=\deg p_2\leq\deg p_1$.
+		Entonces, como $d=\dim C(v_2)$, el conjunto
+		$\{v_2,f(v_2),\dots,f^{d-1}(v_2)\}$ es linealmente independiente.  Por
+		el algoritmo de división, existen $q,r\in\K[X]$ tales que $p_1=qp_2+r$,
+		donde $\deg r< \deg p_2=d$ si $r\ne0$. Al especializar en $f$ y evaluar
+		en $v_2$ se obtiene:
+        \[
+            0=p_1(f)(v_2)=q(f)p_2(f)(v_2)+r(f)(v_2)=r(f)(v_2).
+        \]
+		En particular, existen entonces $\beta_0,\dots,\beta_{d-1}\in\K$ tales
+		que
+        \[
+            0=r(f)(v_2)=\sum_{i=0}^{d-1}\beta_if^i(v_2).
+        \]
+		Como el conjunto $\{v_2,f(v_2),\dots,f^{d-1}(v_2)\}$ es linealmente
+		independiente, entonces $\beta_j=0$ para todo $j\in\{0,\dots,d-1\}$ y
+		luego $r=0$. 
+       
+		Veamos la unicidad de los polinomios $p_1,\dots,p_k$.  Supongamos que
+		se tiene otra descomposición en subespacios cíclicos
+        \[
+            V=C(w_1)\oplus\cdots\oplus C(w_l)
+        \]
+        cuyos polinomios $q_1,\dots,q_l\in\K[X]$ satisfacen:
+		\begin{enumerate}
+			\item $q_i(f)(w_i)=0$ para cada $i\in\{1,\dots,l\}$,
+			\item $\deg q_i=\dim C(w_i)$ para cada $i\in\{1,\dots,l\}$, 
+			\item $q_j$ divide a $q_{j-1}$ para cada $j\in\{2,\dots,l\}$. 
+		\end{enumerate}
+		Vamos a demostrar que $k=l$ y que $p_i=q_i$ para todo
+		$i\in\{1,\dots,k\}$.  Como $q_j$ divide a $q_{j-1}$ para todo
+		$j\in\{2,\dots,l\}$ entonces $\dim C(w_1)\geq \dim C(w_j)$ para todo
+		$j\in\{2,\dots,l\}$. 
+		Primero observamos que $p_1=q_1=m_f$. En efecto, como $p_1(f)(v)=0$ para todo
+        $v\in V$ entonces $p_1(f)=0$ y luego $\deg m_f\leq p_1$. Por otro lado,
+        como $\{v_1,f(v_1),\dots,f^{m-1}(v_1)\}$ es linealmente
+        independiente, el conjunto $\{\id_V,f,\dots,f^{m-1}\}$ es también
+        linealmente independiente, y luego $\deg m_f\geq m=\deg p_1$.  Como
+        $m_f$ y $p_1$ son polinomios mónicos, concluimos que $m_f=p_1$.  Como
+        $q_j$ divide a $q_1$ para todo $j\in\{1,\dots,l\}$ entonces
+        $q_1(f)(w_j)=0$ para todo $j\in\{1,\dots,l\}$. Además, como
+        $q_1(f)\circ f=f\circ q_1(f)$, entonces $q_1(f)(v)=0$ para todo $v\in
+        V$. Tal como se demostró que $p_1=m_f$, se demuestra que $q_1=m_f=p_1$. 
+
+        Supongamos que $k\geq2$. Como $p_1=q_1$, 
+		\[
+			\dim C(w_1)=\dim C(v_1)<\dim V
+		\]
+        y luego $l\geq2$.  El ejercicio~\ref{xca:auxiliar} implica que de la
+        dos descomposiciones que se tienen para $V$ se obtiene que  
+        \[
+		p_2(V)=\bigoplus_{i=1}^k p_2(C(v_i))=\bigoplus_{i=1}^lp_2(C(w_i)).
+        \]
+        Como $\dim C(p_2(v_1))=\dim C(p_2(w_1))$ y como $p_2(f)(v_i)=0$ para
+        todo $i\in\{2,\dots,k\}$, entonces $\dim C(p_2(w_j))=0$ para todo
+        $j\in\{2,\dots,l\}$. Como en particular $p_2(w_2)=0$, se concluye que
+        $q_2$ divide a $p_2$. Similarmente se demuestra que $p_2$ divide a
+        $q_2$.  Como los polinomios $p_2$ y $q_2$ son mónicos, entonces
+        $p_2=q_2$. 
+    \end{proof}
+\end{thm}
+
+\begin{block}
+	La descomposición de $V$ del teorema~\ref{thm:subespacios_ciclicos} implica
+	la existencia de una base de $V$ en la que la matriz de $f$ tiene la forma
+    \[
+    \begin{pmatrix}
+        C_{p_1} \\
+        & C_{p_2}\\
+        &&\ddots \\
+        &&& C_{p_k}
+    \end{pmatrix},
+	\]
+	donde las matrices $C_{p_1},\dots,C_{p_k}$ son las matrices compañeras de
+	los polinomios $p_1,\dots,p_k$ respectivamente. Recordemos que 
+    si $p=X^{m}-\sum_{i=0}^{m-1}a_iX^i$ entonces 
+	\[
+    C_{p}=\begin{pmatrix}
+        0 & 0 & \cdots & 0 & a_0\\
+        1 & 0 & \cdots & 0 & a_1\\
+        0 & 1 & \cdots & 0 & a_2\\
+        \vdots & \vdots & \ddots & \vdots & \vdots\\
+        0 & 0 & \cdots & 1 & a_{m}
+    \end{pmatrix}.
+    \]
+	Es evidente además que $\chi_f=p_1\cdots p_k$. Los polinomios
+	$p_1,\dots,p_k$ del teorema~\ref{thm:subespacios_ciclicos} son los
+	\textbf{factores invariantes} de $f$. 
+\end{block}
+
+\begin{example}
+	Sea
+	\[
+		f\colon\R^3\to\R^3,\quad
+		f(x,y,z)=(5x-6y-6z,-x+4y+2z,3x-6y-4z).
+	\]
+	Un cálculo directo muestra que 
+	\[
+	\chi_f=(X-1)(X-2)^2,\quad
+	m_f=(X-1)(X-2).
+	\]
+	La forma racional aplicada a $f$ implica que $\R^3=C(v_1)\oplus C(v_2)$, donde
+	$\dim C(v_1)=2$ y $\dim C(V_2)=1$. Los factores invariantes son entonces
+	$p_1=m_f$ y $p_2=X-2$. Luego, con respecto a la base $\{v_1,f(v_1),v_2\}$,
+	la transformación lineal $f$ tendrá la forma
+	\[
+		\begin{pmatrix}
+			0 & -2 & 0\\
+			1 & 3 & 0\\
+			0 & 0 & 2
+		\end{pmatrix}.
+	\]
+	Es fácil encontrar el vector $v_1$. En efecto, basta tomar cualquier $v_1$
+	que no sea autovector. Por ejemplo, si $v_1=(1,1,1)$ entonces
+	$f(v_1)=(-7,5,-7)$ y $\{v_1,f(v_1)\}$ es linealmente independiente. Para
+	encontrar $v_2$ necesitamos un autovector, por ejemplo $f(v_2)=(2,1,0)$. En
+	la base \[
+		\{(1,1,1),(-7,5,-7),(2,1,0)\}
+	\]
+	la matriz de $f$ tiene la forma
+	deseada. 
+\end{example}
+
+\begin{cor}[Cayley--Hamilton]
+	\label{thm:CayleyHamilton}
+    Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$. Entonces $\chi_f(f)=0$,
+    es decir: $m_f$ divide a $\chi_f$. 
+
+    \begin{proof}
+        Si utilizamos la forma racional sobre $f$, tenemos que existen
+        $p_1,\dots,p_k\in\K[X]$ tales que $\chi_f=p_1\dots p_k$ y además
+        $p_1=m_f$. Luego $m_f$ divide a $\chi_f$.
+    \end{proof}
+\end{cor}
+
+%\begin{block}
+%	Como corolario de la forma racional se obtiene una demostración alternativa
+%	del teorema de Cayley--Hamilton. En efecto, vimos que $\chi_f=p_1\dots p_k$
+%	y además $p_1=m_f$. Luego $m_f$ divide a $\chi_f$.
+%\end{block}
+
+%Más aún, existe una base de $V$ tal que la
+%    matriz de $f$ con respecto a esa base es de la forma
+%    \[
+%    \begin{pmatrix}
+%        C_{p_1} \\
+%        & C_{p_2}\\
+%        &&\ddots \\
+%        &&& C_{p_k}
+%    \end{pmatrix},
+%    \quad
+%    C_{p_i}=\begin{pmatrix}
+%        0 & 0 & \cdots & 0 & a_0^{i}\\
+%        1 & 0 & \cdots & 0 & a_1^{i}\\
+%        0 & 1 & \cdots & 0 & a_2^{i}\\
+%        \vdots & \vdots & \ddots & \vdots & \vdots\\
+%        0 & 0 & \cdots & 1 & a_{m_k}^{i}
+%    \end{pmatrix}
+%    \]
+%    si $p_i=X^{m_k}-\sum_{i=0}^{m_k-1}a_iX^i$. 
+%    % 
+%    %que $p_i(f)(v_i)=0$ para todo $i\in\{1,\dots,k\}$ y $V$ admite la siguiente
+%    %descomposición como suma de subespacios $f$-invariantes:
+%	%\[
+%	%\]
+%    %Valen además las
+%    %siguientes afirmaciones:
+%    %\begin{enumerate}
+%    %    \item Existe una base $\cB$ de $V$ tal que 
+%    %        \[
+%    %        [f]_{\cB,\cB}=\begin{pmatrix}
+%    %            C_{p_1} \\
+%    %            & C_{p_2}\\
+%    %            &&\ddots \\
+%    %            &&& C_{p_k}
+%    %        \end{pmatrix},
+%    %        \]
+%    %        donde cada $C_{p_i}$ es la matriz compañera de $p_i$. 
+%    %    \item $\chi_f=p_1\cdots p_k$.
+%    %    \item $p_i$ divide a $p_{i-1}$ para cada $i\in\{2,\dots,k\}$.
+%    %    \item Los polinomios $p_1,\dots,p_k\in\K[X]$ están unívocamente
+%    %        determinados. 
+%    %\end{enumerate}
+
+%\begin{cor}
+%	Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$. Entonces:
+%	\begin{enumerate} 
+%		\item Existe
+%			una base $\cB$ de $V$ tal que
+%			\[
+%			[f]_{\cB,\cB}=\begin{pmatrix}
+%				C_{p_1} \\
+%				& C_{p_2}\\
+%				&&\ddots \\
+%				&&& C_{p_k}
+%			\end{pmatrix},
+%			\]
+%			donde cada $C_{p_i}$ es la matriz compañera de un 
+%			$p_i\in\K[X]$. 
+%		\item $\chi_f=p_1\cdots p_k$. 
+%		\item $\dim\ker(f-\lambda\id_V)=|\{i\in\{1,\dots,k\}:\;
+%			p_i(\lambda)=0\}|$.
+%		\item $f$ es diagonalizable si y sólo si todas las $C_{p_i}$ tiene
+%			autovalores distintos.
+%	\end{enumerate}
+%
+%	\begin{proof}
+%		
+%	\end{proof}
+%\end{cor}
+
+%\begin{cor}[forma canónica de Frobenius]
+%	Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$. Entonces existe una base
+%	$\cB$ de $V$ y existen únicos polinomios mónicos $p_1,\dots,p_k\in\K[X]$
+%	tales que 
+%	\[
+%	[f]_{\cB,\cB}=\begin{pmatrix}
+%		C_{p_1} \\
+%		& C_{p_2}\\
+%		&&\ddots \\
+%		&&& C_{p_k}
+%	\end{pmatrix},
+%	\]
+%	donde cada $C_{p_i}$ es la matriz compañera de $p_i$, y $p_j$ 
+%	divide a $p_{j-1}$ para cada $j\in\{2,\dots,k\}$. 
+%
+%	\begin{proof}
+%		Utilizaremos la misma descomposición en subespacios cíclicos que vimos
+%		en el teorema~\ref{thm:subespacios_ciclicos}. Sea $m$ la mayor
+%		dimensión que puede tener un subespacio cíclico asociado a $f$.
+%		Entonces existe $v_1\in V$ tal que $\{v_1,f(v_1),\dots,f^{m-1}(v_1)\}$
+%		es un conjunto linealmente independiente y $f^m(v)\in\langle
+%		v,f(v),\dots,f^{m-1}(v)\rangle$ para todo $v\in V$. La descomposición
+%		ciclica vista en el teorema~\ref{thm:subespacios_ciclicos} afirma que
+%		existe $p_1\in\K[X]$, digamos
+%		\[
+%			p_1 = X^m-\alpha_{n-1}X^{n-1}-\cdots-\alpha_1X-\alpha_0,
+%		\]
+%		tal que $p_1(f)(v_1)=0$ y además nos permite escribir $V=C(v_1)\oplus
+%		W$, donde $W$ es un subespacio $f$-invariante. 
+%		
+%		Afirmamos que
+%		$p_1(f)(v)=0$ para todo $v\in V$. Como $V=C(v_1)\oplus W$ y
+%		$p_1(f)(f^{i}(v))=0$ para todo $i\geq0$ pues $p(f)\circ f=f\circ p(f)$,
+%		es necesario demostrar que $p_1(f)(w)=0$ para todo $w\in W$. Si $w\in
+%		W$ entonces existen $\gamma_0,\dots,\gamma_{m-1}\in\K$ tales que 
+%		\begin{align*}
+%			f^m(v_1+w)=\sum_{i=0}^{m-1}\gamma_i f^i(v_1+w)=\sum_{i=0}^{m-1}\gamma_if^i(v_1)+\sum_{i=0}^{m-1}\gamma_if^i(w).
+%		\end{align*}
+%		Luego, como $W$ es $f$-invariante, 
+%		\[
+%		f^m(v_1)-\sum_{i=0}^{m-1}\gamma_if^i(v_1))=\sum_{i=0}^{m-1}\gamma_if^i(w)-f^m(w)\in C(v_1)\cap W=\{0\}.
+%		\]
+%		Como
+%		$\sum_{i=0}^{m-1}\gamma_if^i(v_1)=f^m(v_1)=\sum_{i=0}^{m-1}\alpha_if^i(v_1)$,
+%		entonces $\alpha_i=\gamma_i$ para todo $i\in\{0,\dots,m-1\}$. Tenemos entonces
+%		\[
+%			0=p_1(f)(v_1+w)=p_1(f)(v_1)+p_1(f)(w)=p_1(f)(w)
+%		\]
+%		para todo $w\in W$.
+%
+%		El mismo argumento aplicado a $W$ nos dice que existe $v_2\in W$ y
+%		existe $p_2\in\K[X]$ con $d=\deg p_2\leq\deg p_1$ tal que
+%		$\{v_2,f(v_2),\dots,f^{d-1}(v_2)\}$ es un conjunto linealmente
+%		independiente y $f^d(w)\in\langle w,f(w),\dots,f^{d-1}(w)\rangle$ para
+%		todo $w\in V$.  Por el algoritmo de división, existen $q\in\K[X]$ y
+%		$r\in\K[X]$ tales que $p_1=p_2q+r$, donde $r=0$ o $\deg r<\deg p_2$.
+%		Pero entonces
+%		\[
+%			0=p_1(f)(v_2)=q(f)p_2(f)(v_2)+r(f)(v_2)=r(f)(v_2).
+%		\]
+%		Existen entonces $\beta_1,\dots,\beta_{d-1}\in\K$
+%		tales que 
+%		\[
+%			r(f)(v_2)=\beta_0v_2+\beta_1f(v_2)+\cdots+\beta_{d-1}f^{d-1}(v_2)=0.
+%		\]
+%		Como por construcción $\{v_2,f(v_2),\dots,f^{d-1}(v_2)\}$ es
+%		linealmente indendiente, $\beta_j=0$ para todo $j$ y luego $r=0$.
+%
+%		Veamos que los polinomios $p_1$ y $p_2$ son únicos. Primero observemos
+%		que $p_1=m_f$. En efecto, como $p_1(f)(v)=0$ para todo $v\in V$
+%		entonces $p_1(f)=0$ y luego $\deg m_f\leq p_1$. Por otro lado, como
+%		$\{v_1,f(v_1),\dots,f^{m-1}(v_1)\}$ es linealmente independiente, el
+%		conjunto $\{\id_V,f,\dots,f^{m-1}\}$ es también linealmente
+%		independiente, y luego $\deg m_f\geq m=\deg p_1$. Como $m_f$ y $p_1$
+%		son polinomios mónicos, concluimos que $m_f=p_1$. Para demostrar que
+%		$p_2$ es único supongamos que se tienen dos descomposiciones
+%		\[
+%			V=C(v_1)\oplus W=C(v_1')\oplus W'.
+%		\]
+%		Las matrices de $f$ con respecto a estas descomposiciones son matrices
+%		semejantes y son matrices por bloques de la forma
+%		\begin{align*}
+%			&
+%			\begin{pmatrix}
+%				C_{p_1} & 0 \\
+%				0 & [f|_W]
+%			\end{pmatrix},
+%			&&
+%			\begin{pmatrix}
+%				C_{p_1} & 0\\
+%				0 & [f|_{W'}
+%			\end{pmatrix}.
+%		\end{align*}
+%		\framebox{completar}
+%	\end{proof}
+%\end{cor}
+
+\begin{example}
+    Las matrices $E_{21}\in\C^{4\times4}$ y $E_{21}+E_{43}\in\C^{4\times4}$
+    tienen a $X^4$ como polinomio característico y a $X^2$ como polinomio
+    minimal. Sin embargo, tienen disinta forma racional.
+\end{example}
+
+
+
+\section{Endomorfismos nilpotentes}
+
+\begin{block}
+    \index{nilpotente!endomorfismo}
+    \index{nilpotente!matriz}
+    Sea $V$ un espacio vectorial y sea $f\in\hom(V,V)$. Entonces $f$ es
+    \textbf{nilpotente} si existe $m\in\N$ tal que $f^m=0$.
+
+	Si $f\in\hom(V,V)$ es nilpotente, el
+    número
+    \[
+        r=\min\{m\in\N:f^m=0\}
+    \]
+    se denomina \textbf{índice de nilpotencia} de $f$.
+\end{block}
+
+\begin{example}
+	Sea \[
+		f\colon\R^3\to\R^3,\quad
+		(x,y,z)\mapsto (-x+2y+z,0,-x+2y+z).
+	\]
+    Entonces $f$ es nilpotente con índice de nilpotencia igual a dos.
+\end{example}
+
+\begin{example}
+    Sea $V$ un espacio vectorial de dimensión finita $n$ y sea
+    $\{v_1,\dots,v_n\}$ una base de $V$. La aplicación
+    $f\colon V\to V$ definida por
+    \[
+    f(v_i)=\begin{cases}
+        v_{i+1} & \text{si $i<n$},\\
+        0 & \text{si $i=n$},
+    \end{cases}
+    \]
+    es nilpotente de índice $n$ pues $f^n=0$ y $f^{n-1}\ne0$. 
+\end{example}
+
+
+\begin{xca}
+    \label{xca:nilpotente_y_diagonalizable=0}
+    Sea $V$ un espacio vectorial de dimensión finita y sea $f\in\hom(V,V)$
+    nilpotente y diagonalizable. Demuestre que $f=0$.
+\end{xca}
+
+\begin{xca}
+    \label{xca:nilpotente:autovalores}
+    Sea $V$ un espacio vectorial y sea $f\in\hom(V,V)$ nilpotente. Demuestre
+    que $\spec f=\{0\}$. 
+\end{xca}
+
+\begin{prop}
+    Sea $V$ de dimensión finita y $f\in\hom(V,V)$. Entonces $f$ es nilpotente
+    de índice $k$ si y sólo si $m_f=X^k$. 
+
+	\begin{proof}
+        Si $f^k=0$ y $f^{k-1}\ne0$ entonces $X^k$ anula a $f$. Luego $m_f$
+        divide a $X^k$ y entonces $m_f=X^j$ para algún $j\in\{1,\dots,k\}$.
+        Como $f^{k-1}\ne0$ entonces $m_f=X^k$.  Recíprocamente, si $m_f=X^k$
+        entonces, trivialmente, $f^k=0$ y $f^{k-1}\ne0$. 
+	\end{proof}
+\end{prop}
+
+\begin{prop}
+	Sea $V$ un espacio vectorial de dimensión finita y sea $f\in\hom(V,V)$
+	nilpotente de índice $r$. Sea $v\in V$ tal que $f^{r-1}(v)\ne0$. Entonces
+	$\{v,f(v),\dots,f^{r-1}(v)\}$ es linealmente independiente. En particular,
+	$r\leq\dim V$.
+
+    \begin{proof}
+        Si $r=1$ entonces el resultado es válido pues $v\ne0$. Si $r\geq2$
+        entonces sean $a_0,\dots,a_{r-1}\in\K$ tales que
+        $\sum_{i=0}^{r-1}a_if^i(v)=0$.  Al aplicar $f^{r-1}$ obtenemos
+		\[
+		0=f^{r-1}\left(\sum_{i=0}^{r-1}a_if^i(v)\right)=\sum_{i=0}^{r-1}a_if^{r-1+i}(v)=a_0f^{r-1}(v).
+		\]
+		pues $f^{r-1+i}(v)=0$ si $i>0$. Como $f^{r-1}(v)\ne0$ entonces $a_0=0$.
+		Queda entonces $a_1f(v)+\cdots+a_{r-1}f^{r-1}(v)=0$. Al aplicar $f^{r-2}$
+		en esta igualdad se obtiene, tal como se hizo antes, que $a_1=0$. Este
+		proceso nos da entonces que $a_i=0$ para todo $i$.
+    \end{proof}
+\end{prop}
+
+\begin{example}
+	Si $V$ tiene dimensión $n$ y $f\in\hom(V,V)$ es nilpotente de índice $n$
+	entonces $\{v,f(v),\dots,f^{n-1}(v)\}$ es una base de $V$. Luego, en esa
+	base, la matriz $f$ es de la forma 
+	\[
+		\begin{pmatrix}
+			0 & 0 & \cdots & 0 & 0\\
+			1 & 0 & \cdots & 0 & 0\\
+			0 & 1 & \cdots & 0 & 0\\
+			\vdots & \vdots & \ddots & \vdots & \vdots\\
+			0 & 0 & \cdots & 1 & 0
+		\end{pmatrix}
+	\]
+	y se denomina \textbf{bloque de Jordan nilpotente} de $f$.
+\end{example}
+
+\begin{thm}
+    \label{thm:Jordan:nilpotente}
+    \index{Jordan!forma de}
+    Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$ nilpotente de índice $r$.
+    Entonces existe una base de $V$ tal que $f$ en esa base es de la forma 
+	\[
+		\begin{pmatrix}
+			J_1 & 0 & \cdots & 0\\
+			0 & J_2 & \cdots & 0\\
+			\vdots & \vdots & \ddots & \vdots \\
+			0 & 0 & \cdots & J_k
+		\end{pmatrix}
+	\]
+	donde cada $J_i$ es un bloque de Jordan nilpotente de tamaño $n_{i}\times
+	n_{i}$ y además $r=n_1\geq n_2\geq\cdots\geq n_k\geq1$. 
+
+	\begin{proof}
+        La forma racional de Frobenius, teorema~\ref{thm:subespacios_ciclicos},
+        implica que existen $v_1,\dots,v_k\in V$ y polinomios mónicos 
+        $p_1,\dots,p_k\in\K[X]$ tales que $V=C(v_1)\oplus\cdots\oplus C(v_k)$,
+        $\deg p_i=\dim C(v_i)$ y $p_i(f)(v_i)=0$ para todo $i\in\{1,\dots,k\}$
+        y $p_i$ divide a $p_{i-1}$ para todo $i\in\{2,\dots,k\}$. Como $f$ es
+        nilpotente de índice $r$, entonces $p_1=m_f=X^r$. Luego todo $p_i$ es
+        de la forma $X^{n_i}$, donde $n_1=r$, $n_1\geq n_2\geq\cdots\geq
+        n_k\geq1$.  La matriz de $f$ asociada a esta descomposición en
+        subespacios $f$-invariantes es entonces de la forma deseada.
+	\end{proof}
+\end{thm}
+
+\begin{block}
+    \label{block:rg(J^k)}
+	Observemos que si $J$ es una matriz de Jordan nilpotente de $n\times n$
+	entonces $\rg (J^i)=n-i$ para todo $i\in\{0,\dots,n\}$. En efecto, sea
+	$\{v_1,\dots,v_n\}$ una base de $\K^{n\times1}$. Entonces la aplicación
+	lineal $J\colon\K^{n\times 1}\to\K^{n\times1}$ dada por $x\mapsto Jx$
+	satisface
+    \[
+    J(v_i)=\begin{cases}
+        v_{i+1} & \text{si $i<n$},\\
+        0 & \text{si $i=n$}.
+    \end{cases}
+    \]
+    Entonces $J$ tiene rango uno. Por inducción es fácil ver que 
+    \[
+        J^k(v_i)=\begin{cases}
+            v_{i+k} & \text{si $i+k-1<n$},\\
+            0 & \text{en otro caso}.
+        \end{cases}
+    \]
+    y luego $\dim\im J^k=n-k$ y $\rg(JP^k)=n-k$. 
+\end{block}
+
+\begin{cor}
+	\label{cor:Jordan:nilpotente}
+    Sea $V$ de dimensión finita y $f\in\hom(V,V)$ nilpotente de índice $r$.
+    Valen las siguientes afirmaciones:
+    \begin{enumerate}
+        \item La cantidad de bloques de Jordan de $f$ es $\dim\ker f=n-\dim\im f$. 
+        \item El bloque de Jordan de $f$ de tamaño máximo es de $r$. 
+        \item Para cada $i\in\{1,\dots,r-1\}$ la cantidad de bloques de Jordan
+            de $f$ de tamaño $\geq i$ es $\dim\im f^i-\dim\im f^{i+1}$. 
+        \item Para cada $i\in\{1,\dots,r-1\}$, la cantidad de bloques de Jordan
+            de tamaño $i$ es $\dim\im f^{i+1}-2\dim\im f^i+\dim
+            f^{i-1}$. 
+    \end{enumerate}
+
+    \begin{proof}
+		Para demostrar la primera afirmación observemos que si hay $k$ bloques
+		de Jordan entonces $n=\dim\im f+k$ pues cada bloque de Jordan de tamaño
+		$d\times d$ tiene rango igual a $d-1$. 
+
+		Para demostrar la segunda afirmación obvervamos que $m_f=X^r$ y que el
+		primer bloque de Jordan tiene tamaño igual a $\deg m_f$ pues el primer
+		factor invariante de $f$ es $m_f$. 
+
+		Para la tercera afirmación, para cada $i\in\{1,\dots,r-1\}$. Sea $n_i$
+		la cantidad de bloques de Jordan de tamaño $i$. Entonces, por lo visto
+		en~\ref{block:rg(J^k)}, si agrupamos todos los bloques de tamaño $j$
+		para cada $j\in\{i,\dots,r-1\}$ obtenemos:
+        \begin{align*}
+            \dim \im f^i-\dim\im f^{i+1}&=\sum_{j=i+1}^k n_j(j-i)-\sum_{j=i+2}^kn_j(j-i+1)
+            =\sum_{j=i+1}^kn_j,
+        \end{align*}
+        que es la cantidad de bloques de tamaño $\geq i$. 
+
+        Por ultimo, por la fórmula vista en el ítem anteior, la cantidad
+        de bloques de Jordan de $f$ de tamaño $i$ es
+        \begin{align*}
+            n_i&=\sum_{j=i}^kn_j-\sum_{j=i+1}^kn_j\\
+            &=\dim\im f^{i-1}-\dim\im f^i-(\dim\im f^i-\dim\im f^{i+1}),
+        \end{align*}
+        que es lo que queríamos demostrar.
+    \end{proof}
+\end{cor}
+
+\begin{example}
+    Demostremos que no existe una matriz $A\in\R^{15\times15}$ tal que
+    $\rg(A)=10$, $\rg(A^4)=3$ y $\rg(A^5)=0$. Por el corolario anterior, como
+    $A$ es nilpotente, $A$ tiene una forma de Jordan que contiene $15-\rg(A)=5$
+    bloques, donde el bloque más grande es de $5\times 5$. Además $A$ tiene
+    \[
+        \rg(A^6)-2\rg(A^5)+\rg(A^4)=3
+    \]
+    bloques de tamaño $5$, una contradicción. 
+\end{example}
+
+\begin{example}
+	Sea
+	\[
+		A=\begin{pmatrix}
+			0 & 0 & 0 & 0 & 0 & 0\\
+			1 & 0 & 0 & 0 & 0 & 0\\
+			-1 & -1 & 0 & 0 & 0 & 0\\
+			0 & 1 & 0 & 0 & 1 & 0\\
+			-1 & 0 & 0 & 0 & 0 & 0\\
+			1 & 0 & 0 & 0 & -1 & 0
+		\end{pmatrix}\in\R^{6\times6}.
+	\]
+	Entonces $\chi_A=X^6$, $m_A=X^3$ y $A$ es nilpotente de índice tres. Como
+	$\rg(A)=3$ entonces $\dim\ker A=3$ y luego, por el
+	corolario~\ref{cor:Jordan:nilpotente}, la forma de Jordan de $A$ tendrá
+	tres bloques de Jordan. Como $A$ es nilpotente de índice tres, el mayor de
+	estos bloques de Jordan será de $3\times3$. La forma de Jordan de $A$ será
+	entonces
+	\begin{align*}
+		J=
+		\begin{pmatrix}
+			J_1\\
+			& J_2\\
+			&& J_3
+		\end{pmatrix},
+		&&
+		J_1=\begin{pmatrix}
+			0 & \\  
+			1 & 0\\
+			0 & 1 & 0
+		\end{pmatrix},
+		&&
+		J_2=\begin{pmatrix}
+			0\\
+			1 & 0\\
+		\end{pmatrix},
+		&&
+		J_3=\begin{pmatrix}
+			0
+		\end{pmatrix}.
+	\end{align*}
+
+	Sea $\{e_1,\dots,e_6\}$ la base canónica de $\R^{6\times1}$. Un cálculo
+	directo muestra que $\dim C(e_1)=3$, $\dim C(e_2)=2$, $\dim C(e_3)=1$ y que
+	además $\{e_1,Ae_1,A^2e_1,e_2,Ae_2,a_3\}$ es una base de $\R^{6\times1}$.
+	En esa base, la matriz de la transformación lineal $\R^{6\times1}\to\R^{6\times1}$ dada
+	por $x\mapsto Ax$, es la matriz $J$. 
+\end{example}
+
+%\section{Forma de Jordan para endomorfismos nilpotentes}
+%
+%\begin{lem}
+%	Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$ nilpotente de índice $r$. Entonces
+%	\[
+%		\{0\}\subsetneq \ker f\subsetneq\ker f^2\subsetneq\cdots\subsetneq\ker f^k=V.
+%	\]
+%
+%	\begin{proof}
+%		Como las inclusiones son evidentes, es necesario ver que son estrictas.
+%		Como $f$ es nilpotente de índice $r$, existe $v\in V$ tal que
+%		$f^r(v)=0$ y $f^{r-1}(v)\ne0$.  Sea $i\in\{0,\dots,r-1\}$ y sea
+%		$w=f^{r-(i+1)}(v)\in V$. Entonces $w\in\ker f^{i+1}$ pues
+%		$f^{i+1}(w)=f^r(v)=0$ y además $w\not\in\ker f^i$ pues
+%		$f^{i}(w)=f^{r-1}(v)$. 
+%	\end{proof}
+%\end{lem}
+%
+%\begin{lem}
+%	Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$. Sea $i\in\N$ y sea
+%	$\{v_1,\dots,v_r\}\subseteq V$ un conjunto linealmente independiente tal
+%	que 
+%	\[
+%		\ker f^i\cap\langle v_1,\dots,v_r\rangle=\{0\}.
+%	\]
+%	Entonces $\{f(v_1),\dots,f(v_r)\}$ es linealmente independiente y 
+%	\[
+%		\ker f^{i-1}\cap\langle f(v_1),\dots,f(v_r)\rangle=\{0\}.
+%	\]
+%
+%	\begin{proof}
+%		Veamos primero que $\{f(v_1),\dots,f(v_r)\}$ es linealmente
+%		independiente: si $\sum_{j=1}^r\alpha_jf(v_j)=0$ entonces al aplicar
+%		$f^{i-1}$ obtenemos que $\sum_{j=1}^r\alpha_jv_j\in\ker f^i\cap\langle
+%		v_1,\dots,v_r\rangle=\{0\}$. 
+%		Demostremos ahora que 
+%		\[
+%			\ker f^{i-1}\cap\langle f(v_1),\dots,f(v_r)\rangle=\{0\}.
+%		\]
+%		Si $v\in\ker f^{i-1}\cap\langle f(v_1),\dots,f(v_r)\rangle$ entonces
+%		$f^{i-1}(v)=0$ y $v=\sum_{j=1}^r\beta_jf(v_j)$. Luego, al aplicar
+%		$f^{i-1}$, se obtiene que
+%		\[
+%			0=f^{i-1}(v)=f^{i-1}\left(\sum_{j=1}^r\beta_jf(v_j)\right)=f^{i}\left(\sum_{j=1}^r\beta_jv_j\right).
+%		\]
+%		Esto dice que $\sum_{j=1}^r\beta_jv_j\in\ker f^i\cap\langle
+%		v_1,\dots,v_r\rangle=\{0\}$ y luego $v=0$ pues la independencia lineal
+%		de los $v_j$ implica que $\beta_j=0$ para todo $j$.
+%	\end{proof}
+%\end{lem}
+%
+%\begin{lem}
+%	Sea $V$ de dimensión finita y $f\in\hom(V,V)$ nilpotente de índice $r$. Sea
+%	$w\in V$ tal que $S=\langle v,f(v),\dots,f^{r-1}(v)\rangle$ es un subespacio de
+%	dimensión $r$. Entonces $S$ admite un complemento $f$-invariante. 
+%
+%	\begin{proof}
+%		Procederemos por inducción en $r$. Si $r=1$ entonces $f=0$ y $S=\langle
+%		w\rangle$. Si extendemos $\{w\}$ a una base $\{w,v_1,\dots,v_{n-1}\}$
+%		de $V$, entonces $T=\langle v_1,\dots,v_{n-1}\rangle$ es $f$-invariante
+%		y $S\oplus T=V$. 
+%
+%		Supongamos entonces que $k>1$ y que el resultado vale para todo $V$ de
+%		dimensión finita y todo $f\in\hom(V,V)$ nilpotente de índice $<k$. Como
+%		$\im f$ es $f$-invariante, la restricción $f|_{\im f}$ es nilpotente de
+%		índice $k-1$. Entonces, como $X=\langle
+%		f(w),\dots,f^{k-1}(w)\rangle\subseteq\im f$, por hipótesis inductiva
+%		existe un subespacio $f$-invariante $Y\subseteq \im f$ tal que $\im
+%		f=X\oplus Y$. Consideremos el subespacio 
+%		\[
+%			Z=\{v\in V:f(v)\in Y\}\subseteq V.
+%		\]
+%		Entonces $Y\subseteq Z$ pues $Y$ es $f$-invariante.
+%
+%		Afirmamos que $V=S+Z$. Si $w\in V$ entonces $f(w)\in\im f=X\oplus Y$.
+%		Luego $f(w)=x+y$ con $x\in X$, $y\in Y$. Por definición de $X$, existe
+%		$s\in S$ tal que $x=f(s)$. Si escribimos $w=s+(w-s)$ entonces $s\in S$
+%		y $w-s\in Z$ pues $f(w-s)=f(w)-f(s)=f(w)-x=y\in Y\subseteq Z$. 
+%
+%		Afirmamos ahora que $S\cap Z\subseteq X$. En efecto, si $w\in S\cap Z$
+%		entonces $f(w)\in X$ y $f(w)\in Y$. Luego $f(w)\in X\cap Y=\{0\}$ y
+%		entonces $w\in\ker f$. Como $w\in S$, existen escalares
+%		$\alpha_1,\dots,\alpha_{r-1}\in\K$ tales que
+%		$w=\sum_{i=1}^{r-1}\alpha_if^i(v)$. Como entonces 
+%		$0=f(w)=\sum_{i=0}^{r-2}\alpha_if^{i+1}(v)$, se tiene que $\alpha_i=0$
+%		para todo $i\in\{0,\dots,k-2\}$. Esto nos dice que
+%		$w=\alpha_{r-1}f^{r-1}(v)\in X$.
+%
+%		Afirmamos que $Y\cap(S\cap Z)=\{0\}$. En efecto, si $w\in
+%		Y\cap(S\cap Z)$ entonces, como $w\in S\cap Z\subseteq X$ y además $w\in Y$, 
+%		se tiene que $w=0$. El espacio vectorial $Y\oplus (S\cap Z)$ es entonces un subespacio de
+%		$Z$. Este subespacio tiene un complemento $U$ en $Z$. Luego $Z=U\oplus
+%		Y\oplus (S\cap Z)$. 
+%
+%		Afirmamos que $T=U\oplus Y$ es un complemento $f$-invariante para $S$.
+%		Es $f$-invariante pues como $U\subseteq Z$ entonces $f(U)\subseteq Y$ y luego
+%		\[
+%			f(T)=f(U\oplus Y)\subseteq f(U)+f(Y)\subseteq f(Y)\subseteq Y\subseteq T
+%		\]
+%		pues $Y$ es $f$-invariante. 
+%		Además $T\cap S=\{0\}$ pues $T\cap S\subseteq (S\cap Z)\cap T=\{0\}$. 
+%		Por último, como $S\cap Z\subseteq S$, 
+%		\[
+%			V=S+Z=S+T+(S\cap Z)=S+T,
+%		\]
+%		tal como se quería demostrar.
+%	\end{proof}
+%\end{lem}
+
+\section{Descomposición primaria}
+
+\begin{lem}
+	Sea $V$ de dimensión finita, $f\in\hom(V,V)$ y $p\in\K[X]$. Entonces $\ker
+	p(f)$ es un subespacio $f$-invariante. 
+
+	\begin{proof}
+		Tenemos que demostrar que $f(\ker p(f))\subseteq\ker p(f)$. Sea
+		$v\in\ker p(f)$. Entonces 
+		\[
+			p(f)\left( f(v)\right)=(p(f)\circ f)(v)=(f\circ p(f))(v)=f\left(p(f)(v)\right)=f(0)=0,
+		\]
+		tal como se quería demostrar.
+	\end{proof}
+\end{lem}
+
+\begin{lem}
+	\label{lem:V=kerp+kerq}
+	Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$. Supongamos que $m_f=pq$
+	donde $\gcd(p,q)=1$. Entonces
+	\begin{enumerate}
+		\item $V=\ker p(f)\oplus \ker q(f)$.
+		\item Si $f_p=f|_{\ker p(f)}$ y $f_q=f|_{\ker q(f)}$ entonces
+			$m_{f_p}=p$ y $m_{f_q}=q$.
+	\end{enumerate}
+
+	\begin{proof}
+		Demostremos la primera afirmación. Sean $r,s\in\K[X]$ tales que
+		$rp+sq=1$. Al especializar en $f$ obtenemos
+		\begin{equation}
+			\label{eq:rp+sq=1}
+			r(f)p(f)+s(f)q(f)=\id_V.
+		\end{equation}
+		
+		Veamos que $V=\ker p(f)+\ker q(f)$. Sea $v\in V$. La
+		fórmula~\eqref{eq:rp+sq=1} nos permite escribir $v=v_1+v_2$, donde
+		$v_1=r(f)p(f)(v)$ y $v_2=s(f)q(f)(v)$. Es fácil comprobar que
+		$v_1\in\ker q(f)$ y que $v_2\in\ker p(f)$:
+		\begin{align*}
+			&q(f)(v_1)=q(f)r(f)p(f)(v)=r(f)p(f)q(f)(v)=r(f)m_f(f)(v)=0,\\
+			&p(f)(v_2)=p(f)s(f)q(f)(v)=s(f)p(f)q(f)(v)=s(f)m_f(f)(v)=0.
+		\end{align*}
+		Veamos ahora que $\ker p(f)\cap\ker q(f)=\{0\}$: si $p(f)(v)=q(f)(v)=0$
+		entonces~\eqref{eq:rp+sq=1} implica que $v=0$. 
+
+		Para demostrar la segunda afirmación primero observemos que, como
+		$p(f_p)=p(f|_{\ker p(f)})=0$, entonces el minimal de $f_p$ divide a
+		$p$. Por otro lado, como 
+		\[
+			V=\ker p(f)\oplus \ker q(f),
+		\]
+		entonces 
+		$m_{f_p}(f)q(f)=0$ pues $q(f)(v)=0$ para todo $v\in\ker q(f)$ y 
+		\[
+			m_{f_p}(f)(v)=m_{f_p}(f|_{\ker p(f)})(v)=0
+		\]
+		para todo $v\in\ker p(f)$. 
+		Esto implica que $\deg m_{f_p}\geq\deg p$
+		y luego, como $p$ y $m_{f_p}$ son mónicos, $p=m_{f_p}$. De la misma
+		forma se demuestra que $q=m_{f_q}$. 
+	\end{proof}
+\end{lem}
+
+\begin{thm}[descomposición primaria]
+    \label{thm:descomposicion_primaria}
+	\index{Descomposición primaria}
+	Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$. Supongamos que
+	$m=p_1^{r_1}\cdots p_k^{r_k}$ donde los $p_i$ son polinomios mónicos e
+	irreducibles. Entonces
+	\[
+		V=\ker p_1(f)^{r_1}\oplus\cdots\oplus\ker p_k(f)^{r_k}.
+	\]
+
+	\begin{proof}
+		Procederemos por inducción en $k$. Como el caso $k=2$ es el lema
+		\ref{lem:V=kerp+kerq}, vamos a suponer que el resultado es válido para
+		$k-1\geq2$. Sean $p=p_1^{r_1}\cdots p_{k-1}^{r_{k-1}}$ y $q=p_k^{r_k}$. Entonces 
+		$m_f=pq$ y $\gcd(p,q)=1$. Además 
+		\[
+			\ker q(f)=\ker p_k(f)^{r_k}.
+		\]
+		Por el lema~\ref{lem:V=kerp+kerq}, $V=\ker p(f)\oplus\ker q(f)$ y el
+		minimal de $f|_{\ker p(f)}$ es $p$.  Por hipótesis inductiva, 
+		\[
+			\ker p(f)=\ker p_1(f)^{r_1}\oplus\cdots\oplus\ker p_{k-1}(f)^{r_{k-1}},
+		\]
+		y esto completa la demostración.
+	\end{proof}
+\end{thm}
+
+\begin{cor}[descomposición de Jordan--Chevalley]
+    \label{cor:JordanChevalley}
+	\label{Jordan--Chevalley!descomposición de}
+	Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$. Supongamos que
+	$m_f=\prod_{i=1}^k(X-\lambda_i)^{m_i}$, donde $\lambda_i\ne\lambda_j$ si
+	$i\ne j$. Entonces $f=g+h$, donde $g$ es diagonalizable, $h$ es nilpotente
+	y $gh=hg$. 
+
+    \begin{proof}
+        La descomposición primaria, teorema~\ref{thm:descomposicion_primaria},
+		implica que $V=V_1\oplus V_k$, donde $V_i=\ker(f-\lambda_i\id_V)^{m_i}$. 
+        Para definir $g$ y $h$
+        basta con definirlas en cada $V_i$. Para 
+        $i\in\{1,\dots,k\}$ definimos entonces 
+        \begin{align*}
+            &g|_{V_i}=\lambda\id_{V_i},\\
+            &h|_{V_i}=f|_{V_i}-\lambda_i\id_{V_i}.
+        \end{align*}
+
+		Como para cada $i\in\{1,\dots,k\}$ se tiene que $(g+h)(v_i)=f(v_i)$ y
+		cada $v$ se escribe únívocamente como $v=v_1+\cdots+v_k$ con $v_i\in
+		V_i$, entonces $f=g+h$. Es evidente que $g$ es diagonalizable y que
+		$gh=hg$. Para ver que $h$ es nilpotente, vamos a demostrar que si
+		$n=\dim V$ entonces $h^n=0$. En efecto, si $v=v_1+\cdots+v_k$ con
+		$v_i\in V_i$ para todo $i\in\{1,\dots,k\}$, entonces 
+		\[
+		h^n(v)=\sum_{i=1}^kh^n(v_i)=\sum_{i=1}^k(h|_{V_i})^n(v_i)=\sum_{i=1}^k(f|_{V_i}-\lambda_i\id_{V_i})^n(v_i)=0
+		\]
+		pues $m_i\leq n$ para todo $i\in\{1,\dots,k\}$. 
+    \end{proof}
+\end{cor}
+
+%%% unicidad de Jordan Chevalley (ejercicio)
+
+%\begin{xca}
+%    \label{xca:JordanChevalley:unicidad}
+%\end{xca}
+
+\section{Forma de Jordan}
+
+\begin{thm}[forma de Jordan]
+    \index{Jordan!forma de}
+    Sea $V$ un espacio vectorial de dimensión finita y sea $f\in\hom(V,V)$.
+    Supongamos que $m_f=\prod_{i=1}^k(X-\lambda_i)^{r_i}$, donde
+    $\lambda_i\ne\lambda_j$ si $i\ne j$. Entonces existe una base de $V$ tal que
+    en esa base $f$ es diagonal por bloques donde cada bloque es 
+    de la forma
+    \[
+        \begin{pmatrix}
+            \lambda_i\\
+            1 & \lambda_i\\
+            0 & 1 & \lambda_i\\
+            \vdots & \vdots & \ddots & \ddots\\
+            0&0&\cdots&1&\lambda_i
+        \end{pmatrix}.
+    \]
+    Estos bloques se denominan \textbf{bloques de Jordan} de $f$.
+
+    \begin{proof}
+        Por la descomposición de Jordan--Chevalley,
+        corolario~\ref{cor:JordanChevalley}, sabemos que existe $g$
+        diagonalizable y $h$ nilpotente tales que $f=g+h$ y $gh=hg$. Como $g$
+        es diagonalizable, $V=\oplus_{i=1}^kS(\lambda_i)$, donde
+        $S(\lambda)=\{v\in V:g(v)=\lambda v\}$.
+
+        Para cada $i\in\{1,\dots,k\}$ consideremos una base de $S(\lambda_i)$
+        que corresponda a la descomposición cíclica de $h|_{S(\lambda_i)}$.
+        Como $h|_{S(\lambda_i)}$ es nilpotente, en esa base puede escribirse
+        como
+        \[
+       	\begin{pmatrix}
+			0 & 0 & \cdots & 0 & 0\\
+			1 & 0 & \cdots & 0 & 0\\
+			0 & 1 & \cdots & 0 & 0\\
+			\vdots & \vdots & \ddots & \vdots & \vdots\\
+			0 & 0 & \cdots & 1 & 0
+		\end{pmatrix}.
+        \]
+        Entonces, en esa misma base, $f|_{S(\lambda_i)}=(g+h)|_{S(\lambda_i)}$
+        se escribe como
+        \[
+        \begin{pmatrix}
+            \lambda_i\\
+            1 & \lambda_i\\
+            0 & 1 & \lambda_i\\
+            \vdots & \vdots & \ddots & \ddots\\
+            0&0&\cdots&1&\lambda_i
+        \end{pmatrix}.
+        \]
+        Como $V=\oplus_{i=1}^kS(\lambda_i)$ y los $S(\lambda_i)$ son
+        $h$-invariantes pues
+        \[
+            g(h(v))=(gh)(v)=(hg)(v)=h(g(v))=h(\lambda_iv)=\lambda_ih(v),
+        \]
+        el teorema queda demostrado.
+    \end{proof}
+\end{thm}
+
+%%% unicidad como ejercicio!
+
+\begin{block}
+    \index{Jordan!forma de!unicidad}
+    Sea $V$ de dimensión finita y sea $f\in\hom(V,V)$. Vamos a demostrar que la
+    forma de Jordan de $f$ queda unívocamente determinada. 
+    
+    Si $V$ tiene una base tal que $f$ en esa base puede escribirse en forma de
+    Jordan, digamos con bloques de Jordan $J_1,\dots,J_k$ tales que $J_i$ es
+    de tamaño $n_i\times n_i$ y tiene al escalar $\lambda_i$ en su diagonal.
+    Supongamos además que $\lambda_i\ne\lambda_j$ si $i\ne j$. Entonces, como
+    $\chi_f=\prod_{i=1}^k(X-\lambda_i)^{n_i}$, tenemos que $n_i$ es la
+    multiplicidad de $\lambda_i$ como raíz de $\chi_f$. Luego los $\lambda_i$ y
+    los $n_i$ quedan unívocamente determinados salvo por el orden con el que
+    aparecen. 
+
+    La forma de Jordan de $f$ nos dice que $V=V_1\oplus\cdots\oplus V_k$ donde
+    los $V_i$ son $f$-invariantes. Veamos que $V_i=\ker (f-\lambda_i\id_V)^n$,
+    donde $n=\dim V$. Sea $i\in\{1,\dots,k\}$. La matriz $J_i-\lambda_iI$ es
+    nilpotente y entonces $(J_i-\lambda_iI)^n=0$. Por otro lado, si $j\ne i$,
+    entonces $J_j-\lambda_iI$ es inversible pues es triangular y tiene
+    elementos no nulos en la diagonal. Luego $V_i=\ker(f-\lambda_i\id_V)^n$,
+    donde $n=\dim V$, y entonces los $V_i$ están unívocamente determinados.
+
+    Para cada $i\in\{1,\dots,k\}$ sea $f_i=f|_{V_i}$. Entonces el bloque de
+    Jordan $J_i$ queda unívocamente determinado pues es la forma racional del
+    endomorfismo $f_i-\lambda_i\id_{V_i}$. 
+\end{block}
+
+\begin{cor}
+    Sea $A\in\C^{n\times n}$. Entonces existen matrices simétricas
+    $B,C\in\C^{n\times n}$ tales que $A=BC$.
+
+    \begin{proof}
+        Existe $P\in\C^{n\times n}$ inversible tal que $A=PJP^{-1}$, donde $J$
+        es la forma de Jordan de $A$.  Si $J=KL$ con $K$ y $L$ son matrices
+        simétricas, entonces, si $Q=P^T$, tenemos que $A$ es producto de
+        matrices simétricas pues 
+        \[
+        A=PJP^{-1}=PKLP^{-1}=(PKQ)(Q^{-1}LP^{-1}),
+        \]
+        y las matrices $PKQ$ y $Q^{-1}LP^{-1}$ son simétricas. 
+        Veamos entonces que toda matriz de Jordan puede escribirse como
+        producto de dos matrices simétricas. Supongamos que $J$ tiene bloques
+        de Jordan $J_1,\dots,J_k$, donde $J_p$ es de tamaño $n_p\times n_p$.
+        Para cada $p\in\{1,\dots,k\}$ definimos $D_p\in\C^{n\times n}$ por
+        \[
+        (D_p)_{ij}=\begin{cases}
+            1 & \text{si $i+j=n_p+1$},\\
+            0 & \text{en otro caso}.
+        \end{cases}
+        \]
+        Entonces $D_p$ es simétrica e inversible con $D_p^{-1}=D_p$. Sean
+        \[
+            C=\begin{pmatrix}
+                J_1D_1\\
+                & J_2D_2\\
+                & & \ddots\\
+                && & J_kD_k
+            \end{pmatrix},
+            \quad
+            D=\begin{pmatrix}
+                D_1\\
+                & D_2\\
+                & & \ddots\\
+                && & D_k
+            \end{pmatrix}.
+        \]
+        Entonces $C$ y $D$ son simétricas y $J=CD$. 
+    \end{proof}
+\end{cor}
+%\begin{example}
+%    Sea
+%    \[
+%        A=\begin{pmatrix}
+%            3 & 4 & -6\\
+%            5 & 6 & -10\\
+%            2 & 4 & -5
+%        \end{pmatrix}.
+%    \]
+%    Entonces $\chi_A=(X-1)^2(X-2)$. 
+%\end{example}

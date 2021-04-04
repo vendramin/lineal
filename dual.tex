@@ -1,0 +1,1029 @@
+\chapter{Espacio dual}
+
+\section{Espacio dual y base dual}
+
+\begin{block}
+    Sea $V$ un espacio vectorial sobre $\K$. Se define el \textbf{espacio dual}
+    $V^*$ como el espacio vectorial $\hom(V,\K^*)$. Los elementos de $V^*$ se
+    denominal \textbf{funcionales lineales} de $V$.  Observemos que si $V$ es
+    un espacio vectorial de dimensión finita $n$ entonces, por lo visto en la
+    proposición~\ref{pro:hom(V,W)}, se tiene que 
+    \[ 
+        \dim V^*=\dim\hom(V,\K)=\dim V.
+    \]
+\end{block}
+
+\begin{examples}
+	En el espacio de matrices de $n\times n$ la traza $\tr\colon \K^{n\times
+	n}\to\K$ es una funcional lineal.  En el espacio de polinomios, la
+	evaluación en $\lambda\in\K$,
+	\[
+	\K[X]\to\K,\quad
+	\sum_{i=1}^n a_iX^i\mapsto\sum_{i=1}^n a_i\lambda^i,
+	\]
+    es una funcional lineal. En el espacio vectorial real $C[a,b]$ de funciones
+    continuas $[a,b]\to\R$ la aplicación $g\mapsto\int_{a}^{b}g(x)dx$ es una
+    funcional lineal.
+\end{examples}
+
+\begin{example}
+    Sea $V$ el subespacio de $C^\infty(\R)$ formado por las funciones $f$ tales
+    que $f(x)=0$ para todo $x$ fuera de algún intervalo cerrado y acotado.  La
+    aplicación $f\mapsto\int_{-\infty}^{+\infty}f(x)dx$ es una funcional lineal
+    de $V$.
+\end{example}
+
+\begin{example}
+    \label{exa:funcional_lineal}
+    La función $f\colon\K^n\to\K$ dada por
+    \[
+        f(x_1,\dots,x_n)=\alpha_1x_1+\cdots+\alpha_nx_n
+    \]
+    es una funcional lineal.  Más aún, la matriz de $f$ con respecto a las
+    bases canónicas de $\K^n$ y $\K$ es $\|f\|=(\alpha_1\cdots\alpha_n)$.
+    Veamos que toda funcional lineal de $\K^n$ es de esta forma. En efecto, si
+    $\{e_1,\dots,e_n\}$ es la base canónica de $\K^n$ basta con definir
+    $f(e_j)=\alpha_j$ para todo $j$ pues entonces 
+    \begin{align*}
+        f(x_1,\dots,x_n) &= f(x_1e_1+\cdots+x_ne_n)\\
+        &=x_1f(e_1)+\cdots+x_nf(e_n)\\
+        &=\alpha_1x_1+\cdots+\alpha_nx_n.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Para $i\in\{1,2,3\}$ sean $\delta_i\colon\R^3\to\R$ dada por
+    $(x_1,x_2,x_3)\mapsto x_i$. Entonces por lo visto en el
+    ejemplo~\ref{exa:funcional_lineal} se tiene que 
+    $(\R^3)^*=\langle\delta_1,\delta_2,\delta_3\rangle$.
+%	\begin{align*}
+%		\left(\R^3\right)^* &= \{f\colon\R^3\to\R:\text{ $f$ es transformación lineal}\}\\
+%		&=\{f\colon\R^3\to\R:f(x_1,x_2,x_3)=\alpha_1 x_1+\alpha_2x_2+\alpha_3x_3\}\\
+%		&=\{f\colon\R^3\to\R:f=\alpha_1\delta_1+\alpha_2\delta_2+\alpha_3\delta_3\}.
+%	\end{align*}
+\end{example}
+
+\begin{xca}
+    \label{xca:traza}
+    Sea $V=\K^{n\times n}$ y sea $\delta\in V^*$ tal que
+    $\delta(AB)=\delta(BA)$ para todo $A,B\in V$. Pruebe que existe
+    $\lambda\in\K$ tal que $\delta(A)=\lambda\tr(A)$ para todo $A\in V$. 
+\end{xca}
+
+\begin{prop}
+	Sea $V$ un espacio vectorial de dimensión finita y sea $\{v_1,\dots,v_n\}$
+	una base de $V$. Entonces existe una única base $\{f_1,\dots,f_n\}$ de
+	$V^*$ tal que $f_i(v_j)=\delta_{ij}$ para todo $i,j$. La base
+	$\{f_1,\dots,f_n\}$ se denomina \textbf{base dual} a la base
+	$\{v_1,\dots,v_n\}$.
+
+	\begin{proof}
+        Como los $v_j$ son una base de $V$, para cada $i$ las funcionales
+        lineales $f_i$ quedan bien definidas por $f_i(v_j)=\delta_{ij}$. Veamos
+        que el conjunto $\{f_1,\dots,f_n\}$ es linealmente independientes: si
+        $\sum_{i=1}^n f_i=0$ entonces para todo $v_j$ se tiene
+		\[
+			0=\left(\sum_{i=1}^n \alpha_if_i\right)(v_j)=\sum_{i=1}^n \alpha_if_i(v_j)=\alpha_j
+		\]
+		y luego $\alpha_j=0$ para todo $j$. Como $\dim V^*=n$, esto demuestra
+		además que los $f_j$ forman una base de $V^*$.
+
+		Veamos la unicidad: si las $g_i$ son funcionales lineales tales que
+		$g_i(v_j)=f_i(v_j)$ para todo $i,j$ entonces 
+		\[
+		g_i(v)
+		=g_i\left(\sum_{j=1}^n \alpha_jv_j\right)
+		=\sum_{j=1}^n\alpha_jg_i(v_j)
+		=\sum_{j=1}^n \alpha_jf_i(v_j)=f_i(v)
+		\]
+		y luego $g_i=f_i$ para todo $i$.
+	\end{proof}
+\end{prop}
+
+\begin{examples}\
+	\label{exa:base_dual}
+	\begin{enumerate}
+		\item La base dual de $\{(1,0),(0,1)\}\subseteq\R^2$ es $\{f_1,f_2\}$
+			donde $f_1(x,y)=x$ y $f_2(x,y)=y$.
+		\item La base dual de $\{(1,1),(1,-1)\}\subseteq\R^2$ es $\{f_1,f_2\}$
+			donde $f_1(x,y)=\frac{x+y}{2}$ y $f_2(x,y)=\frac{x-y}{2}$.
+	\end{enumerate}
+\end{examples}
+
+\begin{example}
+	Sea $V=\K_n[X]$ y consideremos la base 
+	\[
+		\cB=\{1,X-a,(X-a)^2,\dots,(X-a)^n\}.
+	\]
+	La base dual a $\cB$ es $\{f_0,f_1,\dots,f_n\}$, donde
+	\[
+		f_k(p)=\frac{p^{(k)}(a)}{k!}
+	\]
+	para todo $k\in\{0,\dots,n\}$ y $p\in\K_n[X]$. 
+\end{example}
+
+\begin{prop}
+	Sean $\cB=\{v_1,\dots,v_n\}$ una base de $V$ y $\cB^*=\{f_1,\dots,f_n\}$ su
+	base dual. Si $v\in V$ y $f\in V^*$ entonces 
+	\begin{align}
+		(v)_{\cB}=(f_1(v),\dots,f_n(v)), && 
+		(f)_{\cB^*}=(f(v_1),\dots,f_n(v)).
+	\end{align}
+
+	\begin{proof}
+		Si $v=\sum_{i=1}^n\alpha_iv_i$ entonces
+		$f_j(v)=\sum_{i=1}^n\alpha_if_j(v_i)=\alpha_j$ y luego $v=\sum_{i=1}^n
+		f_i(v)v_i$. Por otro lado, si escribimos a $f$ como
+		$f=\sum_{i=1}^n\alpha_if_i$ entonces $f(v_j)=\alpha_j$ y luego
+		$f=\sum_{i=1}^n f(v_i)f_i$. 
+	\end{proof}
+\end{prop}
+
+\begin{xca}
+    \label{xca:v=0<=>f(v)=0}
+    Sea $V$ un espacio vectorial de dimensión finita. Sean $f\in V^*$ y $v\in
+    V$.  Pruebe que $v=0$ si y sólo si $f(v)=0$ para todo $f\in V^*$. 
+\end{xca}
+
+\begin{xca}
+    \label{xca:V=<v>+kerf}
+    Sea $V$ un espacio vectorial de dimensión finita.  Sean $f\in V^*$ y $v\in
+    V$ con $f(v)\ne0$. Pruebe que $V=\langle v\rangle\oplus \ker f$.
+\end{xca}
+
+\begin{xca}
+    \label{xca:kerf=kerg}
+    Sea $V$ un espacio vectorial de dimensión finita. Si $f,g\in V^*$ pruebe
+    que $\ker f=\ker g$ si y sólo si existe $\lambda\in\K\setminus\{0\}$ tal
+    que $f=\lambda g$.
+\end{xca}
+
+%\begin{prop}
+%    Si $V$ es un espacio vectorial de dimensión finita $n$ y
+%    $\{f_1,\dots,f_n\}$ es base de $V^*$ entonces existe una única base
+%    $\{v_1,\dots,v_n\}$ de $V$ tal que tiene a $\{f_1,\dots,f_n\}$ como su base
+%    dual.
+%
+%	\begin{proof}
+%		Demostremos la unicidad. Para eso, supongamos que existen bases
+%		$\{v_1,\dots,v_n\}$ y $\{v_1',\dots,v_n'\}$ de $V$ tales que ambas
+%		tienen a $\{f_1,\dots,f_n\}$ como base dual. Para cada $j$ escribimos
+%		\[
+%			v_j'=\sum_{k=1}^n a_{kj}v_k
+%		\]
+%		y entonces $\delta_{ij}=f_i(v_j')=\sum_{k=1}^n a_{kj}f_i(v_k)=a_{ij}$
+%		para todo $i,j\in\{1,\dots,n\}$. Luego $v_j'=v_j$ para todo
+%		$j\in\{1,\dots,n\}$.
+%
+%		Demostremos la existencia. Sea $\{w_1,\dots,w_n\}$ una base de $V$ y
+%		sea $\{g_1,\dots,g_n\}$ su base dual.  La matriz $A=(f_{i}(w_j))$ es
+%		inversible pues es la traspuesta de la matriz de cambio de base entre
+%		$\{g_1,\dots,g_n\}$ y $\{f_1,\dots,f_n\}$: si $f_i = \sum_{k=1}^n
+%		a_{ki}g_k$ entonces $f_i(w_j)=\sum_{k=1}^n a_{ki}g_k(w_j)=a_{ji}$. Sea
+%		$B=(b_{ij})$ la inversa de $A$ y para cada $j\in\{1,\dots,n\}$ sea 
+%		\[
+%			v_j=\sum_{k=1}^n b_{kj}w_k.
+%		\]
+%		Entonces $f_i(v_j)=\delta_{ij}$ pues 
+%		\[
+%			f_i(v_j)
+%			=f_i\left(\sum_{k=1}^n b_{kj}w_k\right)
+%			=\sum_{k=1}^n f_{i}(w_k)b_{kj}
+%			=\delta_{ij}.
+%		\]
+%		
+%		Por último, para ver que $\{v_1,\dots,v_n\}$ es base, basta ver que es un
+%		conjunto linealmente independiente. Si $\sum_{i=j}^n\alpha_j v_j=0$
+%		entonces, al aplicar $f_i$, se tiene que 
+%		$\alpha_i=\sum_{j=1}^n\alpha_jf_i(v_j)=0$ para todo $i$. 
+%	\end{proof}
+%\end{prop}
+
+\begin{example}
+	Sea $V=\R_2[X]$ y sean $\varphi_0,\varphi_1,\varphi_2\in V^*$ dadas por
+	$\varphi_i(p)=p(i)$ para todo $p\in V$. Vamos a demostrar que
+	$\{\varphi_0,\varphi_1,\varphi_2\}$ es base de $V^*$. Veamos primero que es
+	un conjunto linealmente independiente. Si 
+	\[
+		\alpha_0\varphi_0+\alpha_1\varphi_1+\alpha_2\varphi_2=0, 
+	\]
+	al evaluar en el polinomio $(X-1)(X-2)$ obtenemos $\alpha_0=0$.
+	Al evaluar en $X(X-1)$ obtenemos $\alpha_2=0$. Finalmente, al evaluar en $X(X-2)$
+	obtenemos $\alpha_1=0$.  Luego $\{\varphi_0,\varphi_1,\varphi_2\}$ es una
+	base de $V^*$ porque es un conjunto linealmente independiente y 
+	$\dim V=\dim V^*=3$.
+\end{example}
+
+\section{Matriz de cambio de base}
+
+\begin{prop}
+	\label{pro:dual:cambio_de_base}
+	Sean $\cB=\{v_1,\dots,v_n\}$ y $\cB'=\{v_1',\dots,v_n'\}$ bases de $V$. Entonces
+	\[
+		C(\cB^*,\cB'^*)=C(\cB',\cB)^T.
+	\]
+
+	\begin{proof}
+		Supongamos que $C(\cB^*,\cB'^*)=(a_{ij})$ y que $C(\cB',\cB)=(b_{ij})$.
+		Para cada $i,j$ escribimos
+		\begin{align*}
+			v_i'=\sum_{k=1}^n b_{ki}v_k,
+			&&
+			f_j=\sum_{k=1}^n a_{kj}f_k'.
+		\end{align*}
+		Luego, si calculamos $f_j(v_i')$ de dos formas, obtenemos 
+		\begin{align*}
+			b_{ji}=\sum_{k=1}^n b_{ki}\delta_{jk}
+			=\sum_{k=1}^n b_{ki}f_j(v_k)
+			=f_j(v_i')
+			=\sum_{k=1}^n a_{kj}f_k'(v_i')
+			=\sum_{k=1}^n a_{kj}\delta_{ki}=a_{ij},
+		\end{align*}
+		que es lo que queríamos demostrar.
+	\end{proof}
+\end{prop}
+
+\begin{example}
+	Vamos a utilizar la proposición~\ref{pro:dual:cambio_de_base} para calcular
+	la base dual a la base $\cB=\{(1,1),(1,-1)\}$ de $\R^2$ vista en el
+	ejemplo~\ref{exa:base_dual}. 
+	Si $\{e_1,e_2\}$ es la base canónica de $\R^2$ entonces 
+	\[
+	C(\cB,\{e_1,e_2\})=
+	\begin{pmatrix} 
+		1 & 1\\
+		1 & -1
+	\end{pmatrix},
+	\quad
+	C(\{e_1,e_2\},\cB)=
+		\frac12\begin{pmatrix}
+			1 & 1\\
+			1 & -1
+		\end{pmatrix},
+	\]
+	Sea $\{f_1,f_2\}$ la base dual a $\{e_1,e_2\}$ y sea $\cB^*=\{g_1,g_2\}$ la
+	base dual a $\cB$.  Por la proposición~\ref{pro:dual:cambio_de_base}
+	sabemos que 
+	\[
+		\begin{pmatrix}
+			1 & 1\\
+			1 & -1
+		\end{pmatrix}
+		=C(\cB,\{e_1,e_2\})^T=C(\{f_1,f_2\},\cB^*).
+	\]
+	Entonces, como 
+	\[
+	C(\cB^*,\{f_1,f_2\})=
+		\frac12\begin{pmatrix}
+			1 & 1\\
+			1 & -1
+		\end{pmatrix},
+	\]
+	podemos calcular las coordenadas de las $g_i$ en la base $\{f_1,f_2\}$:
+	\begin{align*}
+		&\frac12\begin{pmatrix}
+			1 & 1\\
+			1 & -1
+		\end{pmatrix}
+		\colvec{2}{1}{0}=\frac12\colvec{2}{1}{1},
+		&&
+		\frac12\begin{pmatrix}
+			1 & 1\\
+			1 & -1
+		\end{pmatrix}
+		\colvec{2}{0}{1}=\frac12\colvec{2}{1}{-1}.
+	\end{align*}
+	Luego $g_1(x,y)=\frac{1}{2}(x+y)$ y $g_2(x,y)=\frac{1}{2}(x-y)$.
+\end{example}
+
+\section{El anulador de un subespacio}
+
+\begin{block}
+	Sean $V$ un espacio vectorial y $S\subseteq V$ un subespacio. Se define el
+	\textbf{anulador} de $S$ en $V$ como el subespacio
+	\[
+	\ann S=\{f\in V^*:f(s)=0\text{ para todo $s\in S$}\}=\{f\in V^*: S\subseteq\ker f\}
+	\]
+    Observemos que el anulador $\ann S$ puede definirse si $S$ es un
+    subconjunto no vacío de $V$. Por ejemplo, el anulador en $\R^2$ de
+    $\{(1,1)\}$ es el subespacio de $\hom(\R^2,\R)$ generado por la función
+    $(x,y)\mapsto x-y$.  De la definición es evidente que $\ann S$ es un
+    subespacio de $V^*$ y que $\ann V=\{0\}$ y $\ann\{0\}=V^*$. 
+\end{block}
+
+\begin{xca}
+    \label{xca:annX=<X>}
+	Sea $V$ un espacio vectorial y $X$ un subconjunto de $V$. Pruebe que $\ann
+	X=\ann\langle X\rangle$.
+\end{xca}
+
+\begin{example}
+	Sea $S=\langle(1,1,1,1),(1,1,0,0),(1,0,1,0)\rangle\subseteq\R^4$. Entonces
+	el anulador de $S$ está generado por la funcional lineal 
+	\[
+		(x_1,x_2,x_3,x_4)\mapsto -x_1+x_2+x_3-x_4.
+	\]
+\end{example}
+
+\begin{lem}
+	\label{lem:dual:fundamental}
+	Sean $V$ un espacio vectorial de dimensión finita, $S\subseteq V$ un
+	subespacio y $\{v_1,\dots,v_k\}$ una base de $S$. Supongamos que
+	$\{v_1,\dots,v_k,v_{k+1},\dots,v_n\}$ es una base de $V$ y sea
+	$\{f_1,\dots,f_n\}$ su base dual. Entonces $\{f_{k+1},\dots,f_n\}$ es una
+	base de $\ann S$.
+
+	\begin{proof}
+		Sea $f\in\ann S$ y escribamos a $f$ en la base $\{f_1,\dots,f_n\}$.
+		Entonces, como $f(v_j)=0$ para todo $j\in\{1,\dots,k\}$, 
+		\[
+		f=\sum_{i=1}^n\alpha_if_i=\sum_{i=1}^n f(v_i)f_i=\sum_{i=k+1}^n\alpha_if_i.
+		\]
+		Luego $\{f_{k+1},\dots,f_n\}$ es un conjunto de generadores de $\ann S$. Como es
+		un conjunto linealmente independiente, es también una base de $\ann S$.
+	\end{proof}
+\end{lem}
+
+\begin{prop}
+	Sean $V$ un espacio vectorial de dimensión finita y $f\in V^*$. Entonces
+	$\ann\ker f=\langle f\rangle$.
+
+	\begin{proof}
+        Vamos a demostrar que $\ann\ker f\subseteq\langle f\rangle$ ya que la
+        otra inclusión es trivial.  Como el resultado es trivialmente válido para $f=0$ vamos a suponer que $f\ne0$. 
+        Si $g\in\ann\ker f$ entonces $\ker f\subseteq \ker g$. Si $g=0$
+        el resultado es trivial. Si $g\ne 0$ entonces $\ker f=\ker g$ pues
+        ambos tienen la misma dimensión. Luego $g\in\langle f\rangle$ por el
+        ejercicio~\ref{xca:v=0<=>f(v)=0}.
+%		
+%        Si $f=0$ el resultado es trivialmente
+%		válido. Supongamos entonces que $f\ne0$.  Sea $g\in\ann \ker f$.
+%		Entonces $\dim\ker f=n-1$. Sea $\{v_1,\dots,v_{n-1}\}$ una base de
+%		$\ker f$ y sea $v_n\in V$ tal que $f(v_n)\ne0$.  El conjunto
+%		$\{v_1,\dots,v_{n-1},v_n\}$ es base de $V$ y
+%		$\{f_1,\dots,f_{n-1},f_n\}$ es su base dual. Escribimos
+%		\[
+%			g=\sum_{i=1}^n g(v_i)f_i\in\ann\ker f.
+%		\]
+%		Como $g\in\ann \ker f$ entonces $g(v)=0$ para todo $v\in\ker f$ y luego
+%		$g(v_j)=0$ para todo $j\in\{1,\dots,n-1\}$. Por lo tanto $g=g(v_n)f_n$.
+%		Como $f=\sum_{i=1}^n f(v_i)f_i$ entonces $f=f(v_n)f_n$, donde
+%		$f(v_n)\ne0$. Luego $g\in\langle f_n\rangle=\langle f\rangle$.
+	\end{proof}
+\end{prop}
+
+\begin{thm}[teorema de la dimensión del anulador]
+	\label{thm:dimension_anulador}
+	Si $V$ es un espacio vectorial de dimensión $n$ y $S\subseteq V$ es un
+	subespacio entonces
+	\[
+		\dim\ann S=n-\dim S.
+	\]
+	\begin{proof}
+		Supongamos que $\dim S=k$ y sea $\{v_1,\dots,v_k\}$ una base de $S$.
+		Sean $\{v_1,\dots,v_k,v_{k+1},\dots,v_n\}$ una base de $V$ y
+		$\{f_1,\dots,f_n\}$ su base dual. El lema~\ref{lem:dual:fundamental}
+		nos dice que $\{f_{k+1},\dots,f_n\}$ es base de $\ann S$. Luego
+		$\dim\ann S=n-k$ y el teorema queda demostrado.
+	\end{proof}
+\end{thm}
+
+\begin{example}
+	Consideremos los siguientes vectores de $\R^5$:
+	\begin{align*}
+		&v_1=(2,-2,3,4,-1), 
+		&& v_2=(-1,1,2,5,2),\\
+		& v_3=(0,0,-1,-2,3),
+		&& v_4=(1,-1,2,3,0),
+	\end{align*}
+	 y sea $S=\langle v_1,v_2,v_3,v_4\rangle$. 
+	 Vamos a calcular $\ann S$.  Como $\dim S=3$, por el teorema de la
+	 dimensión del anulador sabemos que $\dim\ann S=2$. Si $f\in(\R^5)^*$ entonces
+	 \[
+	 	f(x_1,\dots,x_5)=\sum_{i=1}^5\alpha_ix_i. 
+  	 \]
+	 Luego $f\in\ann S$ si y sólo si $f(v_i)=0$ para todo $i$, es decir si y sólo si
+	 \[
+		\begin{cases}
+			\begin{aligned}
+			2\alpha_1-2\alpha_2+3\alpha_3+4\alpha_4-\alpha_5 &=0,\\
+			-\alpha_1+\alpha_2+2\alpha_3+5\alpha_4+2\alpha_5 &=0,\\
+			-\alpha_3-2\alpha_4+3\alpha_5 &=0,\\
+			\alpha_1-\alpha_2+2\alpha_3+3\alpha_4 &=0.
+			\end{aligned}
+		\end{cases}
+	 \]
+	 Como este sistema es equivalente a
+	 \[
+		\begin{cases}
+			\begin{aligned}
+				\alpha_1-\alpha_2-\alpha_4 &=0, \\
+				\alpha_3+2\alpha_4 &= 0,\\
+				\alpha_5 &=0,
+			\end{aligned}
+		\end{cases}
+	 \]
+	 se deduce que
+	 $f(x_1,\dots,x_5)=(\alpha_2+\alpha_4)x_1+\alpha_2x_2-2\alpha_4x_3+\alpha_4x_4$.
+	 Luego una base de $\ann S$ es $\{f_1,f_2\}$, donde 
+	 \[
+	 	f_1(x_1,\dots,x_5)=x_1+x_2,\quad 
+		f_2(x_1,\dots,x_5)=x_1-2x_3+x_4. 
+	 \]
+\end{example}
+
+\begin{cor}
+	Sea $V$ un espacio vectorial de dimensión finita $n$ y sea $S\subseteq V$
+	un subespacio de dimensión $m<n$.  Entonces existen \textbf{hiperplanos}
+	(es decir: subespacios de dimensión $n-1$) $H_1,\dots,H_{n-m}\subseteq V$
+	tales que $S=H_1\cap\cdots\cap H_{n-m}$. 
+
+	\begin{proof}
+		Sea $\{v_1,\dots,v_m\}$ una base de $S$. Extendemos esta base de $S$ a
+		una base $\{v_1,\dots,v_m,v_{m+1},\dots,v_n\}$ de $V$ y sea
+		$\{f_1,\dots,f_m,f_{m+1},\dots,f_n\}$ su base dual.  Para cada
+		$i\in\{1,\dots,n-m\}$ sea $H_i=\ker f_{m+i}$. Si $v\in V$ entonces
+		$v=\sum_{i=1}^n f_i(v)v_i$. Tenemos entonces que $v\in S$ si y sólo si
+		$v\in\cap_{i=1}^{n-m}\ker f_i$ y por lo tanto $S=\cap_{i=1}^{n-m}H_i$.
+	\end{proof}
+\end{cor}
+
+\begin{cor}
+	\label{cor:annS=annT}
+    Sea $V$ un espacio vectorial de dimensión finita y sean $S$ y $T$ dos
+    subespacios de $V$. Entonces $S=T$ si y sólo si $\ann S=\ann T$.
+
+	\begin{proof}
+		Si $S=T$ entonces trivialmente $\ann S=\ann T$. Recíprocamente,
+		supongamos que $S\ne T$. Sin pérdida de generalidad podemos suponer
+		entonces que existe $v\in T\setminus S$. Vamos a demostrar que existe
+		$f\in V^*$ tal que $f(s)=0$ para todo $s\in S$ y $f(v)\ne0$, lo que
+		significa que $\ann S\ne\ann T$ pues $f\not\in\ann T$ y $f\in\ann S$.
+		En efecto, sea $\{v_1,\dots,v_k\}$ una base de $S$. Como $v\not\in S$,
+		el conjunto $\{v,v_1,\dots,v_k\}$ es linealmente independiente y
+		entonces puede extenderse a una base $\{v,v_1,\dots,v_n\}$ de $V$. Sea
+		$\{f,f_1,\dots,f_n\}$ la base dual a $\{v,v_1,\dots,v_n\}$. Luego
+		$f(v)=1$ y $f(v_j)=0$ para todo $j$. En particular $f(s)=0$ para todo
+		$s\in S$. 
+%		Como una de las implicaciones es trivial, basta con 
+%		demostrar lo siguiente: si $\ann T\subseteq \ann S$ entonces $S\subseteq
+%		T$. Sea $\{f_1,\dots,f_k\}$ una base de $\ann T$. Sabemos que esta base
+%		puede extenderse a una base $\{f_1,\dots,f_k,f_{k+1},\dots,f_l\}$ de $\ann
+%		S$ y esta última, a su vez, a una base $\{f_1,\dots,f_n\}$ de $V^*$. Sea
+%		$\{v_1,\dots,v_n\}$ una base de $V$ cuya base dual es $\{f_1,\dots,f_n\}$.
+%		Afirmamos que $\{v_{k+1},\dots,v_n\}$ es base de $T$, y que
+%		$\{v_{l+1},\dots,v_n\}$ es base de $S$.  En efecto, si $v\in T$ entonces
+%		\[
+%			v=\sum_{i=1}^n \alpha_iv_i=\sum_{i=1}^n f_i(v)v_i=\sum_{i=k+1}^n f_i(v)v_i.
+%		\]
+%		Luego, como los $v_i$ son linealmente independientes,
+%		$\{v_{k+1},\dots,v_n\}$ es una base de $T$.  Similarmente, si $v\in S$
+%		entonces 
+%		\[
+%			v=\sum_{i=1}^n \alpha_iv_i=\sum_{i=1}^n f_i(v)v_i=\sum_{i=l+1}^n f_i(v)v_i,
+%		\]
+%		y así se obtiene que $\{v_{l+1},\dots,v_n\}$ es una base de $S$. Como, por
+%		construcción, $\{v_{l+1},\dots,v_n\}\subseteq\{v_{k+1},\dots,v_n\}$
+%		entonces $T\subseteq S$.
+	\end{proof}
+\end{cor}
+
+\begin{block}
+	Observemos que en el corolario~\ref{cor:annS=annT} es necesario asumir que
+	$S$ y $T$ son subespacios de $V$. En efecto, si $V=\R$, $S=\{1\}$ y $T=\R$
+	entonces $S\subsetneq T$ pero $\ann S=\ann T=\{0\}$. 
+\end{block}
+
+\begin{cor}
+	\label{cor:anuladores}
+	Sean $V$ un espacio vectorial de dimensión finita y $S\subseteq V$ un
+	subespacio. Entonces
+	\[
+		\{v\in V:f(v)=0\text{ para todo $f\in\ann S$}\}=S.
+	\]
+
+	\begin{proof}
+		Si $v\in S$ entonces trivialmente $f(v)=0$ para todo $f\in \ann S$.
+		Recíprocamente, sea $v\in V$ tal que $f(v)=0$ para todo $f\in\ann S$.  Sea
+		$\{v_1,\dots,v_k\}$ una base de $S$. Si $v\not\in S$ entonces
+		$\{v,v_1,\dots,v_k,\}$ es linealmente independiente. Extendamos este
+		conjunto a una base $\{v,v_1,\dots,v_n\}$ de $V$ y sea
+		$\{f,f_1,\dots,f_n\}$ su base dual. Por construcción,
+		$f(v_1)=\cdots=f(v_n)=0$ y entonces $S\subseteq\ker(
+		f)$, es decir: $f\in\ann S$. Sin embargo, por construcción,
+		$f(v)=1$, una contradicción.
+	\end{proof}
+\end{cor}
+
+\begin{cor}
+	\label{cor:base_annS}
+	Sean $V$ un espacio vectorial de dimensión finita, $S\subseteq V$ un
+	subespacio, y $\{f_1,\dots,f_k\}$ una base de $\ann S$. Entonces
+	\[
+		S=\bigcap_{i=1}^k \ker(f_i).
+	\]
+
+	\begin{proof}
+		Si $\{f_1,\dots,f_k\}$ es una base de $\ann S$ entonces, por el
+		corolario~\ref{cor:anuladores},
+		\begin{align*}
+			S &=\{v\in V: f(v)=0\text{ para todo $f\in\ann S$}\}\\
+			&=\{v\in V: f_i(v)=0\text{ para todo $i\in\{1,\dots,k\}$}\}
+			=\bigcap_{i=1}^k\ker f_i,
+		\end{align*}
+		tal como queríamos demostrar.
+	\end{proof}
+\end{cor}
+
+\begin{prop}
+    \label{pro:ann(S+T)}
+	Sean $S$ y $T$ dos subespacios de un espacio vectorial $V$. Entonces
+	\begin{equation}
+		\label{eq:ann(S+T)}
+		\ann (S+T)=\ann S\cap \ann T.
+	\end{equation}
+
+    \begin{proof}
+        Si $f\in\ann S\cap\ann T$ entonces $S\subset\ker f$ y
+        $T\subseteq\ker f$ y luego $S+T\subseteq\ker f$, es decir: $f\in\ann(S+T)$.
+        Recíprocamente, si $S+T\subseteq\ker f$ entonces $S$ y $T$ están contenidos
+        en $\ker f$, es decir: $f\in\ann S\cap\ann T$. 
+    \end{proof}
+\end{prop}
+
+\begin{cor}
+    Si $S_1,\dots,S_k$ son subespacios de $V$ entonces 
+	\begin{equation}
+		\label{eq:ann(S1+...+S_k)}
+		\ann (S_1+\cdots+S_k)=\ann(S_1)\cap\cdots\cap\ann(S_k).
+	\end{equation}
+
+    \begin{proof}
+        Es consecuencia de la proposición~\ref{pro:ann(S+T)} y del principio de
+        inducción.
+    \end{proof}
+\end{cor}
+
+\begin{prop}
+	\label{pro:ann(ScapT)=annS+annT}
+	Sea $V$ un espacio vectorial de dimensión finita y sean $S$ y $T$ subespacios
+	de $V$.  Entonces:
+	\[
+	\ann (S\cap T)=\ann S+\ann T.
+	\]
+
+	\begin{proof}
+		Sea $f\in\ann S +\ann T$ y escribamos $f=g+h$, donde $S\subseteq\ker g$
+		y $T\subseteq\ker h$. Si $v\in S\cap T$ entonces $v\in\ker f$ pues
+		$f(v)=g(v)+h(v)=0$, es decir: $f\in\ann(S\cap T)$. Para ver que $\ann
+		(S\cap T)=\ann S+\ann T$ calculemos la dimensión de $\ann S+\ann T$ con
+		la proposición~\ref{pro:ann(S+T)}:
+		\begin{align*}
+			\dim(\ann S&+\ann T) = \dim\ann S+\dim\ann T-\dim(\ann S\cap\ann T)\\
+			&=n-\dim S+n-\dim T-\dim\ann(S+T)\\
+			&=n-\dim S+n-\dim T-(n-\dim(S+T))\\
+			&=n-\dim S-\dim T+\dim(S+T)\\
+			&=n-\dim(S\cap T)\\
+			&=\dim\ann(S\cap T),
+		\end{align*}
+		y entonces la proposición queda demostrada.
+	\end{proof}
+\end{prop}
+
+\begin{cor}
+	Sea $V$ un espacio vectorial de dimensión finita y sean $S_1,\dots,S_k$
+	subespacios de $V$.  Entonces:
+	\[
+	\ann (S_1\cap\cdots\cap S_k)=\ann S_1+\cdots+\ann S_k.
+	\]
+
+    \begin{proof}
+        Es consecuencia de la proposición~\ref{pro:ann(ScapT)=annS+annT} y del
+        principio de inducción.
+    \end{proof}
+\end{cor}
+
+\begin{cor}
+    \label{cor:basis_of_V*}
+	Sea $V$ un espacio vectorial de dimensión finita $n$ y sea
+	$\{f_1,\dots,f_n\}$ un subconjunto de $V^*$. Entonces $\{f_1,\dots,f_n\}$
+	es base de $V^*$ si y sólo si  
+	\begin{equation}
+		\label{eq:capker(f_i)}
+		\bigcap_{i=1}^n\ker f_i=\{0\}.
+	\end{equation}
+
+	\begin{proof}
+		Si $\{f_1,\dots,f_n\}$ es base, entonces el resultado se sigue del
+		corolario~\ref{cor:base_annS} con $S=\{0\}$. 
+%		\begin{align*}
+%			V^*&=\langle f_1,\dots,f_n\rangle 
+%			=\langle f_1\rangle+\cdots+\langle f_n\rangle
+%			=\sum_{i=1}^n\ann\ker(f_i)
+%			=\ann\left(\bigcap_{i=1}^n\ker f_i\right).
+%		\end{align*} 
+%		Como $V^*=\ann\{0\}$, se concluye~\eqref{eq:capker(f_i)}. 
+		Recíprocamente, si se asume~\eqref{eq:capker(f_i)} entonces 
+		\begin{align*}
+			V^* &= \ann\left(\bigcap_{i=1}^n\ker(f_i)\right)\\
+			&=\sum_{i=1}^n \ann\left(\ker(f_i)\right)=\langle f_1\rangle+\cdots+\langle f_n\rangle=\langle f_1,\dots,f_n\rangle.
+		\end{align*}
+		Como $\dim V^*=n$, entonces $\{f_1,\dots,f_n\}$ es una base de $V^*$.
+	\end{proof}
+\end{cor}
+
+\begin{example}
+	Vamos a usar el corolario~\ref{cor:anuladores} para calcular las ecuaciones
+	de un subespacio. Sea $S=\langle(1,1,1),(1,2,1)\rangle\subseteq\R^3$. Como
+	$\dim S=2$ e teorema de la dimensión del anulador nos dice que $\dim\ann
+	S=1$. Sea $f\in\ann S$ y supongamos que $f(x,y,z)=\alpha x+\beta y+\gamma z$. Entonces
+	$f$ puede escribirse como $f(x,y,z)=\alpha(x-z)$ y luego $\ann S$ está
+	generado por la funcional $(x,y,z)\mapsto x-z$. El corolario~\ref{cor:anuladores} nos dice
+	que 
+	\[
+		S=\{v\in V:f(v)=0\text{ para todo $f\in\ann S$}\}=\{(x,y,z)\in\R^3:x-z=0\}.
+	\]
+\end{example}
+
+\section{El doble dual}
+
+\begin{block}
+    Como $V^*$ es un espacio vectorial es posible considerar el \textbf{doble
+    dual} $\left(V^*\right)^*=V^{**}$. Si $V$ es de dimensión finita entonces
+    \[
+        \dim V=\dim V^*=\dim V^{**}.
+    \]
+\end{block}
+
+\begin{block}
+	Todo $v\in V$ induce una funcional lineal en $V^*$. En efecto, la función
+	$L_v\colon V^*\to\K$ dada por $f\mapsto \langle L_v|f\rangle=f(v)$, es
+	lineal pues  
+	\[
+	\langle L_v|f+\lambda g\rangle=(f+\lambda g)(v)=f(v)+(\lambda g)(v)=f(v)+\lambda g(v)=\langle L_v|f\rangle+\lambda\langle L_v|f\rangle
+    \]
+    para todo $f,g\in V^*$ y $\lambda\in\K$.
+\end{block}
+
+\begin{thm}
+    \label{thm:doble_dual}
+    Sea $V$ un espacio vectorial de dimensión finita. Entonces $L\colon V\to
+    V^{**}$, $v\mapsto L_v$, es un isomorfismo.
+
+    \begin{proof}
+		Veamos que $L$ es lineal: si $v,w\in V$, $\lambda\in\K$ y $\varphi\in
+		V^*$ entonces
+        \begin{align*}
+			\langle L_{v+\lambda w}|f\rangle=f(v+\lambda w)=f(v)+\lambda f(w)=\langle L_v|f\rangle+\lambda\langle L_w|f\rangle.
+        \end{align*}
+        Veamos que $L$ es monomorfismo: si $v\in V$ tal que $L_v=0$ entonces
+		$L_v(\varphi)=\varphi(v)=0$ para todo $\varphi\in V^*$. Luego $v=0$ por
+		el ejercicio~\ref{xca:v=0<=>f(v)=0}.
+        
+		Como $L$ es monomorfismo y $\dim V^{**}=\dim V$ por ser $V$ de
+		dimensión finita, $L$ es un isomorfismo por el
+		corolario~\ref{cor:mono<=>epi<=>iso}. 
+    \end{proof}
+\end{thm}
+
+\begin{cor}[teorema de representación]
+    \label{cor:representacion}
+    Sea $V$ un espacio vectorial de dimensión finita sobre $\K$. Si
+    $T\in\hom(V^*,\K)$ entonces existe un único vector $v\in V$ tal que
+    $T(f)=f(v)$ para todo $f\in V^*$
+    
+    \begin{proof}
+		Como $T\in V^{**}$ y $L$ es biyectiva por el
+		teorema~\ref{thm:doble_dual}, existe un único $v\in V$ tal que $T=L_v$.          
+    \end{proof}
+\end{cor}
+
+\begin{cor}
+    Sea $V$ un espacio vectorial de dimensión finita sobre $\K$. Entonces toda
+    base de $V^*$ es dual de una única base de $V$.
+
+    \begin{proof}
+        Demostremos la existencia. Sea $\{f_1,\dots,f_n\}$ una base de $V^*$ y
+        sea $\{T_1,\dots,T_n\}\subseteq V^{**}$ su base dual. Por el corolario
+        anterior,~\ref{cor:representacion}, existen $v_1,\dots,v_n\in V$ tales
+		que $T_i(f)=f(v_i)$ para todo $f\in V^*$. Luego, como $L$ es un
+		isomorfismo, $\{v_1,\dots,v_n\}$ es base de $V$ y $\{f_1,\dots,f_n\}$
+		es su base dual pues
+		\[
+			f_j(v_i)=\langle L_{v_i}|f_j\rangle=\langle T_i|f_j\rangle=\delta_{ij}.
+		\]
+
+		Demostremos ahora la unicidad. Supongamos que existen bases
+		$\{v_1,\dots,v_n\}$ y $\{v_1',\dots,v_n'\}$ de $V$ tales que ambas
+		tienen a $\{f_1,\dots,f_n\}$ como base dual. Para cada $j$ escribimos
+		\[
+			v_j'=\sum_{k=1}^n a_{kj}v_k
+		\]
+		y entonces $\delta_{ij}=f_i(v_j')=\sum_{k=1}^n a_{kj}f_i(v_k)=a_{ij}$
+		para todo $i,j\in\{1,\dots,n\}$. Luego $v_j'=v_j$ para todo
+		$j\in\{1,\dots,n\}$.
+    \end{proof}
+\end{cor}
+
+%\begin{example}
+%    \framebox{FIXME}
+%	Sea $V=\K^{\infty}$ y sea $\{e_1,e_2,\dots\}$ la base canónica.
+%	Supongamos que $\{\varphi_1,\varphi_2,\dots\}$ es su base dual, es decir:
+%	$\varphi_i(e_j)=\delta_{ij}$. Sea $v=(v_1,v_2,\dots)\in V$ con finitas coordenadas no nulas, digamos 
+%	$v_j=0$ para todo $j>N$. Entonces
+%	$L_v(\varphi_k)=\varphi_k(v)=0$ si $k>N$. Sin embargo existe $f\in V^{**}$ tal que
+%	$f(\varphi_k)\ne1$. 
+%\end{example}
+
+
+\begin{xca}
+	\label{xca:dual:LI}
+	Sea $V$ un espacio vectorial de dimensión $n$ y sea
+	$\{f_1,\dots,f_n\}$ un subconjunto de $V^*$. Pruebe que si existe $v\in
+	V\setminus\{0\}$ tal que $f_i(v)=0$ para todo $i\in\{1,\dots,n\}$
+	entonces el conjunto $\{f_1,\dots,f_n\}$ es linealmente dependiente. 
+\end{xca}
+
+
+
+\section{La traspuesta de una transformación lineal}
+
+\begin{block}
+    Sean $V$ y $W$ dos espacios vectoriales sobre $\K$ y sea $f\in\hom(V,W)$.
+    Se define la \textbf{traspuesta} de la transformación $f$ como la función
+    $f^T\colon W^* \to V^*$ dada por 
+    $(f^T\varphi)(v)=\varphi(f(v))$, o equivalentemente 
+    \[
+        \langle f^T\varphi|v\rangle=\langle\varphi|f(v)\rangle,
+    \]
+    para todo $\varphi\in W^*$ y $v\in V$. Veamos que
+    $f^T\in\hom(W^*,V^*)$: si $\varphi,\psi\in W^*$, $\lambda\in\K$ y $v\in V$ entonces
+	\begin{align*}
+        \langle f^T(\varphi+\lambda\psi)|v\rangle&=
+        \langle \varphi+\lambda\psi|f(v)\rangle=
+        \left(\varphi+\lambda\psi\right)(f(v))\\
+        &=\varphi(f(v))+\lambda\psi(f(v))
+		=\langle f^T(\varphi)|v\rangle+\langle f^T(\psi)|v\rangle.
+	\end{align*}
+\end{block}
+
+\begin{prop}
+    Sean $V$ y $W$ espacios vectoriales sobre $\K$ y supongamos que $\dim V=n$
+    y $\dim W=m$. Sea $f\in\hom(V,W)$. Entonces $L_W\circ f=(f^T)^T\circ L_V$,
+    es decir: el siguiente diagrama es conmutativo:
+    \[
+    \xymatrix{
+    V
+    \ar[d]_{L_V}
+    \ar[r]^-{f}
+    & W
+    \ar[d]^{L_W}
+    \\
+    V^{**}
+    \ar[r]^-{(f^T)^T}
+    & W^{**}
+    }
+    \]
+
+    \begin{proof}
+        Si $v\in V$ y $\varphi\in W^*$ entonces 
+        \[
+            \langle (f^T)^TL_v|\varphi\rangle=\langle L_v|f^T\varphi\rangle=\langle L_v|\varphi\circ f\rangle
+			=(\varphi\circ f)(v)=\varphi(f(v))=\langle L_{f(v)}|\varphi\rangle,
+        \]
+        tal como queríamos demostrar.
+    \end{proof}
+\end{prop}
+
+\begin{prop}
+    \label{pro:ker(fT)=ann(imf)}
+    Sean $V$ y $W$ dos espacios vectoriales. Sea 
+    $f\in\hom(V,W)$. Entonces
+    \[
+        \ker\left(f^T\right)=\ann\im f.
+    \]
+
+    \begin{proof}
+        Tenemos:
+        \begin{align*}
+            \varphi\in\ker\left(f^T\right) & \Leftrightarrow \varphi\circ f=f^T\circ\varphi=0\\
+            & \Leftrightarrow \varphi(f(v))=0\text{ para todo $v\in V$}\\
+            & \Leftrightarrow \varphi(w)=0\text{ para todo $w\in\im f$}.
+        \end{align*}
+        Esto demuestra la proposición.
+    \end{proof}
+\end{prop}
+
+\begin{prop}
+    \label{pro:dimimf=dimimfT}
+    Sean $V$ y $W$ espacios vectoriales sobre $\K$ de dimensión finita y sea
+    $f\in\hom(V,W)$. Entonces
+    \[
+        \dim\im f=\dim\im\left(f^T\right).
+    \]
+
+    \begin{proof}
+        Supongamos que $\dim W^*=m$. Entonces, por el teorema de la dimensión y
+        el teorema de la dimensión del anulador:
+        \[
+            m=\dim\ker\left(f^T\right)+\dim\im\left(f^T\right)
+            =\dim\ann\im f+\dim\im f.
+        \]
+        Por la proposición~\ref{pro:ker(fT)=ann(imf)} sabemos que
+        $\dim\ker\left(f^T\right)=\dim\ann\im f$. Entonces 
+        \[
+            \dim\im\left(f^T\right)=\dim\im f,
+        \]
+        que es lo que queríamos demostrar.
+    \end{proof}
+\end{prop}
+
+\begin{prop}
+    \label{pro:imf^T=annkerf}
+    Sean $V$ y $W$ espacios vectoriales sobre $\K$ de dimensión finita y sea
+    $f\in\hom(V,W)$. Entonces
+    \[
+        \im\left(f^T\right)=\ann\ker f.
+    \]
+
+    \begin{proof}
+        Demostremos que $\im\left(f^T\right)\subseteq\ann\ker f$.  Sea
+        $\varphi\in\im\left(f^T\right)$. Para ver que $\ker
+        f\subseteq\ker\varphi$ escribamos $f^T\psi=\varphi$ con $\psi\in W^*$.
+        Entonces, si $v\in\ker f$, $\varphi(v)=(\psi\circ f)(v)=0$ y luego
+        $\varphi\in\ann\ker f$.
+
+        Por otro lado, como
+        \[
+            \dim V=\dim\ker f+\dim\ann\ker f=\dim\ker f+\dim\im f,
+        \]
+        entonces $\dim\ann\ker f=\dim\im f$. Además 
+        $\dim\im\left(f^T\right)=\dim\im f$ por la proposición~\ref{pro:dimimf=dimimfT}. Luego 
+        \[
+            \dim\ann\ker f=\dim\im\left(f^T\right),
+        \]
+        que implica lo que queríamos demostrar.
+    \end{proof}
+\end{prop}
+
+\begin{prop}
+    \label{pro:|f^T|=|f|^T}
+    Sean $V$ y $W$ espacios vectoriales sobre $\K$ de dimensión finita y sea
+    $f\in\hom(V,W)$. Si $\cB_V=\{v_1,\dots,v_n\}$ es una base ordenada de $V$ y
+    $\cB_V^*=\{f_1,\dots,f_n\}$ es su base dual, $\cB_W=\{w_1,\dots,w_m\}$ es
+    una base ordenada de $W$ y $\cB_W^*=\{g_1,\dots,g_m\}$  es su base dual,
+    entonces 
+    \[
+        \left\|f^T\right\|_{\cB_W^*,\cB_V^*}=\|f\|_{\cB_V,\cB_W}^T.           
+    \]
+
+    \begin{proof}
+        Supongamos que 
+        \begin{align*}
+            \|f\|_{\cB_V,\cB_W}=(a_{ij})\in\K^{m\times n},
+            &&
+            \left\|f^T\right\|_{\cB_W^*,\cB_V^*}=(b_{ij})\in\K^{n\times m}. 
+        \end{align*}
+        Entonces $f(v_j)=\sum_{i=1}^m a_{ij}w_i$ para todo $j\in\{1,\dots,n\}$ y
+        $\left(f^T\right)(g_j)=\sum_{i=1}^n b_{ij}f_i$ para todo $j\in\{1,\dots,m\}$. 
+        Para cada $k\in\{1,\dots,n\}$ por un lado tenemos
+        \[
+        f^T(g_j)(v_k)=\sum_{i=1}^n b_{ij}f_i(v_k)=\sum_{i=1}^n b_{ij}\delta_{ik}=b_{kj}
+        \]  
+        y por otro lado
+        \[
+        f^T(g_j)(v_k)=g_j(f(v_k))=g_j\left(\sum_{i=1}^m a_{ik}w_i\right)=\sum_{i=1}^m a_{ik}g_j(w_i)=\sum_{i=1}^m a_{ik}\delta_{ji}=a_{jk}.
+        \]
+        Luego $a_{ij}=b_{ji}$ para todo $i,j$.
+    \end{proof}
+\end{prop}
+
+\begin{prop}
+    \label{pro:f_iso<=>f^T_iso}
+    Sean $V$ y $W$ espacios vectoriales sobre $\K$ de dimensión finita y
+    supongamos que $\dim V=\dim W$. Sea $f\in\hom(V,W)$. Entonces $f$ es un
+    isomorfismo si y sólo si $f^T$ es un isomorfismo.
+
+    \begin{proof}
+        Sea $\cB_V$ una base ordenada de $V$ y $\cB_V^*$ su base dual. Sea
+        $\cB_W$ una base ordenada de $W$ y $\cB_W^*$ su base dual. Entonces 
+        \begin{align*}
+            f\text{ es isomorfismo} &\Leftrightarrow \|f\|_{\cB_V,\cB_W}\text{ es inversible}
+            \Leftrightarrow \|f\|_{\cB_V,\cB_W}^T\text{ es inversible}. 
+        \end{align*}
+        Como $\left\|f^T\right\|_{\cB_W^*,\cB_V^*}=\|f\|_{\cB_V,\cB_W}^T$ por
+        la proposición~\ref{pro:|f^T|=|f|^T}, concluimos que $f$ es isomorfismo
+        si y sólo si $f^T$ es un isomorfismo.
+    \end{proof}
+\end{prop}
+
+\section{Una aplicación al rango de matrices}
+
+\begin{block}
+    Vamos a demostrar que el rango fila y el rango columna son iguales. 
+    
+    Sea
+    \[
+        f\colon\K^{n\times1}\to\K^{m\times1},\quad x\mapsto Ax
+    \]
+    Con respecto a las bases canónicas de $\K^{n\times1}$ y $\K^{m\times1}$ la
+    matriz de $f$ es $\|f\|=A$. En la proposición~\ref{pro:dimimf=dimimfT}
+    vimos que $\dim\im f=\dim\im f^T$. Además $\|f\|^T=\|f^T\|$ por la
+    proposición~\ref{pro:|f^T|=|f|^T}. Entonces
+    \begin{align*}
+        \rg_C(A)&=\dim\im f=\dim\im f^T\\
+        &=\rg_C\left(\left\|f^T\right\|\right)
+        =\rg_C\left(\|f\|^T\right)=\rg_F(\|f\|)=\rg_F(A).
+    \end{align*}
+\end{block}
+
+\section{Una aplicación a los cuadrados mágicos}
+
+\begin{block}
+	\label{block:magic_squares}
+    Vamos a utilizar el teorema de la dimensión del anulador para estudiar
+    cuadrados mágicos. Un \textbf{cuadrado mágico} es, por definición, una
+    matriz racional $A$ de $n\times n$ tal que cada una de las sumas de sus filas
+    es igual a la traza $\tr(A)$ de $A$, cada una de la suma de columnas es
+    igual a $\tr(A)$, y la suma de su antidiagonal es igual a $\tr(A)$, es
+    decir: $A$ es un cuadrado mágico si y sólo si para todo $k$ se tiene que
+    \begin{align*}
+        \sum_{i=1}^n a_{ik}=\tr(A), &&
+        \sum_{j=1}^n a_{kj}=\tr(A), &&
+        \sum_{i+j=n+1}^n a_{ij}=\tr(A).
+    \end{align*}
+
+    Sea $M(n)$ el conjunto de cuadrados mágicos. 
+
+	Por ejemplo, la matrices
+    \begin{align}
+        \label{eq:magic}
+		\begin{pmatrix}
+			1 & 1 & 1\\
+			1 & 1 & 1\\
+			1 & 1 & 1  
+		\end{pmatrix},
+         &&
+		\begin{pmatrix}
+			8 & 3 & 4\\
+			1 & 5 & 9\\
+			6 & 7 & 2  
+		\end{pmatrix},
+        &&
+		\begin{pmatrix}
+			4 & 9 & 2\\
+			3 & 5 & 7\\
+			8 & 1 & 6  
+		\end{pmatrix},
+    \end{align}
+	son cuadrados mágicos de $3\times 3$. 
+    
+    \begin{xca*}
+        Demuestre que el conjunto $M(n)$ de cuadrados mágicos de $n\times n$ es
+        un subespacio vectorial de $\Q^{n\times n}$. 
+    \end{xca*}
+
+    Ahora que sabemos que $M(n)$ es un subespacio vectorial, calculemos su
+    dimensión. Por el teorema de la dimensión del anulador,
+    teorema~\ref{thm:dimension_anulador}, sabemos que
+	\[
+		\dim M(n)+\dim\ann M(n)=n^2.
+	\]
+
+    Para cada $i,j\in\{1,\dots,n\}$ consideremos las funcionales lineales
+    $c_i\colon\Q^{n\times n}\to\Q$, $r_i\colon\Q^{n\times n}\to\Q$ y
+    $\mathrm{antitr}\colon\Q^{n\times n}\to\Q$ dadas por
+    \[
+    c_j(A)=\sum_{k=1}^n a_{kj},\quad
+    r_i(A)=\sum_{k=1}^n a_{ik},\quad
+    \mathrm{antitr}(A)=\sum_{i+j=n+1}a_{ij}.
+    \]
+
+	El conjunto
+	$\{r_1-\tr,\dots,r_n-\tr,c_1-\tr,\dots,c_{n-1}-\tr,\mathrm{antitr}-\tr\}$
+	es un conjunto de generadores para $\ann M(n)$. Puede demostrarse además
+	que es un conjunto linealmente independiente. Luego, por el teorema de la
+	dimensión del anulador, $\dim M(n)+2n=n^2$ y entonces
+    \[
+        \dim M(n)=n(n-2). 
+    \]
+
+    Demostremos la independencia lineal en el caso $n=3$. Sean los escalares
+	$\alpha_1,\alpha_2,\alpha_3\,\beta_1,\beta_2\in\Q$ tales que
+	\[
+        \sum_{i=1}^3 \alpha_i(r_i-\tr)+\sum_{j=1}^{2}\beta_j(c_j-\tr)+\gamma(\mathrm{antitr}-\tr)=0.
+	\]
+	
+	Veamos que $\alpha_1=\alpha_2=\alpha_3=\beta_1=\beta_2=\gamma=0$. Al
+	evaluar esta expresión en la matriz $E_{13}+E_{22}+E_{31}$ se obtiene que
+	$\gamma=0$.  Después, al evaluar en la matrices canónicas $E_{13}$ y
+	$E_{23}$ se obtiene $\alpha_1=\alpha_2=0$.  Evaluar en $E_{21}$ y $E_{12}$
+	nos da $\beta_1=\beta_2=0$. Por último, al evaluar en $E_{31}$ obtenemos
+	que $\alpha_3=0$.
+\end{block}
+
+\begin{xca}
+	Utilice~\ref{block:magic_squares} para demostrar que la dimensión del
+	espacio de cuadrados mágicos de $n\times n$ es $n(n-2)$. 
+\end{xca}
+

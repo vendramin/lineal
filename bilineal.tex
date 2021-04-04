@@ -1,0 +1,50 @@
+\chapter{Formas bilineales}
+
+%\begin{block}[matriz de un producto interno]
+%    \framebox{definicion}
+%
+%    \framebox{ejemplo}
+%
+%    \framebox{es hermitiana pero no vale la vuelta}
+%
+%    \framebox{calcular <v,w> con la matriz}
+%\end{block}
+
+\section{Formas bilineales simétricas}
+
+\begin{block}
+    Sea $V$ un espacio vectorial. Una \textbf{forma bilineal} sobre $V$ es una
+    función $B\colon V\times V\to\K$ tal que
+    \begin{enumerate}
+        \item $B(u+v,w)=B(u,w)+B(v,w)$ para todo $u,v,w\in V$.
+        \item $B(\lambda v,w)=\lambda B(v,w)$ para todo $v,w\in V$ y $\lambda\in\K$. 
+        \item $B(u,v+w)=B(u,v)+B(u,w)$ para todo $u,v,w\in V$.
+        \item $B(v,\lambda w)=\lambda B(v,w)$ para todo $v,w\in V$ y $\lambda\in\K$. 
+    \end{enumerate}
+    Una forma bilineal $B\colon V\times V\to\K$ es \textbf{simétrica} si
+    $B(v,w)=B(w,v)$ para todo $v,w\in V$.
+\end{block}
+
+\begin{example}
+    Si $A\in\R^{n\times n}$ es simétrica entonces $B\colon\R^n\times\R^n\to\R$
+    dada por $B(x,y)=xAy^T$ es una forma bilineal simétrica. 
+\end{example}
+
+\begin{xca}
+    \label{xca:simetrica:diagonal}
+    Demuestre que si $B$ es una forma bilineal simétrica de un espacio
+    vectorial real o complejo $V$ entonces
+    \[
+        B(v,w)=\frac12\left(B(v+w,v+w)-B(v,v)-B(w,w)\right)
+    \]
+    para todo $v,w\in V$. 
+\end{xca}
+
+\begin{block}
+    Sea $\cB=\{v_1,\dots,v_n\}$ una base de $V$ y 
+\end{block}
+
+
+
+
+

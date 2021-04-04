@@ -1,0 +1,1399 @@
+\chapter{Espacios vectoriales}
+
+Tres clases. Temas: Espacios vectoriales y subespacios. Suma e intersección.
+Sistemas de generadores e independencia lineal. Bases y dimensión. Rango.
+Coordenadas y cambio de base. Aplicaciones. 
+
+\section{Espacios vectoriales}
+
+\begin{block}
+	Un \textbf{espacio vectorial} sobre un cuerpo $\K$ es un conjunto no vacío
+	$V$ con dos operaciones, una suma $V\times V\to V$ denotada por
+	$(x,y)\mapsto x+y$, y un producto por escalares $\K\times V\to V$, denotado
+	por $(\lambda,x)\mapsto \lambda x$, tal que
+    \begin{enumerate}
+        \item $(x+y)+z=x+(y+z)$ para todo $x,y,z\in V$.        
+        \item Existe un único $0_V\in V$ tal que $x+0_V=0_V+x=x$ para todo $x\in V$.
+        \item Para cada $x\in V$ existe un único $(-x)\in V$ tal que \[x+(-x)=(-x)+x=0_V.\]
+        \item $x+y=y+x$ para todo $x,y\in V$.
+        \item $1x=x$ para todo $x\in V$.
+        \item $(\lambda\mu)x=\lambda(\mu x)$ para todo $\lambda,\mu\in\K$ y $x\in V$.
+        \item $(\lambda+\mu)x=\lambda x+\mu x$ para todo $\lambda,\mu\in\K$ y $x\in V$.
+        \item $\lambda(x+y)=\lambda x+\lambda y$ para todo $\lambda\in\K$ y $x,y\in V$.
+    \end{enumerate}
+	Los elementos de $V$ se denominan \textbf{vectores}. Los elementos de $\K$
+	se denominan \textbf{escalares}. El elemento $0_V\in V$ se denomina el
+	\textbf{origen} de $V$.  Cuando no haya peligro de confusión, denotaremos
+	por $0$ al cero del cuerpo $\K$ y también al origen de $V$.
+\end{block}
+
+\begin{block}
+	Demostremos algunas propiedades básicas:
+	\begin{enumerate}
+		\item $0v=0_V$ para todo $v\in V$. En efecto, $0v=(0+0)v=0v+0v$ y luego, al sumar en
+			ambos miembros el elemento $-(0v)$, obtenemos $0v=0_V$.
+		\item $(-1)v=-v$ para todo $v\in V$. En efecto, como $0v=0_V$, entonces
+			\[
+			0_V=0v=(1+(-1))v=1v+(-1)v=v+(-1)v
+			\]
+			y luego $-v=(-1)v$, por la unicidad
+			del inverso aditivo.
+		\item $\lambda0_V=0_V$ para todo $\lambda\in\K$ pues
+			$\lambda0_V=\lambda (0_V+0_V)=\lambda0_V=\lambda0_V$ y luego
+			$\lambda0_V=0_V$. 
+	\end{enumerate}
+\end{block}
+
+\begin{xca}
+    Sea $I$ un conjunto no vacío y sea $\{V_i:i\in I\}$ una colección de
+    espacios vectoriales sobre $\K$. Se define el \textbf{producto directo} de
+    los $V_i$ como
+    \[
+        \prod_{i\in I}V_i=\left\{f\colon I\to\bigcup_{i\in I}V_i:f(i)\in V_i\text{ para todo $i\in I$}\right\}.
+    \]
+    Demuestre que con las operaciones 
+    \begin{align*}
+    &(f+g)(i)=f(i)+g(i),\\
+    &(\lambda f)(i)=\lambda f(i),
+    \end{align*}
+    donde la suma es la suma del espacio vectorial $V_i$ y
+    el producto por escalares es el producto por escalares de $V_i$, es un
+    espacio vectorial sobre $\K$.  Un poco de notación: si $I=\{1,\dots,n\}$ es un
+    conjunto finito escribiremos 
+    $\prod_{i\in I}V_i=V_1\times\cdots\times V_n$. 
+    Si todos los $V_i$ son iguales a un espacio vectorial $V$ entonces
+    $\prod_{i\in I}V_i=V^{I}$. 
+    Por último, si $I=\{1,\dots,n\}$ y todos los
+    $V_i$ son iguales a $V$ entonces $\prod_{i\in I}V_i=V^n$. 
+\end{xca}
+
+
+\begin{examples}\
+	\begin{enumerate}
+        \item Un cuerpo $\K$ con las operaciones usuales es un espacio
+            vectorial sobre $\K$ donde vectores y escalares coinciden.
+        \item El conjunto $\K^n$ de $n$-tuplas de elementos de $\K$ con las
+            operaciones
+            \begin{align*}
+                &(x_1,\dots,x_n)+(y_1,\dots,y_n)=(x_1+y_1,\dots,x_n+y_n),\\
+                &\lambda(x_1,\dots,x_n)=(\lambda x_1,\dots,\lambda x_n),
+            \end{align*}
+            es un espacio vectorial sobre $\K$.
+        \item El conjunto $\K^{m\times n}$ de matrices de $m\times n$ con las operaciones usuales
+            es un espacio vectorial sobre $\K$.
+        \item El conjunto $\K[X]$ de polinomios con coeficientes en $\K$ es un
+            espacio vectorial sobre $\K$.
+		\item $V=C(\R)=\{f\colon\R\to\R:f\text{ es continua}\}$
+        \item $V=C^\infty(\R)=\{f\colon\R\to\R:f\text{ es de clase $C^\infty$}\}$.
+        \item Las sucesiones en $\K$ con las operaciones
+            \begin{align*}
+                &(x_1,x_2,\dots)+(y_1,y_2,\dots)=(x_1+y_1,x_2+y_2,\dots),\\
+                &\lambda (x_1,x_2,\dots)=(\lambda x_1,\lambda x_2,\dots),
+            \end{align*}
+            forman un espacio vectorial sobre $\K$. Este espacio vectorial será
+            denotado por $\K^{\infty}$.
+	\end{enumerate}
+\end{examples}
+
+\begin{xca}
+	Si $V$ un espacio vectorial sobre $\K$ y $p\in V$. Pruebe que las operaciones
+	$v+_pw=v+w-p$ y $\lambda\cdot_p v=p+\lambda (x-p)$ definen una estructura
+	de espacio vectorial sobre $V$ cuyo origen es $p$.
+\end{xca}
+
+\begin{xca}
+	Sea $V$ un espacio vectorial sobre $\R$. Pruebe que las operaciones
+    \begin{align*}
+      &(x,y)+(x',y')=(x+x',y+y'),
+      &&(a+bi)(x,y)=(ax-by,ay+bx),
+    \end{align*}
+    definen sobre $V\times V$ una estructura de espacio vectorial sobre $\C$.
+    Este espacio vectorial se denomina la \textbf{complexificación} de $V$ y se
+    denota por $V_{\C}$.
+\end{xca}
+
+\section{Subespacios, suma e intersección}
+
+\begin{block}
+    Sea $V$ un espacio vectorial sobre $\K$.  Un subconjunto no vacío
+    $S\subseteq V$ es un \textbf{subespacio} de $V$ si $0\in S$ y si $x,y\in S$
+    y $\lambda\in\K$ entonces $x+\lambda y\in S$. Observemos que si $S$ es un
+    subespacio de $V$ entonces $S$, con las operaciones de $V$ restringidas a
+    $S$, es un espacio vectorial.
+\end{block}
+
+\begin{xca}
+    \label{xca:subespacio}
+	Sea $V$ un espacio vectorial sobre $\K$ y sea $S\subseteq V$ un subconjunto
+	no vacío. Pruebe que $S$ es subespacio si y sólo si $v+\lambda w\in S$ para
+	todo $v,w\in S$ y $\lambda\in\K$.
+\end{xca}
+
+\begin{xca}
+    Sea $I$ un conjunto no vacío y $\{V_i:i\in I\}$ una colección de espacios
+    vectoriales sobre $\K$. Demuestre que el conjunto
+    \[
+        \coprod_{i\in I}V_i=\left\{f\in\prod_{i\in I}V_i:f(i)=0\text{ salvo para finitos $i\in I$}\right\}
+    \]
+    es un subespacio de $\prod_{i\in I}V_i$. Este subespacio se conoce como el
+    \textbf{coproducto directo} de los $V_i$. Notación: si todos los $V_i$ son
+    iguales a un espacio vectorial $V$ escribimos $\coprod_{i\in
+    I}V_i=V^{(I)}$. 
+\end{xca}
+
+\begin{examples}\
+    \begin{enumerate}
+        \item Si $V$ es un espacio vectorial entonces $\{0\}$ y $V$ son
+            subespacios de $V$.
+        \item Si $A=(a_{ij})\in\K^{m\times n}$ entonces
+            \[
+                \left\{(x_1,\dots,x_n)\in\K^n: \sum_{j=1}^n a_{ij}x_j=0\text{ para todo $i\in\{1,\dots,m\}$}\right\}
+            \]
+            es un subespacio de $\K^n$.
+        \item Para cada $n\in\N$, el conjunto 
+            \[
+            \K_n[X]=\{f\in\K[X]: \deg f\leq n\text{ o }f=0\}
+            \]
+            es un subespacio de $\K[X]$.
+        \item El conjunto $C^{\infty}(\R)$ es un subespacio de $C(\R)$.
+		\item El conjunto $\{f\in C^\infty(\R):f''+f=0\}$ es un subespacio de $C^{\infty}(\R)$.
+		\item El conjunto de sucesiones en $\K$ con un número finito de elementos no nulos
+			es un subespacio de $\K^{\infty}$.
+    \end{enumerate}
+\end{examples}
+
+\begin{xca}
+    Si $n\in\N$ entonces $\{f\in\R[X]:\deg f\geq n\text{ o }f=0\}$ no es un
+    subespacio de $\R[X]$. ¿Por qué?
+\end{xca}
+
+\begin{xca} 
+    Sea $I$ un conjunto de índices y sea $(S_i)_{i\in I}$ una colección
+    arbitraria de subespacios de un espacio vectorial $V$. Demuestre que 
+    $\cap_{i\in I}S_i$ es un subespacio de $V$. 
+\end{xca}
+
+\begin{block}
+    Si $S$ y $T$ son dos subespacios de un espacio vectorial $V$ entonces
+    $S\cap T$ es un subespacio de $V$.  Observemos que $S\cap T$ es el mayor
+    subespacio de $V$ contenido en $S$ y en $T$. 
+\end{block}
+
+\begin{xca}
+    Sea $I$ un conjunto no vacío y sea $\{W_i:i\in I\}$ una colección de
+    subespacios de un espacio vectorial $V$.  Demuestre que 
+    \[
+    \sum_{i\in I}W_i=\left\{v\in V:v=\sum_j w_j\text{ (suma finita), donde $w_j\in W_j$ para todo $j$}\right\}
+    \]
+    es un subespacio de $V$ y que es el menor subespacio de $V$ que contiene a $\cup_{i\in I}W_i$. 
+\end{xca}
+
+\begin{block}
+	Sean $V$ un espacio vectorial y $S$ y $T$ dos subespacios de $V$.  Entonces 
+    \[
+        S+T=\{s+t\in V: s\in S,\;t\in T\}
+    \]
+	es un subespacio de $V$.  Demostremos que $S+T$ es el menor subespacio de
+	$V$ que contiene a $S\cup T$. En efecto, si $W$ es un subespacio de $V$ que
+	contiene a $S\cup T$ entonces, como $S\subseteq S\cup T\subseteq W$ y
+	$T\subseteq S\cup T\subseteq W$, se tiene que $S+T\subseteq W$. 
+\end{block}
+
+\begin{remark}
+    La unión de subespacios no siempre es subespacio. Por ejemplo: si $V=\R^2$,
+    $S=\{(x,y):x=0\}$ y $T=\{(x,y):y=0\}$ entonces $(1,1)\not\in S\cup T$.
+\end{remark}
+
+\begin{example}
+	\label{exa:R2x2}
+	Consideremos el subespacio $U$ de $\R^{2\times 2}$ dado por 
+	\[
+	U=\left\{\begin{pmatrix}
+		a_{11} & a_{12}\\
+		0 & a_{22}
+	\end{pmatrix}
+	:a_{11},a_{12},a_{22}\in\K\right\}
+	= \left\{\begin{pmatrix}
+			\star & \star\\
+			0 & \star
+		\end{pmatrix}
+		\right\},
+	\]
+	y los siguientes subespacios
+	\begin{align*}
+		U' = \left\{\begin{pmatrix}
+			0 & \star\\
+			0 & 0
+		\end{pmatrix}
+		\right\},
+		&&
+		L = \left\{\begin{pmatrix}
+			\star & 0\\
+			\star & \star
+		\end{pmatrix}
+		\right\},
+		&&
+		L' = \left\{\begin{pmatrix}
+			0 & 0\\
+			\star & 0
+		\end{pmatrix}
+		\right\},
+		&&
+		H = \left\{\begin{pmatrix}
+			\star & 0\\
+			0 & \star
+		\end{pmatrix}
+		\right\},
+	\end{align*}
+	Entonces, por ejemplo, se demuestra fácilmente que:
+	\begin{enumerate}
+		\item $V=U+L$.
+		\item $V=U+L'$.
+	\end{enumerate}
+\end{example}
+
+\begin{block}
+    Sean $V$ un espacio vectorial y $S$ y $T$ dos subespacios. Se dice que $V$
+    es \textbf{suma directa} de $S$ y $T$ si $V=S+T$ y $S\cap T=\{0\}$.  Si $V$
+    es suma directa de $S$ y $T$ la notación es: $V=S\oplus T$. 
+\end{block}
+
+\begin{example}
+    En el ejemplo~\ref{exa:R2x2} vimos que $V=U+L$. Es fácil ver que $V$ no es
+    suma directa de $U$ y $L$ pues $U\cap L\ne\{0\}$. En cambio, $V=U\oplus L'$
+    pues $V=U+L'$ y además $U\cap L'=\{0\}$. 
+\end{example}
+
+\begin{example}
+    Sea $V$ el espacio vectorial de las funciones $f\colon\R\to\R$.
+    Consideremos los subespacios $V_P=\{f\in V:f(x)=f(-x)\text{ para todo
+    $x$}\}$ y $V_I=\{f\in V: f(x)=-f(-x)\text{ para todo $x$}\}$. Como toda $f$
+    puede escribirse como $f=f_P+f_I$, donde
+	\[
+	f_P(x)=\frac{f(x)+f(-x)}{2}\in V_P,\quad
+	f_I(x)=\frac{f(x)-f(-x)}{2}\in V_I,
+	\]
+    entonces $V=V_P+V_I$. Más aún, si $f\in V_P\cap V_I$ entonces $f(x)=0$ para
+    todo $x$. Luego $V_P+F_I=\{0\}$ y entonces $V=V_P\oplus V_I$.
+\end{example}
+
+\begin{prop}
+    Son equivalentes:
+    \begin{enumerate}
+        \item $V=S\oplus T$.
+		\item $V=S+T$ y si $s+t=0$ con $s\in S$ y $t\in T$ entonces $s=0$ y
+			$t=0$.
+		\item Para cada $v\in V$ existen únicos $s\in S$ y $t\in T$ tales que
+			$v=s+t$.
+    \end{enumerate}
+
+    \begin{proof}
+		Demostremos que $(1)$ implica $(2)$. Como $V=S\oplus T$, entonces, por definición, 
+	    $V=S+T$. Si $s+t=0$ con $s\in S$ y $t\in T$ entonces
+		$s=-t\in S\cap T=\{0\}$ y por lo tanto $s=0$ y $t=0$. Demostremos ahora
+		que $(2)$ implica $(3)$. Como la existencia es trivial, demostraremos
+		la unicidad: si $s+t=s'+t'$ con $s,s'\in S$ y $t,t'\in T$ entonces
+		$(s-s')+(t-t')=0$ con $s-s'\in S$ y $t-t'\in T$. Luego $s-s'=0$ y
+		$t-t'=0$ como se quería demostrar. Por último, demostremos
+		$(3)\Rightarrow(1)$. Por hipótesis, $V=S+T$. Si $v\in S\cap T$ entonces
+		$v\in S$.  Además $-v\in S\cap T$ y entonces $-v\in T$. Como $0=v+(-v)$
+		con $v\in S$ y $-v\in T$, entonces $v=0$.
+    \end{proof}
+\end{prop}
+
+\begin{block}
+    Si $V$ es un espacio vectorial y $S_1,\dots,S_n$ son subespacios de $V$ se
+    dice que $V$ es \textbf{suma directa} de los $S_i$ si $V=S_1+\cdots+S_n$ y
+    la igualdad $s_1+\cdots+s_n=0$, donde $s_i\in S_i$ para cada
+    $i\in\{1,\dots,n\}$, implica que $s_i=0$ para todo $i\in\{1,\dots,n\}$.
+\end{block}
+
+\begin{xca}
+    Sea $V$ un espacio vectorial y sean $S_1,\dots,S_n$ subespacios de $V$.
+    Demuestre que las siguientes afirmaciones son equivalentes:
+    \begin{enumerate}
+        \item $S_1+\cdots+S_n=S_1\oplus\cdots\oplus S_n$.
+        \item Todo $v\in S_1+\cdots+S_n$ puede escribirse en forma única como
+            $v=s_1+\cdots+s_n$ con $s_i\in S_i$ para todo $i\in\{1,\dots,n\}$. 
+        \item Para cada $i\in\{1,\dots,n\}$, $S_i\cap \sum_{j\ne i}S_j=\{0\}$.
+    \end{enumerate}
+\end{xca}
+
+\begin{xca}
+	Demuestre que $\R^{2\times 2}=U'\oplus H\oplus L'$. 
+\end{xca}
+
+\section{Sistemas de generadores y dependencia lineal}
+
+\begin{block}
+    Sean $V$ un espacio vectorial y $v_1,\dots,v_n\in V$. Diremos que un vector
+    $v\in V$ es \textbf{combinación lineal} de $v_1,\dots,v_n$ si existen
+    $\alpha_1,\dots,\alpha_n\in\K$ tales que $v = \alpha_1v_1+\cdots+\alpha_n
+    v_n$.  El conjunto de combinaciones lineales de $v_1,\dots,v_n$ será
+    denotado por $\langle v_1,\dots,v_n\rangle$.
+\end{block}
+
+\begin{example}
+    Consideremos los vectores $v_1=(2,3,4)$ y $v_2=(0,1,1)$ de $\R^3$.  Como
+    $v=2v_1-v_2$, el vector $v=(4,5,7)$ es combinación lineal de $v_1$ y $v_2$.
+\end{example}
+
+\begin{example}\
+	$\R[X]=\{f\in\R[X]:f(0)=0\}\oplus\langle 1\rangle$.
+\end{example}
+
+\begin{block}
+    Sean $V$ un espacio vectorial y $v_1,\dots,v_n\in V$. Entonces $\langle
+    v_1,\dots,v_n\rangle$ es el menor subespacio de $V$ que contiene a los
+    vectores $v_1,\dots,v_n$ y se denomina el \textbf{subespacio generado} por
+	$v_1,\dots,v_n$. Como consecuencia se obtienen fácilmente las siguientes
+	propiedades:
+	\begin{enumerate}
+		\item $\langle v_1,\dots,v_n\rangle=\langle v_1\rangle+\cdots+\langle
+			v_n\rangle$.
+        \item Si $S=\langle v_1,\dots,v_n\rangle$ y $T=\langle
+            w_1,\dots,w_m\rangle$ son subespacios de $V$ entonces
+            $S+T=\langle v_1,\dots,v_n,w_1,\dots,w_m\rangle$.
+	\end{enumerate}
+\end{block}
+
+\begin{xca}
+    Demuestre las siguientes propiedades:
+    \begin{enumerate}
+        \item $\langle v_1,\dots,v_i,\dots,v_j,\dots,v_n\rangle= 
+            \langle v_1,\dots,v_j,\dots,v_i,\dots,v_n\rangle$.
+        \item $\langle v_1,\dots,v_i,\dots,v_n\rangle=\langle v_1,\dots,\lambda
+            v_i,\dots,v_n\rangle$ para todo $\lambda\in\K\setminus\{0\}$.
+        \item $\langle v_1,\dots,v_i,\dots,v_j,\dots,v_n\rangle=
+            \langle v_1,\dots,v_i+\lambda v_j,\dots,v_j,\dots,v_n\rangle$
+            para todo $\lambda\in\K$.
+    \end{enumerate}
+\end{xca}
+
+\begin{block}
+	Sea $V$ un espacio vectorial y $X\subseteq V$ un subconjunto no vacío.
+	Diremos que $X$ es un \textbf{conjunto de generadores} para $V$ (o que $X$
+	genera a $V$) si para cada $v\in V$ existen $x_1,\dots,x_n\in X$ tales que
+	$v\in\langle x_1,\dots,x_n\rangle$.
+\end{block}
+
+
+\begin{examples}\
+	\label{exa:generadores}
+	\begin{enumerate}
+		\item El conjunto $\{(2,3),(1,2)\}$ es un conjunto de generadores de
+			$\R^2$ pues 
+			\[
+				(x,y)=(2x-y)(2,3)+(-3x+2y)(1,2).
+			\]
+		\item $\{e_1,\dots,e_n\}$ es un conjunto de generadores de $\K^n$.
+		\item $\{E^{ij}:1\leq i\leq m,\;1\leq j\leq n\}$ es un conjunto de
+			generadores de $\K^{m\times n}$.
+		\item $\{1,X,X^2,\dots,\}$ es un conjunto de generadores de $\K[X]$.
+		\item Sean $V=\R^{2\times 2}$ y $S=\{A\in V:A^T=A,\;\tr(A)=0\}$.
+			Entonces 
+			\[
+			\left\{\begin{pmatrix}
+				1 & 0\\
+				0 & -1
+			\end{pmatrix},
+			\begin{pmatrix}
+				0 & 1\\
+				1 & 0
+			\end{pmatrix}\right\}
+			\]
+			es un conjunto de generadores de $S$. ¿Por qué?
+	\end{enumerate}
+\end{examples}
+
+\begin{xca}
+	\label{xca:f(1)=0}
+	Sean $V=\R[X]$ y $S=\{f\in\R[X]:f(1)=0\}$. Demuestre que 
+	\[
+	\{X^{m+1}-X^m:m\in\N\}
+	\]
+	es un conjunto de generadores de $S$.
+\end{xca}
+
+\begin{xca}
+	\label{xca:X^2-3X+2|f}
+	Sea $S=\{f\in\R[X]:f(1)=f(2)=0\}$. Pruebe que 
+	\[
+		\{(X^2-3X+2)X^m:m\geq 0\}
+	\]
+	es un conjunto de generadores para $S$.
+\end{xca}
+
+\begin{xca}
+	Sea $V$ un espacio vectorial y $X\subseteq V$ un subconjunto no vacío.
+	Pruebe que
+	\[
+	\bigcap_{S:X\subseteq S}S,
+	\]
+	donde la intersección se toma sobre todo los subespacios de $V$ que
+	contienen a $X$ es el menor subespacio de $V$ que contiene a $X$. Concluya
+	que este subespacio de $V$ es igual al subespacio generado por $X$.
+\end{xca}
+
+\begin{example}
+	$\R[X]=\R_n[X]\oplus \langle X^{n+1},X^{n+2},\dots\rangle$.
+\end{example}
+
+\begin{block}
+	Un espacio vectorial $V$ es \textbf{finitamente generado} si admite un
+	conjunto finito de generadores. 
+\end{block}
+
+\begin{examples}
+	Vimos en el ejemplo~\ref{exa:generadores} que los espacios vectoriales
+	$\K^n$ y $\K^{m\times n}$ son finitamente generados. 
+\end{examples}
+
+\begin{block}
+    El conjunto $\R$ de los números reales, visto como espacio vectorial sobre
+    $\R$, es finitamente generado. Con un argumento de
+    cardinalidad puede demostrarse que $\R$, como espacio vectorial sobre $\Q$, no es
+    finitamente generado.
+\end{block}
+
+\begin{xca}
+	\label{xca:K[X]_no_fg}
+	Demuestre que $\K[X]$ no es finitamente generado.	
+\end{xca}
+
+\begin{block}
+    Sea $V$ un espacio vectorial sobre un cuerpo $\K$.  Un subconjunto finito y
+    no vacío $\{v_1,\dots,v_n\}\subseteq V$ se dice \textbf{linealmente
+    dependiente} si existen $\alpha_1,\dots,\alpha_n\in\K$, no todos cero,
+    tales que $\alpha_1v_1+\cdots+\alpha_nv_n=0$. Observemos que
+    $\{v_1,\dots,v_n\}$ es linealmente dependiente si y sólo si existe
+    $j\in\{1,\dots,n\}$ tal que $v_j\in\langle
+    v_1,\dots,\widehat{v_j},\dots,v_n\rangle$, donde 
+	\[
+	\langle v_1,\dots,\widehat{v_j},\dots,v_n\rangle=
+	\langle v_1,\dots,v_{j-1},v_{j+1},\dots,v_n\rangle
+	\]
+\end{block}
+
+\begin{examples}\
+	\begin{enumerate}
+		\item El conjunto $\{(2,3),(1,2),(3,5)\}\subseteq\R^2$ es linealmente
+			dependiente. ¿Por qué?
+		\item El conjunto $\{(1,1,1),(0,1,1),(0,0,1),(1,2,3)\}\subseteq\R^3$
+			es linealmente dependiente. ¿Por qué?
+	\end{enumerate}
+\end{examples}
+
+\begin{xca}
+	Demuestre las siguientes propiedades:
+	\begin{enumerate}
+		\item Sea $\lambda\in\K\setminus\{0\}$. Entonces
+			$\{v_1,\dots,v_i,\dots,v_n\}$ es linealmente dependiente si y sólo
+			si $\{v_1,\dots,\lambda v_i,\dots,v_n\}$ es linealmente
+			dependiente. 
+		\item Sea $\lambda\in\K$. Entonces
+			$\{v_1,\dots,v_i,\dots,v_j,\dots,v_n\}$ es linealmente dependiente
+			si y sólo si $\{v_1,\dots,v_i+\lambda v_j,\dots,v_j,\dots,v_n\}$ es
+			linealmente dependiente.
+	\end{enumerate}
+\end{xca}
+
+\begin{block}
+    Sea $V$ un espacio vectorial sobre $\K$.  Un subconjunto finito se dice
+    \textbf{linealmente independiente} si no es linealmente dependiente.
+    Por definición, el conjunto vacío $\emptyset$ es linealmente independiente. Un subconjunto
+    finito y no vacío $\{v_1,\dots,v_n\}\subseteq V$ es linealmente
+    independiente si y sólo si $\alpha_1v_1+\cdots+\alpha_nv_n=0$ implica que
+    $\alpha_1=\cdots=\alpha_n=0$. 
+\end{block}
+
+\begin{example}
+	El conjunto $\{(1,2,1),(2,1,2),(1,0,3)\}\subseteq\R^3$ es linealmente
+	independiente.  ¿Por qué?
+\end{example}
+
+\begin{block}
+    Un conjunto infinito de vectores es linealmente dependiente si tiene un
+    subconjunto finito y no vacío linealmente dependiente. Un conjunto infinito
+    de vectores es linealmente independiente si todo subconjunto finito es
+    linealmente independiente. 
+\end{block}
+
+\begin{example}
+    Sea $V$ el espacio vectorial de funciones $\R\to\R$. Demostremos que el
+    conjunto $\{f_a\colon\R\to\R:a\in\R\}$, donde 
+    \[
+        f_a\colon\R\to\R,\quad
+        f_a(x)=|x-a|,
+    \]
+    es linealmente independiente.  En caso contrario, existirían
+    $\lambda_2,\dots,\lambda_n\in\R$ y $a_1,\dots,a_n\in\R$, con $a_i\ne a_j$
+    para $i\ne j$, tales que
+    \[
+        f_{a_1}=\lambda_2f_{a_2}+\cdots+\lambda_nf_{a_{n}}.
+    \]
+    Observemos que la función
+    $f_{a_1}$ no es derivable en $x=a_1$, y, en cambio, la función
+    $\lambda_2f_{a_2}+\cdots+\lambda_nf_{a_{n}}$ sí lo es. Como esto es una
+    contradicción, las $f_a$ son linealmente independientes.
+\end{example}
+
+\begin{xca}
+    Sea $V$ el espacio vectorial de funciones $\R\to\R$. Demuestre las
+    siguientes afirmaciones:
+    \begin{enumerate}
+        \item El conjunto $\{e^{ax}:a\in\R\}$ es linealmente independiente.
+        \item El conjunto $\{2^{x-1}x^{i-1}:i\in\N\}$ es linealmente independiente.
+    \end{enumerate}
+\end{xca}
+
+\begin{example}
+    Consideremos a $\R$ como espacio vectorial sobre $\Q$ y demostremos que el
+    conjunto $\{\log p:p\text{ primo positivo}\}$ es linealmente independiente.
+    Si no lo fuera, existirían $n\in\N$, $\alpha_1,\dots,\alpha_n\in\Q$, no
+    todos cero, y primos positivos $p_{1},\dots,p_{n}$ tales que $\alpha_1\log
+    p_{1}+\cdots+\alpha_n\log p_{n}=0$. Sin pérdida de generalidad podemos
+    suponer que $\alpha_i\in\Z$ para todo $i$. Luego
+    \[
+    1=e^0=e^{\sum_{j=1}^n \alpha_j\log p_{j}}=\prod_{j=1}^ne^{\alpha_j\log p_{j}}=\prod_{j=1}^n p_j^{\alpha_j}, 
+    \]
+    una contradicción. 
+\end{example}
+
+
+\begin{xca}
+    Pruebe que si $\{v_1,\dots,v_n\}\subseteq V$ es linealmente independiente
+    entonces todo subconjunto de $\{v_1,\dots,v_n\}$ es también linealmente
+    independiente.
+\end{xca}
+
+\begin{xca}
+	Pruebe que si $\{v_1,\dots,v_n\}$ es linealmente independiente entonces 
+	$\langle v_1,\dots,v_n\rangle=\langle v_1\rangle\oplus\cdots\oplus\langle
+	v_n\rangle$.
+\end{xca}
+
+\section{Bases y dimensión}
+
+\begin{block}
+    Una \textbf{base} de $V$ es un conjunto de generadores de $V$ linealmente
+    independiente.  Si $V$ es finitamente generado, una \textbf{base ordenada}
+    de $V$ es una sucesión de vectores $v_1,\dots,v_n$ de $V$ tal que
+    $\{v_1,\dots,v_n\}$ es linealmente independiente y genera $V$.
+\end{block}
+
+\begin{examples}\
+	\begin{enumerate}
+        \item $\{(2,3),(1,2)\}$ y $\{(1,2),(2,3)\}$ son dos bases ordenadas
+            distintas de $\R^2$. 
+        \item $\{e_1,\dots,e_n\}$ es base de $\K^n$ y se llama \text{base
+            canónica} de $\K^n$.  
+		\item $\{E^{ij}:1\leq i\leq m,\;1\leq j\leq n\}$, donde 
+			\[
+				(E^{ij})_{kl}=\delta_{ik}\delta_{jl}
+			\]
+			para todo $i,j,k,l$, es base de $\K^{m\times n}$ y se llama
+			\textbf{base canónica} de $\K^{m\times n}$.  
+		\item $\{1,X,X^2,\dots\}$ es base de $\K[X]$.
+	\end{enumerate}
+\end{examples}
+
+\begin{prop}
+    Sea $V$ un espacio vectorial. El conjunto $\{v_1,\dots,v_n\}$ es una base
+    de $V$ si y sólo si para cada $v\in V$ existen únicos
+    $\alpha_1,\dots,\alpha_n\in\K$ tales que $v=\alpha_1v_1+\cdots+\alpha_n
+    v_n$.
+
+	\begin{proof}
+		Supongamos que $\{v_1,\dots,v_n\}$ es una base. Entonces para cada
+		$v\in V$ existen $\alpha_1,\dots,\alpha_n\in\K$ tales que
+		$v=\alpha_1v_1+\cdots+\alpha_n v_n$. Veamos que los $\alpha_i$ son
+		únicos: si suponemos que \[
+            v=\alpha_1v_1+\cdots+\alpha_nv_n=\beta_1v_1+\cdots+\beta_n v_n,
+        \]
+		donde los $\alpha_i,\beta_i\in\K$, entonces
+		\[
+			(\alpha_1-\beta_1)v_1+\cdots+(\alpha_n-\beta_n)v_n=0.
+		\]
+		Luego $\alpha_i=\beta_i$ para todo $i\in\{1,\dots,n\}$ por la
+		independencia lineal del conjunto $\{v_1,\dots,v_n\}$.
+
+		Recíprocamente, si todo $v\in V$ se escribe como combinación lineal de
+		los $v_i$ entonces $\{v_1,\dots,v_n\}$ es un conjunto de generadores de
+		$V$. Veamos que es linealmente independiente: si
+		$\alpha_1v_1+\cdots+\alpha_nv_n=0$ entonces, como también
+		$0=0v_1+\cdots+0v_n$, la unicidad de la escritura implica que
+		$\alpha_i=0$ para todo $i\in\{1,\dots,n\}$.
+	\end{proof}
+\end{prop}
+
+\begin{prop}
+	\label{pro:extraer_una_base}
+    Sea $V$ un espacio vectorial finitamente generado y sea $\{v_1,\dots,v_n\}$
+    un conjunto de generadores de $V$.  Entonces existe un subconjunto de
+    $\{v_{1},\dots,v_{n}\}$ que es base de $V$.
+
+	\begin{proof}
+		Sean $X_0=\{v_1,\dots,v_n\}$ y 
+		\[
+			X_1=\begin{cases}
+				X_0\setminus\{v_1\} & \text{si $v_1=0$},\\
+				X_0 & \text{si $v_1\ne0$}.
+			\end{cases}
+		\]
+		Para cada $j\geq2$ definimos inductivamente
+		\[
+			X_j=\begin{cases}
+				X_{j-1}\setminus\{v_j\} & \text{si $v_j\in\langle X_{j-1}\rangle$},\\
+				X_{j-1} & \text{si $v_j\not\in\langle X_{j-1}\rangle$},\\
+			\end{cases}
+		\]
+		Como $V$ está generado por $X_0$, el proceso termina con $X_n$ después
+		de $n$ pasos. Por construcción, $V$ está generado por $X_n$, pues 
+		$V$ está generado por $X_0$ y si $V$ está generado por $X_j$, también $X_{j+1}$ es un conjunto de generadores
+		de $V$, ya que si $v_{j+1}\not\in \langle X_j\rangle$, entonces $X_j=X_{j+1}$ y si $v_{j+1}\in \langle X_{j}$, 
+		entonces $\langle X_j\rangle=\langle X_{j+1}\rangle$. Además 
+		el conjunto $X_n$ es linealmente
+		independiente..\framebox{FIXME}
+	\end{proof}
+\end{prop}
+
+\begin{cor}
+	Todo espacio vectorial no nulo finitamente generado admite una base. 		
+
+	\begin{proof}
+		El corolario es consecuencia de la
+		proposición~\ref{pro:extraer_una_base}, que afirma que de todo conjunto
+		de generadores puede extraerse una base.
+	\end{proof}
+\end{cor}
+
+\begin{thm}
+	\label{thm:>n_es_LD}
+	Sea $V$ un espacio vectorial finitamente generado por los vectores $v_1,\dots,v_n$.
+	Entonces todo conjunto con más de $n$ elementos es linealmente dependiente. 
+
+	\begin{proof}
+		Sea $\{w_1,\dots,w_m\}\subseteq V$ con $m>n$. Como por hipótesis $V=\langle
+		v_1,\dots,v_n\rangle$, para cada $j\in\{1,\dots,m\}$ existen escalares
+		$a_{ij}$ tales que $w_j=\sum_{i=1}^n a_{ij}v_i$. Como $m>n$, el sistema lineal 
+		\[
+		\sum_{j=1}^m a_{ij}v_j=0,\quad i\in\{1,\dots,n\},
+		\]
+		admite una solución no trivial, digamos $(\lambda_1,\dots,\lambda_m)$. Entonces
+		\[
+		\sum_{j=1}^m \lambda_jw_j=\sum_{j=1}^m\lambda_{j}\left( \sum_{i=1}^na_{ij}v_i\right)=\sum_{i=1}^n\left(\sum_{j=1}^ma_{ij}\lambda_j\right)v_i=0,
+		\]
+		y luego $\{w_1,\dots,w_m\}$ es un conjunto linealmente dependiente. 
+	\end{proof}
+\end{thm}
+
+%\begin{block}
+%    La demostración que vimos del teorema~\ref{thm:>n_es_LD} utiliza que todo
+%    sistema lineal homogéneo con más incógnitas que ecuaciones siempre tiene
+%    una solución no trivial. A continuación, daremos una demostración
+%    alternativa que no utiliza ese resultado. 
+%
+%    \begin{proof}[Otra demostración del teorema~\ref{thm:>n_es_LD}]\framebox{FIXME}
+%        Supongamos que $m>n$.  Como los $w_i$ son linealmente independientes,
+%        $w_1\ne0$.  Sin pérdida de generalidad podemos suponer que
+%        $w_1=\sum_{i=1}^n \alpha_iv_i$, donde $\alpha_1\ne0$, y entonces
+%        \[
+%            v_1=\frac{1}{\alpha_1}(w_1-\alpha_2v_2-\cdots-\alpha_nv_n).
+%        \]
+%        Luego $\{w_1,\dots,w_m\}\subseteq \langle w_1,v_2,\dots,v_n\rangle$ y
+%        $\langle w_1,v_2,\dots,v_n\rangle=V$. Supongamos ahora que $V=\langle w_1,\dots,w_k,v_{k+1},\dots,v_n\rangle$. Entonces
+%        existen $\beta_1,\dots,\beta_n\in\K$, no todos cero, tales que 
+%        \[
+%            w_{k+1}=\sum_{i=1}^k\beta_iw_i+\sum_{i=k+1}^n\beta_iv_i.
+%        \]
+%        Como $\{w_1,\dots,w_m\}$ es linealmente independiente, existe
+%        $j\in\{k+1,\dots,n\}$ tal que $\beta_j\ne0$. Sin pérdida de
+%        generalidad, supongamos que $\beta_{k+1}\ne0$. Entonces
+%        \[
+%        v_{k+1}=\frac{1}{\beta_{k+1}}\left(w_{k+1}-\sum_{i=1}^k\beta_iw_i-\sum_{i=k+2}^n\beta_iv_i\right),
+%        \]
+%        y luego $V=\langle w_1,\dots,w_{k+1},v_{k+2},\dots,v_n\rangle$. Este
+%        procedimiento, después de $n$ pasos, implica que $V=\langle
+%        w_1,\dots,w_n\rangle$. Luego el conjunto $\{w_1,\dots,w_{n+1}\}$ es
+%        linealmente dependiente. 
+%    \end{proof}
+%\end{block}
+
+%\begin{example}
+%	Vamos a demostrar que $\gamma=\sqrt{2}+\sqrt{3}$ es un número algebraico,
+%	lo que significa que $\gamma$ es raíz de un polinomio con coeficientes en
+%	$\Q$.  Consideremos a $\R$ como espacio vectorial sobre $\Q$. El conjunto
+%	$X=\left\{1,\sqrt{2},\sqrt{3},\sqrt{6}\right\}$ es linealmente
+%	independiente y entonces, como el conjunto
+%	$\{1,\alpha,\alpha^2,\alpha^3,\alpha^4\}\subseteq X$ tiene cinco elementos,
+%	tiene que ser linealmente dependiente. Entonces existen
+%	$\alpha_1,\dots,\alpha_5\in\Q$ no todos cero tales que
+%	$\sum_{i=1}^5\alpha_i\gamma^i=0$, tal como queríamos demostrar.
+%\end{example}
+
+\begin{cor}
+	Sea $V$ un espacio vectorial finitamente generado. Entonces dos bases
+	cualesquiera tienen la misma cantidad de elementos. 
+
+	\begin{proof}
+		Es consecuencia inmediata del teorema~\ref{thm:>n_es_LD}.
+	\end{proof}
+\end{cor}
+
+\begin{block}
+	La \textbf{dimensión} de un espacio vectorial finitamente generado $V$ es
+	el cardinal de una base cualquiera de $V$ y se denotará con $\dim V$. Por
+	convención: $\dim\{0\}=0$. 
+\end{block}
+
+\begin{examples}\
+	\begin{enumerate}
+		\item $\dim\K^n=n$.
+		\item $\dim\K^{m\times n}=mn$.
+		\item $\dim\K_n[X]=n+1$.
+	\end{enumerate}
+\end{examples}
+
+\begin{block}
+	\label{block:agregar_v}
+	Sean $V$ un espacio vectorial y $v,v_1,\dots,v_n\in V$. Si
+	$\{v_1,\dots,v_n\}$ es linealmente independiente y $v\not\in\langle
+	v_1,\dots,v_n\rangle$ entonces $\{v,v_1,\dots,v_n\}$ es linealmente
+	independiente.  En efecto, si $\alpha v+\sum \alpha_iv_i=0$ entonces, como
+	$v\not\in\langle v_1,\dots,v_n\rangle$, se tiene que $\alpha=0$. Luego
+	$\alpha_i=0$ para todo $i\in\{1,\dots,n\}$ pues $\{v_1,\dots,v_n\}$ es
+	linealmente independiente.
+\end{block}
+
+\begin{cor}
+	Sea $V$ un espacio vectorial sobre $\K$ de dimensión $n$ y sean
+	$v_1,\dots,v_n\in V$. Son equivalentes:
+	\begin{enumerate}
+		\item $\{v_1,\dots,v_n\}$ es base de $V$.
+		\item $\{v_1,\dots,v_n\}$ es linealmente independiente.
+		\item $\{v_1,\dots,v_n\}$ genera a $V$.
+	\end{enumerate}
+
+	\begin{proof}
+		La implicación $(1)\Rightarrow(2)$ es trivial. Para demostrar que $(2)$ implica 
+		$(3)$ observemos que si existiera $v\in V\setminus\langle
+		v_1,\dots,v_n\rangle$ entonces $\{v,v_1,\dots,v_n\}$ sería linealmente
+		independiente por~\ref{block:agregar_v}, y esto contradice el
+		teorema~\ref{thm:>n_es_LD}. Finalmente, para demostrar que $(3)$ implica $(1)$ basta
+		ver que $\{v_1,\dots,v_n\}$ es linealmente independiente. Para eso, extraemos un
+		subconjunto $\{v_{i_1},\dots,v_{i_k}\} \subseteq \{v_1,\dots,v_n\}$
+		linealmente independiente tal que $V=\langle
+		v_{i_1},\dots,v_{i_k}\rangle$. Luego $k=n$ y entonces
+		$\{v_1,\dots,v_n\}$ es base de $V$.
+	\end{proof}
+\end{cor}
+
+\begin{prop}
+	\label{pro:extender_a_una_base}
+	Sea $V$ un espacio vectorial sobre $\K$ de dimensión $n$ y para $m<n$ sea
+	$\{v_1,\dots,v_m\}\subseteq V$ un conjunto linealmente independiente.
+	Entonces existen $v_{m+1},\dots,v_n\in V$ tales que
+	$\{v_1,\dots,v_m,v_{m+1},\dots,v_n\}$ es una base de $V$.
+
+	\begin{proof}
+		Sea $\{w_1,\dots,w_n\}$ un conjunto de generadores de $V$.
+		Procederemos inductivamente. Para eso, sea $X_0=\{v_1,\dots,v_m\}$. 
+		En el paso $j$-ésimo, donde $j\geq1$, se define 
+		\[
+			X_j=\begin{cases}
+				X_{j-1} & \text{si $w_j\in\langle X_{j-1}\rangle$},\\
+				X_{j-1}\cup\{w_j\} & \text{si $w_j\not\in\langle X_{j-1}\rangle$}.
+			\end{cases}
+		\]
+
+		El conjunto $X_j$ es linealmente independiente para todo $j$.  Además,
+		por construcción, todos los $w_j$ están en el subespacio de $V$
+		generado por $X_n$.  Hemos probado entonces que
+		$X_n=\{v_1,\dots,v_n,w_{i_1},\dots,w_{i_k}\}$ es una base de $V$.
+	\end{proof}
+\end{prop}
+
+\begin{prop}
+	Sea $V$ un espacio vectorial de dimensión finita y sea $S\subseteq V$ un
+	subespacio. Entonces $S$ es de dimensión finita y $\dim S\leq\dim V$.
+
+	\begin{proof}
+		Sea $n=\dim V$. Si $S=\{0\}$ entonces $S$ es de dimensión
+		finita. Supongamos entonces que $S\ne\{0\}$ y sea $s_1\in
+		S\setminus\{0\}$. Si $S=\langle s_1\rangle$ entonces $S$ es de
+		dimensión finita. En caso contrario, existe $s_2\in S\setminus\{s_1\}$.
+		Si procedemos inductivamente, en el paso $j$-ésimo, donde $j\geq1$, se
+		tiene un conjunto $\{s_1,\dots,s_{j-1}\}$. Si $S=\langle
+		s_1,\dots,s_{j-1}\rangle$ entonces $S$ es de dimensión finita. En caso
+		contrario, existe $s_j\in S\setminus\langle s_1,\dots,s_{j-1}\rangle$.
+		Como, por construcción, el conjunto de los $s_j$ es linealmente
+		independiente, el teorema~\ref{thm:>n_es_LD} implica que este proceso
+		tiene que terminar en a lo sumo $n$ pasos. 
+	\end{proof}
+\end{prop}
+
+\begin{cor}
+    Sean $V$ un espacio vectorial de dimensión finita y $S\subseteq V$ un
+    subespacio. Entonces existe un \textbf{complemento} de $S$, es decir:
+    existe un subespacio $T\subseteq V$ tal que $V=S\oplus T$. 
+
+	\begin{proof}
+		Como $V$ es de dimensión finita, $S$ es de dimensión finita. Sea
+		$\{s_1,\dots,s_n\}$ una base de $S$.  Por la
+		proposición~\ref{pro:extender_a_una_base}, podemos extender la base de
+		$S$ a una base de $V$, es decir: existen $t_1,\dots,t_m\in V$ tales que
+		$\{s_1,\dots,s_n,t_1,\dots,t_m\}$ es base de $V$.  Sea $T=\langle
+		t_1,\dots,t_m\rangle$. Es evidente que $V=S+T$. Demostremos entonces que $S\cap
+		T=\{0\}$. Si $v\in S\cap T$ entonces $v=\sum_{i=1}^n
+		\alpha_is_i=\sum_{j=1}^m \beta_jt_j$. Como 
+		\[
+			\alpha_1s_1+\cdots+\alpha_ns_n+(-\beta_1)t_1+\cdots+(-\beta_m)t_m=0
+		\]
+		y $\{s_1,\dots,s_n,t_1,\dots,t_m\}$ es linealmente independiente, los
+		$\alpha_i$ y los $\beta_j$ son cero y por lo tanto $v=0$. 
+	\end{proof}
+\end{cor}
+
+
+\begin{xca}
+	Sea $V$ un espacio vectorial de dimensión $n$ y sean $S$ y $T$ dos
+	subespacios. Pruebe las siguientes afirmaciones:
+	\begin{enumerate}
+		\item Si $\dim S=n$ entonces $S=V$.
+		\item Si $S\subseteq T$ entonces $\dim S\leq \dim T$.
+		\item Si $S\subseteq T$ y $\dim S=\dim T$ entonces $S=T$.
+	\end{enumerate}
+\end{xca}
+
+\begin{thm}[teorema de la dimensión]
+	\label{thm:de_la_dimension}
+	Sea $V$ un espacio vectorial de dimensión finita y sean $S$ y $T$ dos
+	subespacios de $V$. Entonces
+	\[
+		\dim(S+T)=\dim S+\dim T-\dim(S\cap T).
+	\]
+
+	\begin{proof}
+		Supongamos que $\dim S=s$ y que $\dim T=t$ y sea entonces $\{u_1,\dots,u_m\}$ una
+		base de $S\cap T$. Completamos a una base
+		\[
+            \{u_1,\dots,u_m,v_{m+1},\dots,v_s\}
+        \]
+        de $S$ y a una base
+		\[
+            \{u_1,\dots,u_m,w_{m+1},\dots,w_t\}
+        \]
+        de $T$. Entonces $S+T$ está
+		generado por \[
+            \{u_1,\dots,u_m,w_{m+1},\dots,w_t,v_{m+1},\dots,v_s\}.
+        \]
+		Para demostrar el teorema basta probar que este conjunto es linealmente
+		independiente. Si 
+		\[
+			0=\sum_{i=1}^m \alpha_i u_i + \sum_{j=m+1}^s \beta_jv_j + \sum_{k=m+1}^t\gamma_kw_k
+		\]
+		entonces, como $\sum_{k=m+1}^t\gamma_jw_j=-\sum_{i=1}^m \alpha_i u_i -
+		\sum_{j=m+1}^s \beta_jv_j\in S\cap T$, existen $\lambda_1,\dots,\lambda_m\in\K$ tales que 
+		\[
+		\sum_{k=1}^m \gamma_k w_k=\sum_{l=1}^m \lambda_l u_l.
+		\]
+		Luego, como $\{u_1,\dots,u_m,w_{m+1},\dots,w_t\}$ es
+		una base de $T$, concluimos que $\gamma_k=0$ para todo
+		$k\in\{m+1,\dots,t\}$ y entonces $\alpha_i=0$  para todo
+		$i\in\{1,\dots,m\}$ y $\beta_j=0$ para todo $j\in\{m+1,\dots,s\}$. Luego
+        \begin{align*}
+			\dim(S+T)&=m+(t-m)+(s-m)=s+t-m\\
+            &=\dim S+\dim T-\dim(S\cap T),
+        \end{align*}
+		que es lo que se quería demostrar.
+	\end{proof}
+\end{thm}
+
+
+\section{Rango de matrices}
+
+\begin{block}
+	Sea $A\in\K^{m\times n}$. El \textbf{espacio fila} de $A$ es el subespacio
+	de $\K^n$ generado por las filas de $A$,
+	\[
+		E_F(A)=\langle (a_{i1},a_{i2},\dots,a_{in}):i\in\{1,\dots,m\}\rangle,
+	\]
+	y se denota por $E_F(A)$. El \textbf{espacio columna} de $A$ es el subespacio
+	de $\K^n$ generado por las columnas de $A$ 
+	\[
+		E_C(A)=\langle (a_{1j},a_{2j},\dots,a_{mj}):j\in\{1,\dots,n\}\rangle.
+	\]
+	y se denota por $E_C(A)$. 
+\end{block}
+
+\begin{example}
+	Sea $A=\begin{pmatrix}
+		1 & 2 & 1\\
+		0 & 1 & 5
+	\end{pmatrix}$. Entonces $E_F(A)=\langle (1,2,1),(0,1,5)\rangle$ y
+	$E_C(A)=\langle (1,0),(2,1),(1,5)\rangle$. Observemos que $\dim E_F(A)=\dim E_C(A)=2$.
+\end{example}
+
+\begin{block}
+	Sea $A\in\K^{m\times n}$. La dimensión de $E_F(A)$ se denomina el
+	\textbf{rango fila} de $A$ y se denota por $\rg_F(A)$.  La dimensión de
+	$E_C(A)$ se denomina el \textbf{rango columna} de $A$ y se denota por
+	$\rg_C(A)$. 
+\end{block}
+
+\begin{remark}
+	\label{rem:producto}
+    Sean $A\in\K^{m\times n}$, $B\in\K^{m\times r}$ y $C=\K^{r\times n}$ tales
+    que $A=BC$. Entonces cada columna de $A$ puede escribirse como combinación
+    lineal de las columnas de $B$, es decir:
+	\[
+		\colvec{4}{a_{1j}}{a_{2j}}{\vdots}{a_{mj}}=c_{1j}\colvec{4}{b_{11}}{b_{21}}{\vdots}{b_{m1}}+c_{2j}
+		\colvec{4}{b_{12}}{b_{22}}{\vdots}{b_{m2}}+\cdots+c_{rj}\colvec{4}{b_{1r}}{b_{2r}}{\vdots}{b_{mr}}
+	\]
+	para todo $j\in\{1,\dots,n\}$. Similarmente, toda fila de $A$ puede
+	escribirse como combinación lineal de las filas de $C$:
+	\[
+		(a_{i1}\;a_{i2}\;\cdots\;a_{in})=b_{i1}(c_{11}\;c_{12}\;\cdots\;c_{in})+\cdots+b_{ir}(c_{r1}\;\cdots\;c_{rn})
+	\]
+	para todo $i\in\{1,\dots,m\}$.
+\end{remark}
+
+\begin{thm}
+	\label{thm:rgC=rgF}
+	Sea $A\in\K^{m\times n}$. Entonces $\rg_F(A)=\rg_C(A)$.
+
+	\begin{proof}
+		\framebox{FIXME}
+        Si $A=0$ el resultado es trivial. Supongamos entonces que $A\ne0$.  Sea
+        $r$ el menor entero positivo tal que existen $B\in\K^{m\times r}$ y
+        $C\in\K^{r\times n}$ tales que $A=BC$. (Observemos que si $I$ es la
+        identidad de $n\times n$ entonces $A=AI$ y entonces la existencia de un
+        tal $r$ está garantizada.) Por lo visto en la
+        observación~\ref{rem:producto}, las filas de $C$ forman un conjunto
+        minimal de generadores de $E_F(A)$ y las $r$ columnas de $B$ forman un
+        conjunto minimal de generadores de $E_C(A)$.  Luego, $\dim E_F(A)=\dim
+        E_C(A)=r$. 
+	\end{proof}
+\end{thm}
+
+\begin{block}
+	El \textbf{rango} de una matriz $A\in\K^{m\times n}$ se define como el
+	rango fila (o columna) de $A$ y se denota por $\rg(A)$.
+\end{block}
+
+\begin{cor}
+	Si $A\in\K^{m\times n}$ entonces $\rg(A)=\rg(A^T)$.
+
+	\begin{proof}
+		Es consecuencia inmediata del teorema~\ref{thm:rgC=rgF}.
+	\end{proof}
+\end{cor}
+
+\begin{prop}
+    Sean $A\in\K^{m\times n}$ y $B\in\K^{n\times p}$. Entonces
+    \[
+        \rg(AB)\leq\min\{\rg A,\rg B\}.
+    \]
+
+    \begin{proof}
+        La proposición es consecuencia de la observación~\ref{rem:producto}. 
+        Como el espacio generado por las columnas de $AB$ es un subespacio del
+        espacio generado por las columnas de $A$, $\rg(AB)\leq\rg(A)$.
+        Similarmente, como el espacio generado por las filas de $AB$ es un
+        subespacio del espacio generado por las filas de $B$, se tiene que
+        $\rg(AB)\leq\rg(B)$.
+    \end{proof}
+\end{prop}
+
+\begin{example}
+    Sean $x_1,\dots,x_n$ números reales distintos. 
+    Veamos que el conjunto 
+    \[
+    \left\{
+        \colvec{4}{1}{x_1}{\vdots}{x_1^{n-1}},\dots,
+        \colvec{4}{1}{x_n}{\vdots}{x_n^{n-1}}
+    \right\}
+    \]
+    es una base de $\R^{n\times1}$. Para esto veamos que la matriz 
+    \[
+        \begin{pmatrix}
+            1 & \cdots & 1\\
+            x_1 & \cdots & x_n\\
+            \vdots & \ddots & \vdots\\
+            x_1^{n-1} & \cdots & x_n^{n-1}
+        \end{pmatrix},
+    \]
+    de tamaño $n\times n$, 
+    tiene rango fila igual a $n$. En efecto, si las filas fueran linealmente
+    dependientes, existirían $\alpha_0,\dots,\alpha_{n-1}\in\K$, no todos cero,
+    tales que
+    \[
+    0=\alpha_0(1,1,\dots,1)+\alpha_1(x_1,x_2,\dots,x_n)+\cdots+\alpha_{n-1}(x_1^{n-1},x_2^{n-1},\dots,x_n^{n-1}).
+    %0=\alpha_0\colvec{4}{1}{1}{\vdots}{1}+\alpha_1\colvec{4}{x_1}{x_2}{\vdots}{x_n}+\cdots+\alpha_{n-1}\colvec{4}{x_1^{n-1}}{x_2^{n-1}}{\vdots}{x_n^{n-1}}.
+    \]
+    Esto implicaría que los $x_1,\dots,x_n$ son raíces del polinomio
+    $f=\sum_{i=0}^{n-1}\alpha_iX^i$. Esto es una contradicción pues $f$ tiene
+    grado $\leq n-1$. 
+\end{example}
+
+\section{Coordenadas y matriz de cambio de base}
+
+\begin{block}
+    Sea $V$ un espacio vectorial de dimensión $n$ y sea $\cB=\{v_1,\dots,v_n\}$
+    una base (ordenada) de $V$. Todo elemento $v\in V$ puede escribirse como
+    combinación lineal de los elementos de $\cB$, digamos
+    $v=\alpha_1v_1+\cdots+\alpha_n v_n$, donde los $\alpha_i\in\K$. La
+    $n$-tupla $(\alpha_1,\dots,\alpha_n)\in\K^n$ es la tupla de
+    \textbf{coordenadas} del vector $v$ en la base $\cB$. El vector de
+    coordenadas de $v$ en la base $\cB$ se denota por $(v)_{\cB}$.
+\end{block}
+
+\begin{remark}
+	Se tienen las siguientes propiedades:
+	\begin{enumerate}
+		\item $(v)_{\cB}+(w)_{\cB}=(v+w)_{\cB}$.
+		\item $(\lambda v)_{\cB}=\lambda(v)_{\cB}$.
+	\end{enumerate}
+\end{remark}
+
+\begin{examples}\
+	\begin{enumerate}
+		\item Sea $V=\C$ como espacio vectorial sobre $\R$. El conjunto
+			$\{1,i\}$ es base de $V$.  Las coordenadas de $a+bi$ en la base
+			$\{1,i\}$ son $(a,b)$.
+		\item Sean $V=\R^2$. Las coordenadas de un vector $(x,y)\in V$ en la
+			base $\{(2,3),(1,2)\}$ son $(2x-y,-3x+2y)$.
+		\item Sea $V=\{f\in\R[X]:\deg f\leq2\}$. El vector de coordenadas
+			del elemento $f=aX^2+bX+c$ en la base $\{X^2,X,1\}$ es $(a,b,c)$.
+	\end{enumerate}
+\end{examples}
+
+\begin{block}
+	Sea $V$ un espacio vectorial de dimensión $n$ y sean
+	$\cB=\{v_1,\dots,v_n\}$ y $\cB'=\{v_1',\dots,v_n'\}$ dos bases de
+	$V$. Escribamos a cada elemento de $\cB$ en la base $\cB'$:
+	\begin{align*}
+		v_j=\sum_{i=1}^n a_{ij}v_i'=a_{1j}v_1'+\cdots+a_{nj}v_n',\quad j\in\{1,\dots,n\}.
+	\end{align*}
+	La matriz $A=(a_{ij})$ es la matriz de \textbf{cambio de base} de $\cB$ a
+	$\cB'$ y se denota por $C(\cB,\cB')$. 
+	Observemos que las columnas de la matriz $C(\cB,\cB')$ son las coordenadas
+	de los $v_i$ en la base $\cB'$, es decir:
+	\[
+		C(\cB,\cB')=( (v_1)_{\cB'}\mid\dots\mid (v_n)_{\cB'}).
+	\]
+	Es evidente que $C(\cB,\cB)=I$.
+\end{block}
+
+\begin{example}
+	Sean $\{e_1,e_2\}$ la base canónica de $\R^2$ y $\cB=\{(1,1),(1,-1)\}$.  Un
+	cálculo sencillo muestra que 
+	\[
+		C(\cB,\{e_1,e_2\})=
+		\begin{pmatrix} 
+			1 & 1\\
+			1 & -1
+		\end{pmatrix},
+		\quad
+		C(\{e_1,e_2\},\cB)=\begin{pmatrix}
+			1/2 & 1/2\\
+			1/2 & -1/2
+		\end{pmatrix}.
+	\]
+\end{example}
+
+\begin{prop}
+	\label{pro:coordenadas}
+	Sea $V$ un espacio vectorial de dimensión $n$ y supongamos que 
+	$\cB=\{v_1,\dots,v_n\}$ y $\cB'=\{v_1',\dots,v_n'\}$ son dos bases de
+	$V$. Si los $\alpha_i$ son las coordenadas de $v$ en la base $\cB$ y los
+	$\beta_j$ son las coordenadas de $v$ en la base $\cB'$ entonces 
+	\begin{align}
+		\label{eq:cambio_de_coordenadas}
+		C(\cB,\cB')
+		\begin{pmatrix}
+			\alpha_1\\
+			\vdots\\
+			\alpha_n
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			\beta_1\\
+			\vdots\\
+			\beta_n
+		\end{pmatrix}.
+	\end{align}
+
+	\begin{proof}
+		Un cálculo directo muestra que 
+		\[
+		v=\sum_{j=1}^n \alpha_jv_j=\sum_{j=1}^n\alpha_j\left(\sum_{i=1}^na_{ij}v_i'\right)=\sum_{i=1}^n\left(\sum_{j=1}^na_{ij}\alpha_j\right)v_i',
+		\]
+		tal como se quería demostrar.
+	\end{proof}
+\end{prop}
+
+\begin{thm}
+	\label{thm:cambio_de_base}
+	Sea $V$ un espacio vectorial de dimensión $n$ y supongamos que
+	$\cB=\{v_1,\dots,v_n\}$ y $\cB'=\{v_1',\dots,v_n'\}$ y
+	$\cB''=\{v_1'',\dots,v_n''\}$ son tres bases de $V$. Entonces
+	\[
+		C(\cB,\cB'')=C(\cB',\cB'')C(\cB,\cB').
+	\]
+
+	\begin{proof}
+		Supongamos que $C(\cB,\cB'')=(c_{ij})$, $C(\cB',\cB'')=(b_{ij})$ y que
+		$C(\cB,\cB')=(a_{ij})$, es decir:
+		\begin{align*}
+			v_j=\sum_{i=1}^na_{ij}v_i',
+			&&
+			v_j'=\sum_{i=1}^n b_{ij}v_i'',
+			&&
+			v_j=\sum_{i=1}^nc_{ij}v_i''.
+		\end{align*}
+		Como $v_j=\sum_{i=1}^nc_{ij}v_i''$, 
+		\begin{align*}
+			v_j = \sum_{k=1}^n a_{kj}v_k'
+			=\sum_{k=1}^n a_{kj}\left(\sum_{i=1}^n b_{ik}v_i''\right)
+			=\sum_{i=1}^n\left(\sum_{k=1}^n b_{ik}a_{kj}\right)v_i''
+		\end{align*}
+		y los $v_i''$ forman una base de $V$, se tiene que $c_{ij}=\sum_{k=1}^n
+		b_{ik}a_{kj}$ que es lo que se quería demostrar.
+	\end{proof}
+\end{thm}
+
+\begin{cor}
+	\label{cor:C_inversible}
+	La matriz $C(\cB,\cB')$ es inversible y $C(\cB,\cB')^{-1}=C(\cB',\cB)$. 
+
+	\begin{proof}
+		Por el teorema~\ref{thm:cambio_de_base} sabemos que $C(\cB,\cB)=C(\cB',\cB)C(\cB,\cB')$ y 
+		$C(\cB',\cB')=C(\cB,\cB')C(\cB',\cB)$. El corolario queda demostrado pues $C(\cB,\cB)=I$ y
+		$C(\cB',\cB')=I$.
+	\end{proof}
+\end{cor}
+
+%\begin{example}\framebox{FIXME}
+%	En el espacio vectorial de polinomios en $\R[X]$ de grado $\leq2$
+%	consideremos las bases $\cB=\{X^2,X,1\}$ y $\cB'=\{(X+1)^2, X+1, 1\}$. La
+%	matriz de cambio de base de $\cB$ a $\cB'$ es
+%	\[
+%		C(\cB,\cB')=
+%		\begin{pmatrix}
+%			1 & -1 & 1\\
+%			0 & 1 & 2\\
+%			0 & 0 & 1
+%		\end{pmatrix}.
+%	\]
+%	La proposición~\ref{pro:coordenadas} nos da la fórmula
+%	\[
+%		aX^2+bX+c=a(X+1)^2+(b-2a)(X+1)+(c-b+a),
+%	\]
+%	que puede escribirse como
+%	\[
+%		aX^2+bX+c=\frac{f''(-1)}{2}(X+1)^2+f'(-1)(X+1)+f(-1).
+%	\]
+%\end{example}
+
+\begin{prop}
+	\label{pro:C(-,B)}
+	Sea $A\in\K^{n\times n}$ una matriz inversible y $\cB$ una base de $\K^n$.
+	Entonces existe una base $\cB'$ de $\K^n$ tal que $A=C(\cB',\cB)$.
+
+	\begin{proof}
+		Supongamos que $A=(a_{ij})$. Para cada $j\in\{1,\dots,n\}$ sea
+		$v_j'=\sum_{i=1}^n a_{ij}v_i$.  Veamos que el conjunto
+		$\{v_1',\dots,v_n'\}$ es linealmente independiente. Como
+		\begin{align*}
+			0=\sum_{j=1}^n\alpha_jv_j'=\sum_{j=1}^n\alpha_j\left(\sum_{i=1}^n a_{ij}v_i\right)=\sum_{i=1}^n\left(\sum_{j=1}^n a_{ij}\alpha_j\right)v_i
+		\end{align*}
+		y los $v_i$ son linealmente independientes, $\sum_{j=1}^n
+		a_{ij}\alpha_j=0$ para todo $i$. Entonces 
+		\[
+			A\begin{pmatrix}
+				\alpha_1\\
+				\vdots\\
+				\alpha_n
+			\end{pmatrix}=0
+		\]
+		y luego, como $A$ es inversible, $\alpha_j=0$ para todo
+		$j\in\{1,\dots,n\}$. Como tenemos $n$ de los $v_j'$, 
+%		Veamos ahora que los $v_i'$ generan a $\K^n$.
+%		Dado $v\in V$ existen $\beta_1,\dots,\beta_n\in\K$ tales que
+%		$v=\sum_{i=1}^n\beta_i v_i$.  Como $A$ es inversible, existen
+%		$\alpha_1,\dots,\alpha_n$ tales que
+%		\[
+%		A\begin{pmatrix}
+%			\alpha_1\\
+%			\vdots\\
+%			\alpha_n
+%		\end{pmatrix}
+%		=
+%		\begin{pmatrix}
+%			\sum_{j=1}^n a_{1j}\alpha_j\\
+%			\vdots\\
+%			\sum_{j=1}^n a_{nj}\alpha_j
+%		\end{pmatrix}
+%		=
+%		\begin{pmatrix}
+%			\beta_1\\
+%			\vdots\\
+%			\beta_n
+%		\end{pmatrix}.
+%		\]
+%		Entonces
+%		\begin{align*}
+%			v=\sum_{i=1}^n \beta_i v_i=\sum_{i=1}^n\left(\sum_{j=1}^n a_{ij}\alpha_j\right)v_i=\sum_{j=1}^n\alpha_j\left(\sum_{i=1}^n a_{ij}v_i\right)=\sum_{j=1}^n \alpha_jv_j'.
+%		\end{align*}
+		los $v_j'$ son entonces una base de $\K^n$. Luego basta tomar
+		$\cB=\{v_1',\dots,v_n'\}$ y la proposición queda demostrada. 
+	\end{proof}
+\end{prop}
+
+\begin{cor}
+	\label{cor:C(B,-)}
+	Sea $A\in\K^{n\times n}$ una matriz inversible y $\cB$ una base de $\K^n$.
+	Entonces existe una base $\cB'$ de $\K^n$ tal que $A=C(\cB,\cB')$.
+
+	\begin{proof}
+		Basta aplicar la proposición~\ref{pro:C(-,B)} a la matriz $A^{-1}$ y
+		utilizar el corolario~\ref{cor:C_inversible} que afirma que
+		$C(\cB',\cB)^{-1}=C(\cB,\cB')$.
+	\end{proof}
+\end{cor}
+
+\begin{example}
+    Consideremos en el espacio vectorial $\R[X]$ los primeros cuatro
+    \textbf{polinomios de Hermite}:
+    \begin{align}
+        \label{eq:Hermite}
+        H_0 = 1,
+        &&
+        H_1 = 2X,
+        && 
+        H_2 = 4X^2-2,
+        &&
+        H_3 = 8X^3-12X.
+    \end{align}
+    Dejamos como ejercicio demostrar que $\cB=\{H_0,H_1,H_2,H_3\}$ es un
+    conjunto linealmente independiente. Escribamos cada polinomio de Hermite en
+    la base canónica $\cE=\{1,X,X^2,X^3\}$ de $\R_3[X]$ y formemos las matrices
+    de cambio de base: 
+    \begin{align*}
+        C(\cB,\cE)=\begin{pmatrix}
+            1 & 0 & -2 & 0\\
+            0 & 2 & 0 & -12\\
+            0 & 0 & 4 & 0\\
+            0 & 0 & 0 & 8
+        \end{pmatrix},
+        &&
+        C(\cB,\cE)^{-1}=C(\cE,\cB)=\frac18
+        \begin{pmatrix}
+            8 & 0 & 4 & 0\\
+            0 & 4 & 0 & 6\\
+            0 & 0 & 2 & 0\\
+            0 & 0 & 0 & 1
+        \end{pmatrix}.
+    \end{align*}
+    Luego, para escribir a $f=a_0+a_1X+a_2X^2+a_3X^3$ en la base de los
+    polinomios de Hermite, hacemos
+    \[
+        C(\cE,\cB)\colvec{4}{a_0}{a_1}{a_2}{a_3}=\frac18\colvec{4}{8a_0+4a_2}{4a_1+6a_3}{2a_2}{a_3},
+    \]
+    es decir:
+    \[
+        f=\frac18(8a_0+4a_2)H_0+\frac18(4a_1+6a_3)H_1+\frac14a_2H_2+\frac18a_3H_3.
+    \]
+\end{example}
+
+\section{Una aplicación del rango}
+
+\begin{problem}
+    Una ciudad tiene dos reglas que controlan la creación de clubes: 1) Cada
+    club debe tener un número impar de miembros, y 2) Dos clubes cualesquiera
+    tienen a lo sumo un número par de miembros en común.  Demuestre que la
+    cantidad de clubes que pueden crearse con estas reglas es menor o igual que
+    la cantidad de habitantes de la ciudad.
+
+    \begin{solution}
+        Supongamos que la ciudad tiene $n$ habitantes y sean $C_1,\dots,C_m$
+        los clubes. Queremos demostrar que $m\leq n$.  Sea
+        $A=(a_{ij})\in\Z_2^{m\times n}$ la matriz dada por 
+        \[
+        a_{ij}=\begin{cases}
+            1 & \text{ si $j\in C_i$},\\
+            0 & \text{ si $j\not\in C_i$}.
+        \end{cases}
+        \]
+        Entonces $AA^T\in\Z_2^{m\times m}$ y $(AA^T)_{ij}=\sum_{k=1}^n
+        a_{ik}a_{jk}$ es la cantidad de personas que hay en $C_i\cap C_j$. En
+        particular, 
+        \[
+            \begin{cases}
+                1 & \text{si $|C_i\cap C_j|$ es impar},\\
+                0 & \text{si $|C_i\cap C_j|$ es par}.
+            \end{cases}
+        \]
+        La condiciones para la creación de clubes nos dicen que $AA^T=I$. Luego
+        \[
+        m=\rg(I)=\rg(AA^T)\leq\rg(A)\leq\min\{n,m\}
+        \]
+        y entonces $m\leq n$. 
+    \end{solution}
+
+    
+\end{problem}
+
+\section{Una aplicación a las fracciones simples}
+
+\begin{block}
+	Sean $r_1,\dots,r_n\in\R$ y sea 
+	$g=(X-r_1)\cdots(X-r_n)\in\R[X]$. 
+	Como aplicación de la teoría de espacios vectoriales vamos a demostrar que
+	si $f\in\R[X]$ con $\deg f<\deg g$ entonces existen
+	$\alpha_1,\dots,\alpha_n\in\R$ tales que 
+	\[
+		\frac{f}{g}=\sum_{i=1}^n\alpha_i\frac{1}{X-r_i}.
+	\]
+	En efecto, primero observamos que 
+	el conjunto
+	\[
+	S=\left\{\frac{f}{g}:\deg f<\deg g\right\}
+	\]
+	con las operaciones 
+	\[
+		\frac{f_1}{g}+\frac{f_2}{g}=\frac{f_1+f_2}{g},\quad
+		\lambda\frac{f}{g}=\frac{\lambda f}{g},
+	\]
+	es un espacio vectorial sobre $\R$. Además tiene dimensión finita pues el
+	conjunto
+	$
+	\left\{\frac{1}{g},\frac{X}{g},\dots,\frac{X^{n-1}}{g}\right\}\subseteq S
+	$
+	es base de $S$.  Por otro lado, como 
+	\[
+	\left\{\frac{1}{X-r_1},\dots,\frac{1}{X-r_n}\right\}\subseteq S
+	\]
+	es un conjunto linealmente independiente, es también base de $S$ y entonces 
+	existen escalares $\alpha_1,\dots,\alpha_n\in\R$ tales que
+	\[
+		\frac{f}{g}=\sum_{i=1}^n\alpha_i\frac{1}{X-r_i},
+	\]
+	tal como queríamos demostrar. 
+\end{block}
+%\section{Existencia de bases de Hamel}
+%
+%\begin{block}
+%    Sea $P$ un conjunto no vacío \textbf{parcialmente ordenado}, es decir:
+%    existe una relación $\leq$ en $P$ tal que $x\leq y$ e $y\leq x$ implica que
+%    $x=y$, $x\leq y$ e $y\leq z$ implica que $x\leq z$, y además dados $x,y\in
+%    P$ con $x\leq y$ e $y\leq x$ entonces $x=y$. Un subconjunto no vacío $Q\subseteq P$ 
+%    es una \textbf{cadena} si dados $x,y\in Q$ entonces $x\leq y$ o bien $y\leq x$. 
+%
+%    \begin{lemma}[lema de Zorn]
+%                                
+%    \end{lemma}
+%\end{block}
+

@@ -1,0 +1,1133 @@
+% TODO:
+% Considerar K como un anillo conmutativo (pensar en K cuerpo, Z, o K[X])
+% En la definición de función n-lineal tomar d:(K^n)^n->K y después considerar funciones en las filas de las matrices
+% Ejercicio: Desarrollo por fila. 
+% Agregar dos o tres ejemplos 
+% Mostrar que una matriz A es inversible si y sólo si detA es una unidad. Como corolario, el caso en que K sea cuerpo
+% Aplicación de Cramer en Z
+% Determinantes especiales: Matriz compañera
+
+\chapter{Determinantes}
+
+\section{Permutaciones}
+
+\begin{block}
+	Sea $n\in\N$. Denotaremos por $\Sym_n$ al conjunto de
+	\textbf{permutaciones} del conjunto $\{1,\dots,n\}$, es decir:
+	\[
+		\Sym_n=\left\{\sigma\colon\{1,\dots,n\}\to\{1,\dots,n\}:\sigma\text{ es biyectiva}\right\}.	
+	\]
+	Es fácil demostrar que el conjunto $\Sym_n$ tiene $n!=n(n-1)\cdots2$ elementos. 
+	Denotaremos a una permutación $\sigma\in\Sym_n$ de la siguiente forma:
+	\[
+	\begin{pmatrix}
+		1 & 2 & \cdots & n\\
+		\sigma(1) & \sigma(2) & \cdots & \sigma(n)
+	\end{pmatrix}
+	\]
+	Por ejemplo, las permutaciones del conjunto $\{1,2\}$ son:
+	\begin{gather*}
+		\Sym_2=\left\{
+		\binom{12}{12},
+		\binom{12}{21}
+		\right\}
+	\end{gather*}
+	Las permutaciones del conjunto $\{1,2,3\}$ son:
+	\begin{gather*}
+		\Sym_3=\left\{
+		\binom{123}{123},
+		\binom{123}{213},
+		\binom{123}{321},
+		\binom{123}{132},
+		\binom{123}{231},
+		\binom{123}{312}
+		\right\}.
+	\end{gather*}
+\end{block}
+
+\begin{block}
+	Las permutaciones son funciones biyectivas, y la composición de funciones
+	biyectivas es una función biyectiva. Luego la composición de dos
+	permutaciones es una permutación. Por ejemplo: 
+	\[
+	\sigma=\binom{123}{132},\quad
+	\tau=\binom{123}{312},\quad 
+	\sigma\tau=\binom{123}{213}.
+	\]
+	Como sabemos, la composición de funciones es asociativa. La identidad $\id$
+	es el neutro para la composición, y cada permutación, por ser una función
+	biyectiva, es inversible.
+\end{block}
+
+\begin{block}
+    Una permutación $\sigma\in\mathbb{S}_{n}$ es un $r$\textbf{-ciclo} si
+    existen $a_{1},\dots,a_{r}\in\{1,\dots,n\}$ todos distintos tales que
+    $\sigma(j)=j$ para todo $j\not\in\{a_{1},\dots,a_{r}\}$ y además 
+    \[
+    \sigma(a_{i})=\begin{cases}
+        a_{i+1} & \text{si }i<r,\\
+        a_{1} & \text{si \ensuremath{i=r}.}
+    \end{cases}
+    \]
+	Si $a_1,\dots,a_r\in\{1,\dots,n\}$ son todos distintos, denotaremos por
+	$(a_1\,a_2\,\dots,a_r)$ al ciclo $\sigma$ que mueve únicamente a los $a_i$
+	y tal que 
+	\begin{align*}
+	\sigma(a_1)=a_2,
+	&&
+	\sigma(a_2)=a_3,
+	&&
+	\cdots
+	&&
+	\sigma(a_{n-1})=a_n,
+	&&
+	\sigma(a_n)=a_1.
+	\end{align*}
+\end{block}
+
+\begin{example}
+	En general omitiremos los $1$-ciclos al escribir una permutación como
+	producto de ciclos disjuntos.  Escribamos algunas permutaciones de $\Sym_3$:
+	\begin{align*}
+		&\binom{123}{213}=(12)(3)=(12),
+		&&
+		\binom{123}{321}=(13)(2)=(13),
+		&&
+		\binom{123}{231}=(123). 
+	\end{align*}
+	Veamos como ejemplo algunas permutaciones de $\Sym_4$:
+	\begin{align*}
+		&\binom{1234}{2314}=(123)(4)=(123).
+		&&
+		\binom{1234}{2143}=(12)(34).
+	\end{align*}
+\end{example}
+
+\begin{block}
+	Las permutaciones $\sigma$ y $\tau$ son \textbf{disjuntas} si para cada
+	$j\in\{1,\dots,n\}$ se tiene que $\sigma(j)=j$ o bien $\tau(j)=j$.
+\end{block}
+
+\begin{xca}
+	\label{xca:disjuntas_conmutan}
+	Pruebe que las permutaciones disjuntas conmutan.
+\end{xca}
+
+\begin{example}
+    Las permutaciones $(123)\in\Sym_6$ y $(56)\in\Sym_6$ son disjuntas. Las
+    permutaciones $(123)\in\Sym_6$ y $(25)\in\Sym_6$ no son disjuntas. 
+\end{example}
+
+\begin{xca}
+    \label{xca:permutaciones}
+	Sea $\sigma=\alpha\beta\in\mathbb{S}_{n}$, donde $\alpha$ y $\beta$ son
+	disjuntas. Si $\alpha(i)\ne i$ entonces $\sigma^{k}(i)=\alpha^{k}(i)$ para
+	todo $k\geq0$. 
+\end{xca}
+
+\begin{prop}
+	Sea $\sigma\ne\id$ una permutacion de $\Sym_n$.  Entonces $\sigma$ es
+	producto de ciclos disjuntos de longitud $\geq2$.  La descomposición es
+	única salvo el orden de los factores.
+
+    \begin{proof}
+		Hacemos inducción en la cantidad $k$ de elementos del conjunto
+		$\{1,\dots,n\}$ que mueve $\sigma$. El caso base es $k=2$, que es
+		trivial pues $\sigma$ es una trasposición. Supongamos que el resultado
+		es válido para permutaciones que mueven menos de $k$ elementos, donde
+		$k>0$. Sea $i_{1}\in\{1,\dots,n\}$ tal que $\sigma(i_{1})\ne i_{1}$.
+		Definimos $i_{2}=\sigma(i_{1})$, $i_{3}=\sigma(i_{2})$... y sabemos que
+		existe $r\in\mathbb{N}$ tal que $\sigma(i_{r})=i_{1}$ (si existe
+		$j\in\{2,\dots,n\}$ tal que $\sigma(i_{r})=i_{j}$ entonces
+		$\sigma(i_{j-1})=i_{j}$, una contradicción).  Tomemos
+		$\sigma_{1}=(i_{1}i_{2}\cdots i_{r})$. Por hipótesis inductiva, como
+		$\sigma_{1}^{-1}\sigma$ es una permutación que mueve menos de $k$
+		elementos, $\sigma_{1}^{-1}\sigma=\sigma_{2}\cdots\sigma_{s}$, donde
+		$\sigma_{2},\dots,\sigma_{s}$ son ciclos disjuntos. 
+
+		Probemos ahora la unicidad. Para eso, supongamos que
+		$\sigma=\sigma_{1}\dots\sigma_{s}=\tau_{1}\cdots\tau_{t}$ con $s>0$.
+		Sea $i_{1}\in\{1,\dots,n\}$ tal que $\sigma_{1}(i_{1})\ne i_{1}$.  Por
+		lo que hicimos en el ejercicio~\ref{xca:permutaciones},
+		$\sigma^{k}(i_{1})=\sigma_{1}^{k}(i_{1})$ para todo $k\geq0$. Existe
+		$j\in\{1,\dots,t\}$ tal que $\tau_{j}$ mueve a $i_{1}$. Sin pérdida de
+		generalidad (pues los $\tau_{k}$ conmutan) podemos suponer que $j=1$, y
+		luego $\sigma_{1}^{k}(i_{1})=\tau_{1}^{k}(i_{1})$ para todo $k\geq0.$
+		De acá se deduce que $\sigma_{1}=\tau_{1}$ y por lo tanto
+		$\sigma_{2}\cdots\sigma_{s}=\tau_{2}\cdots\tau_{t}$.  Por inducción en
+		$\max\{s,t\}$ obtenemos que $s=t$ y por lo tanto $\sigma_{k}=\tau_{k}$
+		para todo $k$. 
+    \end{proof}
+\end{prop}
+
+\begin{cor}
+    \label{cor:trasposiciones}
+    Toda permutación es producto de trasposiciones. 
+
+    \begin{proof}
+        Como toda permutación $\ne\id$ es producto de ciclos disjuntos, alcanza
+        con demostrar que cada ciclo es producto de trasposiciones. Luego
+        \[
+            (a_{1}\dots a_{r})=(a_{1}a_{r})(a_{1}a_{r-1})\cdots(a_{1}a_{3})(a_{1}a_{2})
+        \]
+        demuestra el corolario.
+    \end{proof}
+\end{cor}
+
+\begin{cor}
+	\label{cor:trasposiciones_(1k)}
+    Toda permutación es producto de trasposiciones de la forma $(1k)$.
+
+    \begin{proof}
+		Por el corolario~\ref{cor:trasposiciones} sabemos que toda permutación
+		es producto de trasposiciones. Como cada trasposición puede escribirse
+		como
+        \[
+            (ij)=(1i)(1j)(1i),
+        \]
+        entonces toda permutación puede escribirse como producto de
+        trasposiciones de la forma $(1k)$. 
+	\end{proof}
+\end{cor}
+
+
+\begin{cor}
+    \label{cor:trasposiciones_ady}
+	Toda permutación es producto de \textbf{trasposiciones adyacentes}, es
+	decir: trasposiciones de la forma $(k\,k+1)$. 
+
+    \begin{proof}
+		Por el corolario~\ref{cor:trasposiciones_(1k)} sabemos que toda
+		permutación es producto de trasposiciones de la forma $(1k)$.  Probemos
+		por inducción que toda permutación de la forma $(1k)$ puede escribirse
+		como producto de trasposiciones adyacentes. El primer caso es
+		$(13)=(12)(23)(12)$. Si suponemos que la afirmación es válida para la
+		permutación $(1k)$ entonces el corolario queda demostrado al utilizar
+		la hipótesis inductiva en la descomposición
+		$(1\,k+1)=(k\,k+1)(1k)(k\,k+1)$.
+    \end{proof}
+\end{cor}
+
+\begin{block}
+    El corolario~\ref{cor:trasposiciones} nos dice que toda $\sigma\in\Sym_n$
+    puede escribirse como producto de trasposiciones.  Esta escritura no es
+    única, por ejemplo:
+    \[
+        (123)=(13)(12)=(23)(12)(23)(12).
+    \]
+	Sin embargo, puede probarse que si
+	$\sigma=\sigma_1\cdots\sigma_k=\tau_1\cdots\tau_l$ como producto de
+	trasposiciones entonces $k$ y $l$ tienen la misma paridad. Probaremos esta
+	afirmación como aplicación de la teoría de determinantes.
+\end{block}
+
+\section{Funciones multilineales alternadas}
+
+\begin{block}
+    Sea $n\in\N$. Una función $d\colon\K^{n\times n}\to\K$ es
+    \textbf{$n$-lineal} (por filas) si para cada $i\in\{1,\dots,n\}$ la función
+    $d$ es lineal en la $i$-ésima fila cuando las otras $n-1$ se dejan fijas,
+    es decir: 
+	\begin{multline*}
+		d(A_1,\dots,A_{i-1},x+\lambda y,A_{i+1},\dots,A_n)
+		\\=d(A_1,\dots,A_{i-1},x,A_{i+1},\dots,A_n)+
+		\lambda d(A_1,\dots,A_{i-1},y,A_{i+1},\dots,A_n).
+	\end{multline*}
+\end{block}
+
+\begin{xca}
+    \label{xca:combinacion_nlineal}
+	Toda combinación lineal de funciones $n$-lineales es $n$-lineal.
+\end{xca}
+
+\begin{block}
+    Una función $n$-lineal $d$ es \textbf{alternada} si $d(A)=0$ para toda
+    matriz $A$ que tiene dos filas iguales. Una función $d$ es un
+    \textbf{determinante} si es $n$-lineal, alternada y $d(I)=1$.
+\end{block}
+
+\begin{examples}
+    \label{xca:2x2}
+    La función $d\colon\K\to\K$ dada por $d(a)=a$ es una función determinante.
+    Similarmente la función $d\colon\K^{2\times2}\to\K$ definida por 
+    \[
+        d\begin{pmatrix}
+            a_{11} & a_{12}\\
+            a_{21} & a_{22}
+        \end{pmatrix}
+        =a_{11}a_{22}-a_{12}a_{21}
+    \]
+    es una función determinante.
+\end{examples}
+
+\begin{example}
+    Supongamos que $d\colon\K^{2\times2}\to\K$ es una función determinante. Si
+    $e_1=(1,0)$ y $e_2=(0,1)$ entonces la primera fila de la matriz
+    $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}$ puede escribirse como $ae_1+be_2$
+        y la segunda fila de $A$ puede escribirse como $ce_1+de_2$. Si
+        usamos la $2$-linealidad de $d$, 
+    \begin{align*}
+        d(A)&=d(ae_1+be_2,ce_1+de_2)\\
+        &=acd(e_1,e_1)+add(e_1,e_2)+bcd(e_2,e_1)+bdd(e_2,e_2).
+    \end{align*}
+    Como $d$ es alternada, 
+    \[
+        d(e_1,e_1)=d(e_2,e_2)=0,\quad
+        d(e_2,e_1)=-d(e_1,e_2).
+    \]
+    Entonces 
+    \[
+        d(A)=(ad-bc)d(e_1,e_2)=(ad-bc)d(I).
+    \]
+    Como $d$ es una función determinante, $d(I)=1$ y luego $d(A)=ad-bc$. 
+\end{example}
+
+\begin{lem}
+    \label{lem:alternada}
+    Si $d$ es alternada entonces 
+    \[
+        d(A_1,\dots,A_i,\dots,A_j,\dots,A_n)=-d(A_1,\dots,A_j,\dots,A_i,\dots,A_n).
+    \]
+
+	\begin{proof}
+		Como $d$ es alternada,
+		\[
+		d(A_1,\dots,A_{i-1},A_i+A_j,A_{i+1},\dots,A_{j-1},A_i+A_j,A_{j+1},\dots,A_{n})=0.
+		\]
+		Al usar la $n$-linealidad obtenemos
+		\begin{multline*}
+			0=d(A_1,\dots,A_i,\dots,A_i,\dots,A_n)+d(A_1,\dots,A_i,\dots,A_j,\dots,A_n)\\
+			+d(A_1,\dots,A_j,\dots,A_i,\dots,A_n)+d(A_1,\dots,A_j,\dots,A_j,\dots,A_n).
+		\end{multline*}
+		Como $d$ es alternada, 
+		\[
+		d(A_1,\dots,A_i,\dots,A_i,\dots,A_{n})=d(A_1,\dots,A_j,\dots,A_j,\dots,A_n)=0,
+		\]
+		y entonces el lema queda demostrado.
+	\end{proof}
+\end{lem}
+
+\begin{block}
+	Sea $A\in\K^{n\times n}$ y sean $i,j\in\{1,\dots,n\}$. Si $d$ es una
+	función $n$-lineal y $A\in\K^{n\times n}$ entonces
+	\[
+		d_{ij}(A)=d(A[i|j]),
+	\]
+	donde $A[i|j]$ es la matriz de tamaño $(n-1)\times(n-1)$ que se obtiene al
+	eliminar la $i$-ésima fila y la $j$-ésima columna de $A$. Por ejemplo:
+	\begin{align*}
+		&
+		A=\begin{pmatrix}
+			1 & 2 & 3\\
+			4 & 5 & 6\\
+			7 & 8 & 9
+		\end{pmatrix},
+		&&
+		A[1|1]=\begin{pmatrix}
+			5 & 6\\
+			8 & 9
+		\end{pmatrix},
+		&&
+		A[1|2]=\begin{pmatrix}
+			4 & 6\\
+			7 & 9
+		\end{pmatrix},
+		&&
+		A[3|2]=\begin{pmatrix}
+			1 & 3\\
+			4 & 6
+		\end{pmatrix}.
+	\end{align*}
+\end{block}
+
+\begin{thm}
+    \label{thm:desarrollo_cols}
+    Si $d$ es una función $(n-1)$-lineal, alternada y $d(I)=1$ entonces para
+    cada $j\in\{1,\dots,n\}$ la función
+    \[
+        E_j(A)=\sum_{i=1}^n(-1)^{i+j}a_{ij}d_{ij}(A)
+    \]
+    es $n$-lineal, alternada y cumple que $E_j(I)=1$.
+
+    \begin{proof}
+		Para demostrar que $E_j$ es $n$-lineal basta observar que la función
+		$A\mapsto a_{ij}d_{ij}(A)$ es $n$-lineal y utilizar el
+		ejercicio~\ref{xca:combinacion_nlineal} que afirma que toda
+		combinaciones lineal de funciones $n$-lineales es $n$-lineal.
+
+		Demostremos que $E_j$ es alternada. Para eso, supongamos que $A$ tiene
+		dos filas iguales, digamos que son las filas $k$ y $l$, donde $k<l$. Si
+		$i\not\in\{k,l\}$ entonces $d_{ij}(A)=0$ pues la matriz $A[i|j]$ tiene
+		dos filas iguales. Entonces
+		\begin{align*}
+			E_j(A)&=(-1)^{k+j}a_{kj}d_{kj}(A)+(-1)^{l+j}a_{lj}d_{lj}(A).
+		\end{align*}
+		La $(l-1)$-ésima fila de $A[k|j]$ y la $k$-ésima fila de $A[l|j]$ son
+		iguales a $A_k$ y entonces $A[k|j]$ y $A[l|j]$ difieren en $l-k-1$
+		trasposiciones. Luego 
+		\[
+			d_{kj}(A)=(-1)^{l-k-1}d_{lj}(A).
+		\]
+		Como $a_{kj}=a_{lj}$, 
+		\begin{align*}
+			E_j(A)
+			=(-1)^{k+j+l-k-1}a_{lj}d_{lj}(A)+(-1)^{l+j}a_{lj}d_{lj}(A)
+			=0.
+		\end{align*}
+		
+		Para ver que $E_j(I)=1$ basta observar que 
+        \[
+            E_j(I)=\sum_{i=1}^n(-1)^{i+j}\delta_{ij}d_{ij}(I)=d_{jj}(I)=1.
+        \]
+        Esto completa la demostración.
+    \end{proof}
+\end{thm}
+
+\begin{cor}
+    \label{cor:determinante:existencia}
+    Existe al menos una función determinante. 
+
+    \begin{proof}
+		Vimos en el ejemplo~\ref{xca:2x2} que existen determinantes cuando
+		$n\in\{1,2\}$. El caso general es consecuencia directa del teorema
+		anterior y el principio de inducción.
+    \end{proof}
+\end{cor}
+
+\section{Aplicación a la teoría de permutaciones}
+
+\begin{block}
+    Sea $\sigma\in\Sym_n$. El corolario~\ref{cor:trasposiciones} nos dice que
+    $\sigma$ puede escribirse como producto de traposiciones. Esta escritura no
+    es única, por ejemplo:
+    \[
+        (123)=(13)(12)=(23)(12)(23)(12).
+    \]
+	Sin embargo, puede probarse que si
+	$\sigma=\sigma_1\cdots\sigma_k=\tau_1\cdots\tau_l$ como producto de
+	trasposiciones entonces $k$ y $l$ tienen la misma paridad.  
+\end{block}
+
+\begin{cor}
+    \label{cor:signo}
+    Sea $\sigma\in\mathbb{S}_{n}$ tal que
+    $\sigma=\sigma_{1}\cdots\sigma_{k}=\tau_{1}\cdots\tau_{l}$ como producto de
+    trasposiciones. Entonces $(-1)^{k}=(-1)^{l}$.
+
+    \begin{proof}
+		Por el corolario~\ref{cor:determinante:existencia} sabemos que existe
+		una función determinante $d\colon\K^{n\times n}\to\K$. Si
+		$\{e_1,e_2,\dots,e_n\}$ es la base canónica de $\K^{n\times 1}$
+		entonces $d(e_1,\dots,e_n)=d(I)=1$ pues $d$ es una función
+		determinante.  Como, por hipótesis,
+		$\sigma=\sigma_1\cdots\sigma_k=\tau_1\cdots\tau_l$ y $d$ es una función
+		alternada, entonces 
+        \begin{align*}
+            (-1)^k&=(-1)^kd(e_1,\dots,e_n)\\
+            &=d(e_{\sigma(1)},e_{\sigma(2)},\dots,e_{\sigma(n)})=(-1)^ld(e_1,\dots,e_n)=(-1)^l,
+        \end{align*}
+        que es lo que queríamos demostrar.
+    \end{proof}
+\end{cor}
+
+\begin{block}
+	El corolario~\ref{cor:signo} nos permite definir el signo de una
+	permutación.  Sea $\sigma\in\Sym_n$. Se define el \textbf{signo} de
+	$\sigma$ como el número $\sgn(\sigma)=(-1)^k$ si
+	$\sigma=\sigma_1\cdots\sigma_k$ como producto de trasposiciones. Una
+	permutación $\sigma$ es \textbf{par} si $\sgn(\sigma)=1$ y es
+	\textbf{impar} si $\sgn(\sigma)=-1$. 
+\end{block}
+
+\begin{examples}
+	La identidad es una permutación par. Las trasposiciones son permutaciones
+	impares.  Un $r$-ciclo tiene signo $(-1)^{r-1}$. Otros ejemplos: 
+	\begin{align*}
+	&\sgn((123))=
+	\sgn((12)(34))=1,
+	&&
+	\sgn((1234))= 
+	\sgn((123)(45))=-1.
+\end{align*}
+\end{examples}
+
+\begin{cor}
+    \label{cor:sgn_es_morfismo}
+    Sean $\sigma,\tau\in\Sym_n$. Entonces
+    $\sgn(\sigma\tau)=\sgn(\sigma)\sgn(\tau)$.
+
+    \begin{proof}
+		Escribamos $\sigma=\sigma_1\cdots\sigma_k$ y $\tau=\tau_1\cdots\tau_l$,
+		ambas como producto de trasposiciones. Entonces, como $\sigma\tau$
+		puede escribirse como producto de $k+l$ trasposiciones, 
+       	\[
+			(\sgn\sigma)(\sgn\tau)
+			=(-1)^k(-1)^l
+			=(-1)^{k+l}
+			=\sgn(\sigma\tau),
+        \]
+        tal como queríamos demostrar.
+    \end{proof}
+\end{cor}
+
+\begin{cor}
+	Sea $\sigma\in\Sym_n$. Entonces $\sgn(\sigma)=\sgn(\sigma^{-1})$. 
+
+	\begin{proof}
+		Si escribimos a $\sigma$ como producto de trasposiciones, digamos
+		$\sigma=\sigma_1\cdots\sigma_k$, entonces, como $\sigma_j^2=\id$ para
+		todo $j$, $\sigma^{-1}=\sigma_k\cdots\sigma_1$. Luego
+		$\sgn(\sigma)=\sgn(\sigma^{-1})$. 
+	\end{proof}
+\end{cor}
+
+\begin{cor}
+    Supongamos que $\sigma\in\Sym_n$ se descompone como producto de $m$ ciclos
+    disjuntos de longitud $l_1,\dots,l_m$. Entonces
+    \[
+        \sgn(\sigma)=(-1)^{\sum_{k=1}^m(l_k-1)}.
+    \]
+
+    \begin{proof}
+        Supongamos que $\sigma$ se descompone como producto de ciclos disjuntos
+        $\sigma=c_1\dots c_m$ y que cada ciclo $c_k$ tiene longitud $l_k$. Como
+        cada $c_k$  puede escribirse como producto de $l_k-1$ trasposiciones,
+        $\sgn(c_k)=(-1)^{l_k-1}$. Por el corolario~\ref{cor:sgn_es_morfismo}, 
+        \[
+            \sgn(\sigma)=\prod_{k=1}^m\sgn(c_k)=\prod_{k=1}^m(-1)^{l_k-1}=(-1)^{\sum_{k=1}^m(l_k-1)},
+        \]
+        tal como queríamos demostrar.
+    \end{proof}
+\end{cor}
+
+\section{Unicidad y propiedades básicas}
+
+\begin{lem}
+	\label{lem:sigma}
+    Sean $d\colon\K^{n\times n}\to\K$ una función alternada y
+    $\sigma\in\Sym_n$. Entonces, para todo $A\in\K^{n\times n}$, 
+   \[
+        d(A_{\sigma(1)},\dots,A_{\sigma(n)})=(\sgn\sigma)d(A).
+   \]
+
+   \begin{proof}
+		Supongamos que $\sigma$ se escribe como producto de $k$ trasposiciones.
+		Entonces 
+        \[
+            d(A_{\sigma(1)},\dots,A_{\sigma(n)})=(-1)^k\det A=(\sgn\sigma)d(A),
+        \]
+        tal como queríamos demostrar. 
+   \end{proof}
+\end{lem}
+
+\begin{thm}
+    \label{thm:determinante:unicidad}
+    Existe una única función determinante $\det\colon\K^{n\times n}\to\K$. Más
+    aún, 
+    \begin{equation}
+        \label{eq:det:permutaciones}
+        \det(A)=\sum_{\sigma\in\Sym_n}\sgn(\sigma)a_{1\sigma(1)}\cdots a_{n\sigma(n)}
+    \end{equation}
+    para todo $A\in\K^{n\times n}$. 
+
+    \begin{proof}
+        Supongamos que $d$ es una función determinante y sea $A\in\K^{n\times
+        n}$. Escribamos a cada fila de $A$ como $A_i=\sum_{j=1}^n a_{ij}e_j$
+        donde $\{e_1,\dots,e_n\}$ es la base canónica de $\K^{1\times n}$.
+        Entonces
+		\begin{align*}
+			d(A)&=d(A_1,\dots,A_n)
+			=\sum_{j_1=1}^n\cdots\sum_{j_n=1}^na_{1j_1}\cdots a_{nj_n}d(e_{j_1},\dots,e_{j_n}).
+		\end{align*}
+        Como $d$ es alternada, la suma es no nula únicamente cuando todos los
+        $j_k$ son distintos, es decir cuando $|\{j_1,\dots,j_n\}|=n$. Entonces,
+        la suma anterior se hace sobre todas las $n$-uplas $(j_1,\dots,j_n)$ de
+        elementos distintos del conjunto $\{1,\dots,n\}$. Luego, por el
+        lema~\ref{lem:sigma},  
+		\begin{align*} 
+			d(A)&=\sum_{\sigma\in\Sym_n}a_{1\sigma(1)}\cdots a_{n\sigma(n)}d(e_{\sigma(i)},\dots,e_{\sigma(n)})\\
+			&=\sum_{\sigma\in\Sym_n}\sgn(\sigma)a_{1\sigma(1)}\cdots a_{n\sigma(n)}d(e_1,\dots,e_n).
+		\end{align*}
+        Como $d$ es un determinante, $d(e_1,\dots,e_n)=d(I)=1$ y entonces 
+        \[
+            d(A)=\sum_{\sigma\in\Sym_n}\sgn(\sigma)a_{1\sigma(1)}\cdots a_{n\sigma(n)}.
+        \]
+		En particular, existe una única función determinante. 
+	\end{proof}
+\end{thm}
+
+\begin{xca}
+    \label{xca:dA=(detA)dI}
+    Utilice lo hecho en la demostración del teorema~\ref{thm:determinante:unicidad}
+    y pruebe que si $d$ es $n$-lineal y alternada entonces
+    \[
+        d(A)=(\det A)d(I)
+    \]
+    para todo $A\in\K^{n\times n}$. 
+\end{xca}
+
+\begin{cor}[Desarrollo por columnas]
+    Sea $A\in\K^{n\times n}$. Entonces, para cada $j\in\{1,\dots,n\}$, 
+    \[
+    \det(A)=\sum_{i=1}^n(-1)^{i+j}a_{ij}M_{ij}(A),
+    \]
+    donde $M_{ij}(A)=\det A[i|j]$. 
+
+	\begin{proof}
+		Es consecuencia directa del 
+		teorema~\ref{thm:determinante:unicidad}. 
+	\end{proof}
+\end{cor}
+
+\begin{example}
+    Los números $917$, $854$ y $994$ son divisibles por $7$.
+    Vamos a utilizar esta información para demostrar que 
+    \[
+        \det\begin{pmatrix}
+            9 & 1 & 7\\
+            8 & 5 & 4\\
+            9 & 9 & 4
+        \end{pmatrix}
+    \]
+    es divisible por $7$. Observemos que al efectuar 
+    la operación de columnas $100C_1+10C_2+C_3\to C_3$ 
+    se tiene que 
+    \[
+        \det\begin{pmatrix}
+            9 & 1 & 7\\
+            8 & 5 & 4\\
+            9 & 9 & 4
+        \end{pmatrix}       
+        =
+        \det\begin{pmatrix}
+            9 & 1 & 917\\
+            8 & 5 & 854\\
+            9 & 9 & 994
+        \end{pmatrix}.
+    \]
+    Si desarrollamos este último determinante por la última columna, el valor
+    del determinante es divisible por siete.
+\end{example}
+
+\begin{thm}
+    \label{thm:det(AB)=(detA)(detB)}
+	Sean $A,B\in\K^{n\times n}$. Entonces 
+	\[
+		\det(AB)=(\det A)(\det B).
+	\]
+
+	\begin{proof}
+		Sea $d\colon\K^{n\times n}\to\K$ dada por
+		\[
+			d(X)=\det(XB)
+		\]
+        Si las filas de $X$ son los vectores $X_1,\dots,X_n$ entonces las filas
+        de la matriz $XB$ son $X_1B,\dots,X_nB$.  Demostremos que $d$ es
+        alternada: si $X_i=X_j$ entonces $X_iB=X_jB$ y usamos que $\det$ es
+        alternada. Demostremos que $d$ es $n$-lineal: si la fila $i$-ésima de
+        $X$ es $X_i+\lambda Y_i$ entonces la $i$-ésima fila de $XB$ es
+        $(X_i+\lambda Y_i)B=X_iB+\lambda Y_iB$ y usamos que $\det$ es
+        $n$-lineal. Por el ejercicio~\ref{xca:dA=(detA)dI}, 
+		\[
+		\det(AB)=d(A)=(\det A)d(I)=(\det A)(\det B),
+		\]
+		tal como queríamos demostrar.
+	\end{proof}
+\end{thm}
+
+\begin{block}
+	\label{block:determinante:semejanza} 
+	El teorema anterior implica que si $A,B\in\K^{n\times n}$ son semejantes
+	entonces, como $B=CAC^{-1}$ para alguna matriz inversible $C\in\K^{n\times
+	n}$, se tiene que 
+	\begin{align*}
+		\det B &= \det(CAC^{-1})
+		=(\det C)(\det A)(\det C^{-1})\\
+		&=(\det C)(\det A)(\det C)^{-1}
+		=\det A. 
+	\end{align*}
+\end{block}
+
+\begin{block}
+	Sean $V$ un espacio vectorial de dimensión finita y $f\in\hom(V,V)$. Como
+	las matrices de $f$ con respecto a bases distintas son semejantes, la
+	observación hecha en~\ref{block:determinante:semejanza} implica que tiene
+	sentido definir el \textbf{determinante} de $f$ como
+	\[
+		\det f=\det [f]_{\cB,\cB},
+	\]
+	donde $\cB$ es alguna base de $V$. 
+\end{block}
+
+\begin{example}
+    \label{exa:det:fibonacci}
+	La \textbf{sucesión de Fibonacci} $F_n$
+    es la sucesión 
+	\[
+        1,1,2,3,5,8,13,21,34,55,89,144,233,377,\dots
+    \]
+	definida recursivamente por $F_0=F_1=1$ y
+    $F_{n+1}=F_n+F_{n-1}$ para $n\geq1$. Por inducción puede demostrarse que 
+    \[
+        \begin{pmatrix}
+            0 & 1\\
+            1 & 1
+        \end{pmatrix}^n
+        =
+        \begin{pmatrix}
+            F_{n-1} & F_n\\
+            F_n & F_{n+1}
+        \end{pmatrix}
+    \]
+	para todo $n\geq1$. Si aplicamos la función determinante a la fórmula
+	anterior y usamos que el determinante es una función multiplicativa,
+	obtenemos
+    \[
+        F_{n+1}F_{n-1}-F_n^2=(-1)^n
+    \]
+    para todo $n\geq1$.
+\end{example}
+
+\begin{prop}
+	Si $A=(a_{ij})$ es triangular superior (es decir $a_{ij}=0$ si $i>j$)
+	entonces $\det A=a_{11}\cdots a_{nn}$. 	
+
+	\begin{proof}
+		Procedemos por inducción en $n$. Los casos $n\in\{1,2\}$ son triviales.
+		Supongamos entonces que el resultado es válido para matrices de tamaño
+		$(n-1)\times(n-1)$. Entonces, al desarrollar el determinante por la
+		primera columna y utilizar la hipótesis inductiva en la matriz $A[1|1]$, 
+		\[
+		\det A=a_{11}\det A[1|1]=a_{11}a_{22}\cdots a_{nn},
+		\]
+		que es lo que queríamos demostrar.
+	\end{proof}
+\end{prop}
+
+\begin{prop}
+	\label{pro:detA=det(AT)}
+    Si $A\in\K^{n\times n}$ entonces $\det A=\det A^T$.    
+
+    \begin{proof}
+%		Procederemos por inducción en $n$. Los casos $n\in\{1,2\}$ son
+%		triviales. Supongamos entonces que el resultado es válido en matrices
+%		de tamaño $(n-1)\times(n-1)$. Si llamamos $B=A^T$ entonces, al
+%		desarrollar por la primera columna, 
+%		\begin{align*}
+%			\det B&=\sum_{i=1}^n(-1)^{i+1}b_{i1}\det B[i|1].
+%		\end{align*}
+%		Por hipótesis inductiva,
+%		\[
+%			\det B[i|1]=\det B[1|i]=\det\left(A^T[1|i]\right)=\det\left(A[i|1]^T\right)=\det A[i|1]=\det A[1|i].
+%		\]
+%		Luego, como $b_{i1}=a_{1i}$ para todo $i$, 
+%		\[
+%			\det B=\sum_{i=1}^n(-1)^{i+1}a_{1i}\det A[i|1]=\det A,
+%		\]
+%		que es lo que queríamos demostrar.
+        Si $\sigma\in\Sym_n$ y $\sigma(i)=j$ entonces
+        $\sigma^{-1}(j)=i$ y además $a_{\sigma(i)i}=a_{j\sigma^{-1}(j)}$. Entonces
+        \begin{align*}
+            \det A&=\sum_{\sigma\in\Sym_n}\sgn(\sigma)a_{1\sigma(1)}\cdots a_{n\sigma(n)}\\
+            &=\sum_{\sigma\in\Sym_n}\sgn(\sigma)a_{\sigma^{-1}(1)1}\cdots a_{\sigma^{-1}(n)n}\\
+            &=\sum_{\sigma^{-1}\in\Sym_n}\sgn(\sigma^{-1})a_{\sigma^{-1}(1)1}\cdots a_{\sigma^{-1}(n)n}\\
+			&=\det A^T,
+        \end{align*}
+		pues $\sgn(\sigma)=\sgn(\sigma^{-1})$ y si $\sigma$ recorre todo $\Sym_n$
+		entonces $\sigma^{-1}$ también recorre todo $\Sym_n$. 
+    \end{proof}
+\end{prop}
+
+\begin{xca}
+	Demuestre que si $A=(a_{ij})\in\K^{n\times n}$ es triangular inferior
+	entonces $\det A=a_{11}\cdots a_{nn}$.
+\end{xca}
+
+\begin{block}
+	En vista de la forma en que construimos la función determinante	y de la
+	proposición~\ref{pro:detA=det(AT)} se tiene la siguiente propiedad: si $B$
+	se obtiene de $A$ al sumar en una fila un múltiplo de otra fila
+	(o al sumar a una columna un múltiplo de otra columna) entonces $\det B=\det A$.
+\end{block}
+
+\begin{xca}
+	\label{xca:bloques_2x2}
+	Sean $A\in\K^{r\times r}$, $B\in\K^{r\times s}$, $C\in\K^{s\times s}$.
+	Pruebe que 
+	\begin{align*}
+		&\det\begin{pmatrix}
+		A & B\\
+		0 & C
+	\end{pmatrix}
+	=(\det A)(\det C).
+	\end{align*}
+\end{xca}
+
+\begin{cor}[Desarrollo por filas]
+	Sea $A\in\K^{n\times n}$. Entonces, para cada $i\in\{1,\dots,n\}$, 
+    \[
+    \det(A)=\sum_{j=1}^n(-1)^{i+j}a_{ij}M_{ij}(A),
+    \]
+    donde $M_{ij}(A)=\det A[i|j]$. 
+	\begin{proof}
+		Es consecuencia directa de la proposición~\ref{pro:detA=det(AT)},
+		donde vimos que $\det A=\det A^T$, y el
+		teorema~\ref{thm:determinante:unicidad}. 
+	\end{proof}
+\end{cor}
+
+%\begin{block}[Desarrollo por filas del determinante]
+%	En la proposición~\ref{pro:detA=det(AT)} vimos que $\det A=\det A^T$ para
+%	toda matriz $A\in\K^{n\times n}$. 
+%	El teorema~\ref{thm:determinante:unicidad} nos dice entonces que 
+%	para cada $i\in\{1,\dots,n\}$, 
+%    \[
+%    \det(A)=\sum_{j=1}^n(-1)^{i+j}a_{ij}M_{ij}(A),
+%    \]
+%    donde $M_{ij}(A)=\det A[i|j]$. 
+%\end{block}
+
+\begin{example}
+    Como ejemplo, vamos a demostrar que
+    \[
+    \det\begin{pmatrix}
+        1 & x & x^2\\
+        1 & y & y^2\\
+        1 & z & z^2
+    \end{pmatrix}
+    =(y-x)(z-x)(z-y).
+    \]
+
+    Dado que el determinante en matrices de $3\times3$ es una función
+    $3$-lineal, efectuar las operaciones elementales de filas $F_2-F_1\to F_2$
+    y $F_3-F_1\to F_3$ no cambia el valor del determinante. Esto implica que 
+    \[
+    \det\begin{pmatrix}
+        1 & x & x^2\\
+        1 & y & y^2\\
+        1 & z & z^2
+    \end{pmatrix}
+    =
+    \det\begin{pmatrix}
+        1 & x & x^2\\
+        0 & y-x & y^2-x^2\\
+        0 & z-x & z^2-x^2
+    \end{pmatrix}
+    =(y-x)(z-x)(z-y),
+    \]
+    después de desarrollar este último determinante por la primera columna.
+\end{example}
+
+\begin{block}
+    Dada una matriz $A\in\K^{n\times n}$ se define la matriz de los \textbf{cofactores}
+    de $A$ como 
+    \[
+        C_{ij}=(-1)^{i+j}\det A[i|j]
+    \]
+    para todo $i,j$. Se define además 
+    la \textbf{adjunta} $\adj A$ de $A$ como 
+    la traspuesta de la matriz de cofactores de $A$, es decir:
+    \[
+    (\adj A)_{ij}=(-1)^{i+j}\det A[j|i]=C_{ji}
+    \]
+    para todo $i,j$.
+\end{block}
+
+\begin{example}
+	Observemos que 
+	\[
+		A=\begin{pmatrix}
+			1 & 2 & 1\\
+			0 & 1 & 2\\
+			1 & 0 & 0
+		\end{pmatrix}
+		,\quad
+		\adj A=\begin{pmatrix}
+			0 & 0 & 3\\
+			2 & -1 & -2\\
+			-1 & 2 & 1
+		\end{pmatrix}.
+	\]
+%	Luego $A(\adj A)=3I$. 
+\end{example}
+
+\begin{example}
+		
+\end{example}
+
+\begin{thm}
+    \label{thm:AadjA=(detA)I}
+    Sea $A\in\K^{n\times n}$. Entonces 
+    \[
+        A(\adj A)=(\adj A)A=(\det A)I.
+    \]
+
+	\begin{proof}\framebox{FIXME}
+		Si $i\ne j$ y $B$ es la matriz $A$ después de haber reemplazado su
+		$i$-ésima columna por su $j$-ésima columna, entonces $A[k|i]=B[k|i]$
+		para todo $k$. Luego, como $B$ tiene dos columnas iguales, al
+		desarollar el determinante por la columna $i$-ésima, 
+        \[
+        0=\det B=\sum_{k=1}^n(-1)^{k+i}b_{ki}\det B[k|i]=\sum_{k=1}^n(-1)^{k+i}a_{kj}\det A[k|i].
+        \]
+
+        Por otro lado, para cada $i,j$ tenemos que 
+        \begin{align*}
+            \left((\adj A)A\right)_{ij}=\sum_{k=1}^n (\adj A)_{ik}a_{kj}=\sum_{k=1}^n (-1)^{k+i}a_{kj}\det A[k|i].
+        \end{align*}
+        Observemos que si $i\ne j$ entonces $((\adj A)A)_{ij}$ es el determinante de la matriz $B$, que 
+        tiene dos columnas iguales. En cambio, si $i=j$, entonces $(A\adj A)=\det A$ por
+		la fórmula~\ref{eq:det:permutaciones}. 
+        Luego
+        \[
+            (A\adj A)_{ij}=\begin{cases}
+                \det A & \text{si $i=j$},\\
+                0 & \text{si $i\ne j$},
+            \end{cases}
+        \]
+        tal como queríamos demostrar.
+    \end{proof}
+\end{thm}
+
+\begin{example}
+	Si $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}\in\K^{2\times2}$ entonces 
+	$\adj A=\begin{pmatrix}d&-b\\-c&a\end{pmatrix}$. Entonces, si $\det
+	A=ad-bc\ne0$, 
+	\[
+		A^{-1}=\frac{1}{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}.
+	\]
+\end{example}
+
+\begin{xca}
+	\label{xca:adjadjA}
+	Sean $A\in\K^{n\times n}$ matrices inversibles. Demuestre que 
+	$\adj(BAB^{-1})=B\adj(A)B^{-1}$. 
+\end{xca}
+
+\begin{xca}
+	\label{xca:adj(BAB^(-1))}
+    Sean $A,B\in\K^{n\times n}$. Demuestre que si $A$ es inversible entonces
+    $\adj(\adj A)=(\det A)^{n-2}A$.
+\end{xca}
+
+\begin{xca}
+    Sea $A\in\R^{3\times3}$ una matriz de rango $1$. Calcule el rango de la
+    adjunta de $A$.
+\end{xca}
+
+\begin{cor}
+	\label{cor:no_inversible<=>detA=0}
+    Sea $A\in\K^{n\times n}$. Entonces $A$ es inversible si y sólo si $\det
+    A\ne0$. 
+
+    \begin{proof}
+        Si $A$ es inversible entonces existe $B\in\K^{n\times n}$ tal que
+        $AB=I$ y luego $(\det A)(\det B)=\det(AB)=\det(I)=1$, que implica que
+        $\det A\ne0$.  Recíprocamente, si $\det A\ne0$ entonces $A^{-1}=(\det
+        A)^{-1}\adj A$ por el teorema~\ref{thm:AadjA=(detA)I}.
+    \end{proof}
+\end{cor}
+
+\begin{xca}[Regla de Cramer]
+	\label{block:Cramer}
+	Supongamos que $A\in\K^{n\times n}$ es inversible y sea
+    $b\in\K^{n\times1}$. Utilice el 
+    teorema~\ref{thm:AadjA=(detA)I}.
+    para demostrar que la solución $x=(x_1,\dots,x_n)^T$ del sistema lineal
+    $Ax=b$ puede calcularse de la siguiente forma: 
+   % Para resolver el sistema lineal $Ax=b$ procedemos de
+   % la siguiente forma. Si $x\in\K^{n\times 1}$ es una 
+   % solución de $Ax=b$ entonces
+   % \[
+   %     (\det A)x=(\adj A)Ax=(\adj A)b.
+   % \]
+   % Para cada $i\in\{1,\dots,n\}$ se tiene
+   % \[
+   %     (\det A)x_i=\sum_{j=1}^n (\adj A)_{ij}b_j=\sum_{j=1}^n(-1)^{i+j}b_j\det A[j|i].
+   % \]
+   % En resumen, cada $x_i$ puede calcularse como
+    \[
+    x_i=\frac{\det B_i}{\det A},
+    \]
+	donde $B_i$ es la matriz que se obtiene de $A$ después de reemplazar su
+	$i$-ésima columna por el vector columna $b$. 
+\end{xca}
+
+\begin{block}
+    Vamos a dar una demostración elemental de la regla de Cramer vista
+    en~\ref{block:Cramer}.  Sea $\{e_1,\dots,e_n\}$ la base canónica de
+    $\K^{n\times1}$ y para cada $i\in\{1,\dots,n\}$ sea $X_i$ la que se obtiene
+    después de reemplazar la $i$-ésima columna de la matriz identidad por el
+    vector columna $x=(x_1\dots x_n)^T$. Por ejemplo:
+	\[
+	X_1=\begin{pmatrix}
+		x_1 & 0 & 0 & \cdots & 0\\
+		x_2 & 1 & 0 & \cdots & 0\\
+        x_3 & 0 & 1 & \cdots & 0\\
+		\vdots & \vdots & \vdots & \ddots & \vdots\\
+		x_n & 0 & 0 & \cdots & 1
+	\end{pmatrix}
+	\]
+	Entonces 
+	\begin{align*}
+		AX_1&=(Ax,Ae_2,\dots,Ae_n)
+		=(b,A_2,\dots,A_n).
+	\end{align*}
+	donde $A_i$ es la $i$-ésima columna de $A$. Luego
+	\begin{align*}
+		(\det A)x_1&=(\det A)(\det X_1)=\det(AX_1)\\
+		&=\det(b,A_2,\dots,A_n).
+	\end{align*}
+	De forma similar puede calcularse el valor de cada $x_i$. 
+\end{block}
+
+\begin{xca}
+	\label{xca:rango_submatriz}
+	Sea $A\in\K^{n\times n}$. Pruebe que $\rg A\geq r$ si y sólo si existe una
+	submatriz de $A$ inversible y de tamaño $r\times r$. Concluya que $\rg A=r$
+	si y sólo si existe una submatriz de $A$ inversible y de tamaño $r\times r$
+	y toda submatriz de $A$ de tamaño $(r+1)\times(r+1)$ es no inversible. 
+\end{xca}
+
+\section{Algunos determinantes especiales}
+
+\begin{block}[Matriz de Vandermonde]
+	Sean $x_1,\dots,x_n\in\K$. Vamos a demostrar que si 
+	\[
+		V(x_1,\dots,x_n)=\det\begin{pmatrix}
+			1 & 1 & \cdots & 1\\
+			x_1 & x_2 & \cdots & x_n\\
+			\vdots & \vdots & \ddots & \vdots\\
+			x_1^{n-1} & x_2^{n-1} & \cdots & x_n^{n-1}
+		\end{pmatrix}
+	\]
+	entonces
+	\[
+		V(x_1,\dots,x_n)=\prod_{1\leq i<j\leq n}(x_j-x_i).
+	\]
+
+	Sin pérdida de generalidad podemos suponer que todos los $x_j$ son
+	distintos ya que si $x_i=x_j$ para $i\ne j$ entonces el determinate es cero
+	y la fórmula es válida. Podemos suponer entonces que todos los $x_j$ son
+	distintos.  Procederemos por inducción en $n$. El caso $n=2$ es sencillo y
+	se deja como ejercicio. Supongamos que el resultado es válido para algún
+	$n\geq2$. Sea
+	\[
+	f=V(x_1,\dots,x_{n},X)=\det\begin{pmatrix}
+			1 & 1 & \cdots & 1 & 1\\
+			x_1 & x_2 & \cdots & x_n & X\\
+			\vdots & \vdots & \ddots & \vdots & \vdots \\
+			x_1^{n-1} & x_2^{n-1} & \cdots & x_n^{n-1} & X^{n-1}\\
+			x_1^{n} & x_2^{n} & \cdots & x_n^{n} & X^{n}\\
+		\end{pmatrix}.
+	\]
+	Por hipótesis inductiva, $V(x_1,\dots,x_n)\ne0$. Al desarrollar entonces el
+	determinante por la última columna, se ve claramente que el polinomio
+	$V(x_1,\dots,x_{n},X)\in\K[X]$ tiene grado $n$ y que su coeficiente
+	principal es $V(x_1,\dots,x_{n})$. 
+	Como $f(x_j)=0$ para todo $j\in\{1,\dots,n\}$, entonces 
+	\[
+		f=V(x_1,\dots,x_n)\prod_{i=1}^n(X-x_j).
+	\]
+	Luego 
+    \begin{align*}
+        f(x_{n+1})&=V(x_1,\dots,x_{n+1})\\
+        &=V(x_1,\dots,x_n)\prod_{i=1}^n(x_{n+1}-x_j)\\
+        &=\prod_{1\leq i<j\leq n+1}(x_j-x_i).
+    \end{align*}
+	tal como queríamos demostrar.
+\end{block}
+
+\begin{xca}
+	Sea $V$ un espacio vectorial de dimensión finita $n$ y sea
+	$\{v_1,\dots,v_n\}$ una base de $V$. Sean $x_1,\dots,x_n\in\K$ con $x_i\ne
+	x_j$ si $i\ne j$. Demuestre que si 
+	\begin{align*}
+		&w_1 = v_1+v_2+\cdots+v_n,\\
+		&w_2 = x_1v_1+x_2v_2+\cdots+x_nv_n,\\
+		&\quad\vdots\\
+		&w_n=x_1^{n-1}v_1+x_2^{n-1}v_2+\cdots+x_n^{n-1}v_n,
+	\end{align*}
+	entonces $\{w_1,\dots,w_n\}$ es una base de $V$.
+\end{xca}
+
+\begin{xca}[Polinomio interpolador]
+	\label{xca:lagrange}
+	Sean $x_1,\dots,x_{n+1}\in\K$ tales que $x_i\ne x_j$ si $i\ne j$ y sean
+	$y_1,\dots,y_{n+1}\in\K$. Demuestre que el polinomio
+	\begin{align*}
+		f=\sum_{i=1}^{n+1}y_i\prod_{\substack{j=1\\j\ne i}}^{n+1}\frac{X-x_j}{x_i-x_j}
+	\end{align*}
+	es el único polinomio
+	$f\in\K[X]$ de grado $\leq n$ tal que $f(x_i)=y_i$ para todo
+	$i\in\{1,\dots,n+1\}$. 
+\end{xca}
+
+\begin{block}[Matriz compañera]
+    \framebox{mover!}
+	Vamos a demostrar que si 
+	\[
+		f=X^n+a_{n-1}X^{n-1}+\cdots+a_2X^2+a_1X+a_0\in\K[X]
+	\]
+	entonces 
+	\begin{equation}
+		\label{eq:C}
+		f=
+		\det\begin{pmatrix}
+			X &  0 & 0 & 0 & \cdots & a_0\\
+			-1 &  X & 0 & 0 & \cdots & a_1\\
+			0 & -1 & X & 0 & \cdots & a_2\\
+			\vdots & \vdots & \ddots & \ddots & \ddots & \vdots\\
+			0 & 0 & 0 & -1 & X & a_{n-2} \\
+			0 & 0 & 0 & 0 & -1 & X+a_{n-1} 
+		\end{pmatrix}.
+	\end{equation}
+
+	La \textbf{matriz compañera} del polinomio $f$ es la matriz $C=(c_{ij})$
+	que está dada por 
+	\[
+	c_{ij}=\begin{cases}
+		1 & \text{si $i=j+1$ y $j<n$},\\
+		-a_{i-1} & \text{si $j=n$},\\
+		0 & \text{en otro caso}.
+	\end{cases}
+	\]
+	La igualdad~\eqref{eq:C} puede escribirse entonces como $f=\det(XI-C)$,
+	donde $C$ es la matriz compañera de $f$. 
+	Para demostrar esta igualdad procederemos por inducción en $n$. El caso $n=2$ es fácil y se deja como
+	ejercicio. Supongamos que la afirmación es válida para $n\geq2$. Si desarrollamos 
+	el determinante de la matriz
+	\[
+	d(a_0,\dots,a_n)=
+	\begin{pmatrix}
+  		 X &  0 & 0 & 0 & \cdots & a_0\\
+		-1 &  X & 0 & 0 & \cdots & a_1\\
+		 0 & -1 & X & 0 & \cdots & a_2\\
+		 \vdots & \vdots & \ddots & \ddots & \ddots & \vdots\\
+		 0 & 0 & 0 & -1 & X & a_{n-1} \\
+		 0 & 0 & 0 & 0 & -1 & X+a_{n} 
+	 \end{pmatrix}
+	\]
+	por la primera fila, se tiene que
+    \begin{align*}
+        d(a_0,\dots,a_n)&=Xd(a_1,\dots,a_{n-1})+a_0(-1)^{n+1}(-1)^{n-1}\\
+        &=X(X^{n-1}+a_{n-1}X^{n-2}+\cdots+a_1)+a_0\\
+        &=X^n+a_{n-1}X^{n-1}+\cdots+a_1X+a_0.
+    \end{align*}
+\end{block}
+
+\section{Anillos conmutativos con unidad}
+
+\framebox{dar definición y un par de ejemplos básicos}
+
+\framebox{matrices sobre anillos conmutativos}
+
+\framebox{determinantes de matrices cuadradas (como ejercicio)}
+\section{Ejercicios}
+
+\begin{xca}
+    \label{xca:determinante:A1000}
+    Sea $A\in\K^{4\times4}$ una matriz tal que $\det A=-1$. Demuestre que el
+    conjunto $\{A^{1000},A^{1001}\}$ es linealmente independiente. 
+\end{xca}
+

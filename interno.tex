@@ -1,0 +1,1746 @@
+\chapter{Espacios con producto interno}
+
+\section{Definiciones básicas y ejemplos}
+
+\begin{block}
+	\index{Producto interno}
+	\index{Espacio vectorial!con producto interno}
+	Sea $\K$ el cuerpo $\R$ de los números reales o el cuerpo $\C$ de los
+	números complejos. Sea $V$ un espacio vectorial sobre $\K$.  Una función
+	$\langle\cdot,\cdot\rangle\colon V\times V\to\K$ es un \textbf{producto
+	interno} si:
+	\begin{enumerate}
+		\item $\langle v_1+v_2,w\rangle=\langle v_1,w\rangle+\langle v_2,w\rangle$ para todo $v_1,v_2,v\in V$.
+		\item $\langle \lambda v,w\rangle=\lambda\langle v,w\rangle$ para todo $v\in V$ y $\lambda\in\K$.
+		\item $\langle v,w\rangle=\overline{\langle w,v\rangle}$ para todo $v,w\in V$.
+		\item $\langle v,v\rangle\in\R_{\geq0}$ para todo $v\in V$ y $\langle v,v\rangle=0$ si y sólo si $v=0$. 
+	\end{enumerate}
+	Un \textbf{espacio vectorial con producto interno} es un par
+	$(V,\langle\cdot,\cdot\rangle)$, donde $V$ es un espacio vectorial (real o
+	complejo) y $\langle\cdot,\cdot\rangle$ es un producto interno en $V$. 
+\end{block}
+
+\begin{block}
+    Si $V$ es un espacio vectorial con producto interno entonces 
+    \begin{align*}
+        &\langle v,w_1+w_2\rangle=\langle v,w_1\rangle+\langle v,w_2\rangle,\\
+        &\langle v,\lambda w\rangle=\overline{\lambda}\langle v,w\rangle, 
+    \end{align*}
+    para todo $v,w,w_1,w_2\in V$ y $\lambda\in\K$. 
+\end{block}
+
+\begin{xca}
+	Sea $V$ un espacio vectorial real o complejo y sea $p\in V$.  Si
+	$\langle\cdot,\cdot\rangle$ es un producto interno en $V$ entonces $\langle
+	v,w\rangle_p=\langle v-p,w-p\rangle$ es un producto interno en $V_p$. 
+\end{xca}
+
+\begin{xca}
+    \framebox{FIXME}
+    Demuestre que la función
+    \[
+    \langle\cdot,\cdot\rangle\colon\R^2\times\R^2\to\R,\quad
+        \langle (x,y),(x',y')\rangle=x(y-y')-x'(y-\lambda y')
+    \]
+    es un producto interno en $\R^2$ si y sólo si $\lambda>1$. 
+\end{xca}
+
+\begin{xca}
+	\label{xca:<v-w,x>=0}
+    Sea $V$ un espacio vectorial con producto interno y sean $v,w\in V$.
+    Demuestre que si $\langle v,x\rangle=\langle w,x\rangle$ para todo $x\in V$
+    entonces $v=w$. 
+\end{xca}
+
+\begin{examples}\
+    \begin{enumerate}
+        \item La función
+            $\langle\cdot,\cdot\rangle\colon\R^n\times\R^n\to\R$ definida por
+            \[
+                \langle(x_1,\dots,x_n),(y_1,\dots,y_n)\rangle=\sum_{i=1}^n x_iy_i
+            \]
+            es un producto interno en $\R^n$. 
+        \item La función
+            $\langle\cdot,\cdot\rangle\colon\C^n\times\C^n\to\C$ definida por
+            \[
+            \langle(x_1,\dots,x_n),(y_1,\dots,y_n)\rangle=\sum_{i=1}^n x_i\overline{y_i}
+            \]
+            es un producto interno en $\C^n$. 
+        \item Si $V$ y $W$ son espacios vectoriales con producto interno
+            entonces
+            \[
+                \langle (v_1,w_1),(v_2,w_2)\rangle=\langle v_1,v_2\rangle_V+\langle w_1,w_2\rangle_W
+            \]
+            es un producto interno en $V\times W$.
+        \item Si $A,B\in\C^{m\times n}$ entonces $\langle
+            A,B\rangle=\tr(B^*A)$, donde $(B^*)_{ij}=\overline{B_{ji}}$, es un
+            producto interno en $\C^{m\times n}$. 
+        \item La función
+            \[
+                \langle f,g\rangle=\int_{a}^{b}f(x)g(x)dx
+            \]  
+            es un producto interno en el espacio vectorial (real) de funciones
+            continuas $[a,b]\to\R$. 
+        \item Sea $\ell^2(\C)$ el espacio vectorial de sucesiones $(a_n)_{n\in\N}$ tales que
+            $\sum_{n\geq0}|a_n|^2<\infty$. Entonces
+            \[
+                \langle (a_1,a_2,\dots),(b_1,b_2,\dots)\rangle =\sum_{n\geq0}a_n\overline{b_n}
+            \]
+            es un producto interno de $\ell^2(\C)$. En efecto, como 
+            \[
+            0\leq(|a_n|-|b_n|)^2=|a_n|^2-2|a_n||b_n|+|b_n|^2,
+            \]
+            entonces $|a_n||b_n|\leq\frac12(|a_n|^2+|b_n|^2)$.
+    \end{enumerate}
+\end{examples}
+
+\begin{prop}[desigualdad de Cauchy--Schwarz]
+    \label{pro:CauchySchwarz}
+	\index{Cauchy--Schwarz!desigualdad de}
+    Sea $V$ un espacio vectorial con producto interno. Entonces 
+    \[
+        \langle v,w\rangle^2\leq\langle v,v\rangle\langle w,w\rangle
+%        |\langle v,w\rangle|\leq\|v\|\|w\|
+    \]
+    para todo $v,w\in V$.
+
+    \begin{proof}
+        Si $\lambda=\frac{\langle v,w\rangle}{\langle w,w\rangle}$ entonces
+        $\langle w,v\rangle-\overline{\lambda}\langle w,w\rangle=0$. Luego
+        \begin{align*}
+            0\leq \langle v-\lambda w,v-\lambda w\rangle&=\langle v,v\rangle-\overline{\lambda}\langle v,w\rangle-\lambda(\langle w,v\rangle-\overline{\lambda}\langle w,w\rangle)\\
+            &=\langle v,v\rangle-\overline{\lambda}\langle v,w\rangle,
+        \end{align*}
+        que implica que $\overline{\lambda}\langle v,w\rangle\leq\langle v,v\rangle$. Esto demuestra la proposición.
+%        Luego
+%        \[
+%            |\langle v,w\rangle|^2=\langle v,w\rangle\overline{\langle w,v\rangle}\leq\|v\|^2\|w\|^2,
+%        \]
+%        que implica la desigualdad que queríamos demostrar.
+    \end{proof}
+\end{prop}
+
+\begin{examples}
+	La desigualdad de Cauchy--Schwarz es una rica fuente de desigualdades. Por
+	ejemplo, si $\lambda_1,\dots,\lambda_n\in\R$, la formula 
+	\[
+		\langle (a_1,\dots,a_n),(b_1,\dots,b_n)\rangle=\sum_{i=1}^n\lambda_ia_ib_i
+	\]
+	define un producto interno en $\R^n$ y con la desigualdad de
+	Cauchy--Schwarz se obtiene 
+	\[
+	\left|\sum_{i=1}^n\lambda_ia_ib_i\right|\leq\sqrt{\sum_{i=1}^n\lambda_ia_i^2}\sqrt{\sum_{i=1}^n\lambda_ib_i^2}.
+	\]
+	Similarmente, si se aplica al producto interno en $C[0,1]$ dado por 
+	\[
+		\langle f,g\rangle=\int_0^1 f(x)g(x)dx
+	\]
+	se obtiene
+	\[
+		\left|\int_0^1f(x)g(x)dx\right|\leq\sqrt{\int_0^1f(x)^2dx}\sqrt{\int_0^1g(x)^2dx}.
+	\]
+\end{examples}
+
+\begin{block}
+    Si $V$ es un espacio vectorial con producto interno entonces la función
+    $\|\cdot\|\colon V\to\R_{\geq0}$, dada por $v\mapsto \sqrt{\langle
+    v,v\rangle}$, satisface las siguientes propiedades:
+    \begin{enumerate}
+        \item $\|v\|=0$ si y sólo si $v=0$.
+        \item $\|\lambda v\|=|\lambda|\|v\|$ para todo $v\in V$.
+        \item (desigualdad triangular) $\|v+w\|\leq\|v\|+\|w\|$ para todo $v,w\in V$. 
+    \end{enumerate}
+
+	Las primeras dos afirmaciones quedan como ejercicio. Para demostrar la
+	desigualdad triangular utilizamos la proposición~\ref{pro:CauchySchwarz}:
+    \begin{align*}
+        0\leq\|v+w\|^2&=\langle v+w,v+w\rangle=\|v\|^2+\langle v,w\rangle+\langle w,v\rangle+\|w\|^2\\
+        &=\|v\|^2+\langle v,w\rangle+\overline{\langle v,w}\rangle+\|w\|^2\\
+        &=\|v\|^2+2\re\langle v,w\rangle+\|w\|^2\\
+        &\leq\|v\|^2+2|\langle v,w\rangle|+\|w\|^2\\
+		&\leq (\|v\|+\|w\|)^2.
+    \end{align*}
+	Luego $\|v+w\|\leq\|v\|+\|w\|$, tal como queríamos demostrar. 
+\end{block}
+
+\begin{xca}[identidades de polarización]\
+    \begin{enumerate}
+        \item En un espacio vectorial real con producto interno vale 
+            \[
+                \langle v,w\rangle=\frac14\left(\|v+w\|^2-\|v-w\|^2\right)
+            \]
+            para todo $v,w\in V$.
+        \item En un espacio vectorial complejo con producto interno vale 
+            \[
+            \langle v,w\rangle=\frac14\sum_{k=1}i^k\|v-i^kw\|^2
+            \]
+            para todo $v,w\in V$.
+    \end{enumerate}
+\end{xca}
+
+\begin{block}
+	\index{Distancia entre vectores}
+	Sea $V$ un espacio vectorial con producto interno y sean $v,w\in V$. Se
+	define la \textbf{distancia} entre $v$ y $w$ como $\dist(v,w)=\|v-w\|$. La
+	función $\dist\colon V\times V\to\R$ satisface las siguientes propiedades:
+	\begin{enumerate}
+		\item $\dist(v,w)\geq0$ para todo $v,w\in V$.
+		\item $\dist(v,w)=0$ si y sólo si $v=w$.
+		\item $\dist(v,w)=\dist(w,v)$ para todo $v,w\in V$.
+		\item $\dist(v,w)\leq\dist(v,u)+\dist(u,w)$ para todo $u,v,w\in V$. 
+	\end{enumerate}
+\end{block}
+
+\section{Ortogonalidad}
+
+\begin{block}
+	\index{Vectores!orgotonales}
+    Sea $V$ un espacio vectorial con producto interno y sean $v,w\in V$.
+    Entonces $v$ y $w$ son \textbf{ortogonales}, $v\perp w$, si $\langle
+    v,w\rangle=0$. Observemos que $v\perp w$ si y sólo si $w\perp v$. Si $S$ y
+    $T$ son subespacios de $V$ entonces $S$ y $T$ son ortogonales, $S\perp T$,
+    si $\langle s,t\rangle=0$ para todo $s\in S$ y $t\in T$. Si $S\perp T$
+    entonces $T\perp S$. Si $X\subseteq V$ es un subconjunto, se define
+	\[
+		X^\perp=\{v\in V:\langle v,x\rangle=0\text{ para todo $x\in X$}\}.
+	\]
+	Queda como ejercicio demostrar que $X^\perp$ es un subespacio de $V$. 
+\end{block}
+
+\begin{example}
+    Todo vector es ortogonal a $0\in V$. Recíprocamente, si $v\in V$ satisface
+    que $v\perp w$ para todo $w$ entonces $v=0$.
+\end{example}
+
+\begin{example}
+    Si consideramos a $\R^2$ con el producto interno usual y $S=\langle
+    (1,1)\rangle$ entonces $S^\perp=\langle (1,-1)\rangle$. 
+\end{example}
+
+\begin{block}
+	\index{Vector!unitario}
+	\index{Vectores!ortonormales}
+	Sea $V$ un espacio vectorial con producto interno. Los vectores 
+	$v_1,\dots,v_n\in V$ son \text{ortogonales} si $\langle v_i,v_j\rangle=0$
+	si $i\ne j$. Un vector $v\in V$ es \textbf{unitario} si $\|v\|=1$. Los vectores 
+	no nulos $v_1,\dots,v_n\in V$ son \textbf{ortonormales} si $\langle
+	v_i,v_j\rangle=\delta_{ij}$
+\end{block}
+
+\begin{examples}
+    Si consideramos a $\R^2$ con el producto interno usual, la base canónica es
+    un conjunto ortonormal.  El conjunto $\{(1,1),(1,-1)\}\subseteq\R^2$ es
+    ortogonal y no ortonormal. 
+\end{examples}
+
+\begin{example}
+	En el espacio vectorial real de funciones continuas
+	$f\colon(-\pi,\pi)\to\R$ con el producto interno 
+	\[
+		\langle f,g\rangle=\frac1\pi\int_{-\pi}^\pi f(x)g(x)dx,
+	\]
+	el conjunto
+	\[
+	\left\{\frac{1}{\sqrt{2}}\right\}\cup\{\sin(nx):n\in\N\}\cup\{\cos(nx):n\in\N\}
+	\]
+	es ortonormal.
+\end{example}
+
+\begin{xca}[teorema de Pitágoras]
+	\label{xca:Pitagoras}
+	\index{Pitágoras!teorema de}
+	\index{Teorema!de Pitágoras}
+	Sea $V$ un espacio vectorial con producto interno y sean 
+	$v,w\in V$. Demuestre que si $v\perp w$ entonces \[
+		\|v+w\|^2=\|v\|^2+\|w\|^2. 
+	\]
+\end{xca}
+
+\begin{xca}
+    \label{xca:Sperp}
+	Sea $V$ un espacio vectorial con producto interno y sean $S,T\subseteq V$.
+	Demuestre las siguientes afirmaciones:
+	\begin{enumerate}
+		\item $\{0\}^\perp=V$ y $V^\perp=\{0\}$. 
+		\item Si $S\subseteq T$ entonces $T^\perp\subseteq S^\perp$.
+		\item $(S+T)^\perp=S^\perp\cap T^\perp$.
+	\end{enumerate}
+\end{xca}
+
+\begin{prop}
+    \label{pro:autoadjunto}
+	Sea $V$ un espacio vectorial con producto interno y sean $v_1,\dots,v_n\in
+	V$ vectores no nulos y ortogonales. Valen entonces las siguientes
+	afirmaciones:
+	\begin{enumerate}
+		\item Para cada $v\in\langle v_1,\dots,v_n\rangle$ se tiene
+			\[
+			v=\frac{\langle v,v_1\rangle}{\|v_1\|^2} v_1+\cdots+\frac{\langle v,v_n\rangle}{\|v_n\|^2} v_n.  
+			\]
+		\item El conjunto $\{v_1,\dots,v_n\}$ es linealmente independiente.
+	\end{enumerate}
+
+	\begin{proof}
+		Si $v=\sum_{i=1}^n\alpha_iv_i$ y $j\in\{1,\dots,n\}$ entonces \[
+			\langle v,v_j\rangle=\left\langle\sum_{i=1}^n\alpha_iv_i,v_j\right\rangle=\sum_{i=1}^n\alpha_i\langle v_i,v_j\rangle=\alpha_j\|v_j\|^2,
+		\]
+		lo que demuestra la primera afirmación. Para demostrar la segunda
+		afirmación basta tomar $v=0$ en el ítem anterior.
+	\end{proof}
+\end{prop}
+
+\begin{cor}
+	Sea $V$ un espacio vectorial con producto interno y sean $v_1,\dots,v_n\in
+	V$ vectores no nulos y ortonormales. Si $v=\sum_{i=1}^n\alpha_i v_i$
+	entonces
+	\begin{align*}
+		&v=\langle v,v_1\rangle v_1+\cdots+\langle v,v_n\rangle v_n,
+		&&\|v\|^2=|\langle v,v_1\rangle|^2+\cdots+|\langle v,v_n\rangle|^2.
+	\end{align*}
+
+	\begin{proof}
+		La primera fórmula se deduce de la proposición anterior pues
+		$\|v_i\|=1$ para todo $i\in\{1,\dots,n\}$. Para la segunda afirmación
+		calculamos
+		\begin{align*}
+			\|v\|^2&=\langle v,v\rangle
+			=\left\langle \sum_{i=1}^n\alpha_iv_i,\sum_{j=1}^n\alpha_jv_j\right\rangle
+			=\sum_{i=1}^n\sum_{j=1}^n\alpha_i\overline{\alpha_j}\langle v_i,v_j\rangle,
+			=\sum_{i=1}^n|\alpha_i|^2
+		\end{align*}
+		y utlizamos que $\alpha_i=\langle v,v_i\rangle$ para todo
+		$i\in\{1,\dots,n\}$. 
+	\end{proof}
+\end{cor}
+
+%\begin{block}
+%    Sean $V$ y $W$ espacio vectoriales con producto interno. Una
+%    \textbf{isometría} es un isomorfismo $f\colon V\to W$ tal que $\langle
+%    f(x),f(y)\rangle=\langle x,y\rangle$. 
+%\end{block}
+
+\begin{thm}[proceso de ortonormalización de Gram-Schmidt]
+	Sea $V$ un espacio vectorial con producto interno y sea
+	$\{v_1,\dots,v_n\}\subseteq V$ un conjunto linealmente independiente.
+	Entonces existe $\{e_1,\dots,e_n\}\subseteq V$ ortonormal tal que para cada
+	$k\in\{1,\dots,n\}$ se tiene que $\langle v_1,\dots,v_k\rangle=\langle
+	e_1,\dots,e_k\rangle$.
+\end{thm}
+
+\begin{proof}
+	Procederemos por inducción en $n$. 
+
+	El caso $n=1$ es trivial pues, como
+	$v_1\ne0$, basta tomar $e_1=\frac1{\|v_1\|}{v_1}$. Supongamos que
+	el resultado es válido para $n-1$. Como $\{v_1,\dots,v_{n-1}\}$ es
+	linealmente independiente, existen $e_1,\dots,e_{n-1}\in V$ ortonormales y
+	tales que $\langle e_1,\dots,e_k\rangle=\langle v_1,\dots,v_k\rangle$ para
+	todo $k\in\{1,\dots,n-1\}$. Sea
+	\[
+		e_n'=v_n-\sum_{i=1}^{n-1}\langle v_n,e_i\rangle e_i.
+	\]
+	Como $\{v_1,\dots,v_n\}$ es linealmente independiente, entonces $e_n'\ne0$.
+	En efecto, si fuera $e_n'=0$ tendríamos que $v_n\in\langle
+	e_1,\dots,e_{n-1}\rangle=\langle v_1,\dots,v_{n-1}\rangle$. Si $k\in\{1,\dots,n-1\}$ entonces
+	\[
+	\langle e_n',e_k\rangle=\left\langle v_n-\sum_{i=1}^{n-1}\langle v_n,e_i\rangle e_i,e_k\right\rangle
+	=\langle v_n,e_k\rangle-\sum_{i=1}^n\langle v_n,e_i\rangle\langle e_i,e_k\rangle=0.
+	\]
+	Luego, si $e_n=\frac1{\|e_n'\|}e_n'$ entonces $\|e_n\|=1$ y el conjunto
+	$\{e_1,\dots,e_n\}$ es ortonormal. Además $\langle
+	e_1,\dots,e_k\rangle=\langle v_1,\dots,v_k\rangle$ para todo
+	$k\in\{1,\dots,n\}$. 
+\end{proof}
+
+%\begin{block}
+%	Sea $V$ un espacio vectorial con producto interno y de dimensión finita.
+%	Si $\cB=\{v_1,\dots,v_n\}$ es una base y $\cE=\{e_1,\dots,e_n\}$ es la base
+%	que se obtiene después de aplicar el proceso de ortonormalización de
+%	Gram-Schmidt, entonces $C(\cB,\cE)$ es triangular superior con elementos
+%	positivos en la diagonal.
+%\end{block}
+
+\begin{cor}
+	Sea $V$ un espacio vectorial con producto interno y de dimensión finita.
+	Entonces $V$ tiene una base ortonormal.
+\end{cor}
+
+\begin{cor}
+	\label{cor:complemento_ortogonal}
+	Sea $V$ un espacio vectorial con producto interno y de dimensión finita. Si
+	$S\subset V$ es un subespacio entonces $V=S\oplus S^\perp$. En particular, 
+	$\dim V=\dim S+\dim S^\perp$, 
+
+	\begin{proof}
+		Sea $\{v_1,\dots,v_m\}$ una base de $S$. Extendemos este conjunto
+		linealmente independiente a una base
+		$\{v_1,\dots,v_m,v_{m+1},\dots,v_n\}$ de $V$. Si utilizamos el proceso
+		de Gram--Schmidt tenemos una base ortornormal
+		$\{e_1,\dots,e_m,e_{m+1},\dots,e_n\}$ de $V$. Por construcción,
+		$\{e_1,\dots,e_m\}$ es base de $S$. Veamos que
+		$\{e_{m+1},\dots,e_{n}\}$ es base de $S^\perp$. Si $v\in S^\perp$, escribimos
+		$v=\sum_{i=1}^n\alpha_ie_i$. Como $v\in S^\perp$, se tiene que 
+		$0=\langle v,v_j\rangle$ para todo $j\in\{1,\dots,m\}$ y luego
+		$S^\perp\subseteq\langle e_{m+1},\dots,e_n\rangle$. 
+	\end{proof}
+\end{cor}
+
+\begin{example}
+	El corolario~\ref{cor:complemento_ortogonal} no vale en dimensión infinita.
+	Si $V$ es el espacio vectorial (real) de funciones continuas $[0,1]\to\R$ y
+	\[
+	S=\{f\in V:f\text{ es derivable en $(0,1)$}\}
+	\]
+	entonces $S^\perp=\{0\}$. En efecto, si $h\in S^\perp$ entonces
+	$\int_{0}^{1}f(x)h(x)dx=0$ para todo $f\in S$. En particular, si tomamos
+	la función constantemente igual a uno, se tiene que $\int_0^1h(x)dx=0$.
+	Sea $g(s)=\int_0^sh(x)dx$, $s\in[0,1]$. Entonces $g\in S$, $g(0)=g(1)=0$ y
+	$g'(x)=h(x)$ para todo $x\in(0,1)$. Entonces, para toda $f\in S$, se tiene 
+	\begin{align*}
+		0&=(fg)(1)-(fg)(0)=f(1)g(1)-f(0)g(0)=\int_0^1 (fg)'(x)dx\\
+		&=\int_0^1f'(x)g(x)dx+\int_0^1f(x)g'(x)dx\\
+		&=\int_0^1f'(x)g(x)dx+\int_0^1f(x)h(x)dx\\
+		&=\int_0^1f'(x)g(x)dx,
+	\end{align*}
+	pues $f\in S$ y $h\in S^\perp$. En particular, si $f(s)=\int_0^sg(x)dx$,
+	$s\in[0,1]$, entonces $f'(x)=g(x)$ para todo $x\in[0,1]$, 
+	\[
+		0=\int_0^1f'(x)g(x)dx=\int_0^1g^2(x)dx,
+	\]
+	y luego $g(x)=0$. Por lo tanto $h(x)=g'(x)=0$ para todo $x\in[0,1]$. 
+\end{example}
+
+\begin{xca}
+	\label{xca:perpperp}
+	Sea $V$ un espacio vectorial con producto interno y de dimensión finita. Si
+	$S\subseteq V$ es un subespacio entonces $(S^{\perp})^{\perp}=S$. 
+\end{xca}
+
+\section{Proyección ortogonal}
+
+\begin{block}
+	Sea $V$ un espacio vectorial con producto interno. Sea $v\in V$ y sea
+	$S\subseteq V$ un subespacio. El vector $v_S\in S$ es una \textbf{mejor
+	aproximación} a $v$ por vectores de $S$ si $\dist(v,v_S)\leq\dist(v,w)$
+	para todo $w\in S$. 
+\end{block}
+
+\begin{thm}
+	\label{thm:mejor_aproximacion}
+	Sean $V$ un espacio vectorial con producto interno y $S$ un subespacio de
+	$V$. Sean $v\in V$ y $v_s\in S$.  Si $v-v_S\perp S$ entonces   $v_S$ es una
+	mejor aproximación para $v$ por vectores de $S$. 
+
+	\begin{proof}
+		Supongamos que $v-v_S\perp S$ y sea $w\in S$. Entonces, como $v_S-w\in
+		S$, se tiene que 
+		\begin{align*}
+			\|v-w\|^2&=\|v-v_S\|^2+2\re\langle v-v_S,v_S-w\rangle+\|v_S-w\|^2\\
+			&=\|v-v_S\|^2+\|v_S-w\|^2\\
+			&\geq \|v-v_S\|^2,
+		\end{align*}
+		que implica la desigualdad que se quería demostrar.
+	\end{proof}
+\end{thm}
+
+\begin{cor}
+	Sean $V$ un espacio vectorial con producto interno y $S$ un subespacio de
+	$V$ de dimensión finita. Sean $v\in V$ y $\{v_1,\dots,v_m\}$ una base
+	ortonormal de $S$. Entonces 
+	\[
+		\sum_{i=1}^m\langle v,v_i\rangle v_i
+	\]
+	es la mejor aproximación a $v$ por vectores de $S$.
+
+	\begin{proof}
+		Demostremos que $v-\sum_{i=1}^m\langle
+		v,v_i\rangle v_i$ es ortogonal a todo
+		elemento de $S$. Si $v_s=\sum_{i=1}^m\langle
+		v,v_i\rangle v_i$ y 
+		$w=\sum_{j=1}^m\langle w,v_j\rangle v_j\in S$, 
+		un cálculo directo muestra que 
+		\begin{align*}
+			&\langle v_S,w\rangle
+			=\sum_{i=1}^m\sum_{j=1}^m\overline{\langle w,v_j\rangle}\langle v,v_i\rangle\langle v_i,v_j\rangle
+			=\sum_{i=1}^m\overline{\langle w,v_i\rangle}\langle v,v_i\rangle
+			=\langle v,w\rangle.
+		\end{align*}
+		Luego, como $\langle v-v_S,w\rangle=0$, concluimos 
+		que $v_S$ es la mejor aproximación a $v$ por vectores de $S$.
+	\end{proof}
+\end{cor}
+
+\begin{block}
+	\index{Proyector ortogonal}
+	Un proyector $p\colon V\to V$ es un \textbf{proyector ortogonal} si $\im p$
+	y $\ker p$ son ortogonales. 
+\end{block}
+
+\begin{xca}
+	\label{xca:proyector_ortogonal}
+	Sea $V$ un espacio vectorial con producto interno y sea $p\colon V\to V$ un
+	proyector ortogonal. Demuestre que valen las siguientes afirmaciones:
+	\begin{enumerate}
+		\item $(\im p)^\perp=\ker p$.
+		\item $(\ker p)^\perp=\im p$.
+		\item $(\im p)^{\perp\perp}=\im p$. 
+	\end{enumerate}
+\end{xca}
+
+\begin{prop}
+	Sea $V$ un espacio vectorial con producto interno y de dimensión finita y sea
+	$S\subseteq V$ un subespacio. Entonces existe un único proyector ortogonal
+	$p\colon V\to V$ tal que $\im p=S$ y $\ker p=S^\perp$. Más aún, si
+	$\{v_1,\dots,v_m\}$ es una base ortonormal de $S$ entonces
+	\[
+		p(v)=\sum_{i=1}^n\langle v,v_i\rangle v_i.
+	\]
+
+	\begin{proof}
+		Es claro que $p$ es una transformación lineal. Además $p^2=p$ pues,
+		como $p(v_i)=v_i$ para todo $i\in\{1,\dots,n\}$, 
+		\[
+			p^2(v)=\sum_{i=1}^n\langle v,v_i\rangle p(v_i)=\sum_{i=1}^n\langle v,v_i\rangle v_i=p(v).
+		\]
+
+		Demostremos que $\im p=S$. Es evidente que $\im p\subseteq S$. Por otro
+		lado, si $v\in S$ entonces $v=\sum_{i=1}^n \langle v,v_i\rangle
+		v_i=p(v)$. 
+
+		Demostremos ahora que $\ker p=S^\perp$. Para la inclusión $\ker
+		p\subseteq S^\perp$ observamos que si $v\in \ker p$ entonces, como los
+		$v_i$ son base de $S$, se tiene que $\langle v,v_i\rangle=0$ para todo
+		$i$. Por otro lado, si $v\in S^\perp$ entonces $\langle v,v_i\rangle=0$
+		para todo $i\in\{1,\dots,n\}$ y luego $p(v)=0$. 
+
+		Por último demostremos la unicidad. Sean dos proyectores 
+		ortogonales $p$ y $q$ tales que $S=\ker p=\ker q$ y $S^\perp=\im p=\im q$. 
+		Como $V=S\oplus S^\perp$, todo $v\in V$ se escribe unívocamente como
+		$v=v_1+v_2$, donde $v_1\in S$ y $v_2\in S^\perp$. Entonces, como
+		$p(w)=q(w)=w$ para todo $w\in S^\perp$, 
+		\begin{align*}
+			p(v)&=p(v_1+v_2)=p(v_1)+p(v_2)\\
+			&=p(v_2)=v_2=q(v_2)=q(v_1)+q(v_2)=q(v_1+v_2)=q(v),
+		\end{align*}
+		tal como se quería demostrar.
+	\end{proof}
+\end{prop}
+
+\begin{xca}
+	\label{xca:pSpT}
+	Sea $V$ un espacio vectorial con producto interno y sean $p_S$ $p_T$
+	proyectores ortogonales tales que $\im p_S\perp\im p_T$. Demuestre que
+	entonces $p_Sp_T=0$. 
+\end{xca}
+
+\section{Transformaciones lineales adjuntas}
+
+\begin{thm}[teorema de representación de Riesz]
+	\index{Riesz!teorema de}
+	\index{Teorema!de Riesz}
+	\label{thm:interno:Riesz}
+	Sea $V$ un espacio vectorial con producto interno y de dimensión finita.  Si
+	$f\in V^*$ entonces existe un único vector $v_f\in V$ tal que $f(v)=\langle
+	v,v_f\rangle$ para todo $v\in V$.
+
+	\begin{proof}
+		Sea $\{v_1,\dots,v_n\}$ una base ortonormal de $V$. Definimos
+		$v_f=\sum_{i=1}^n\overline{f(v_i)}v_i$. y sea $v\in V$. Vamos a
+		demostrar que $f(v)=\langle v,v_f\rangle$. En efecto, si escribimos
+		$v=\sum_{i=1}^n\langle v,v_i\rangle v_i$, entonces 
+		\[
+		f(v)=\sum_{i=1}^n\langle v,v_i\rangle f(v_i)=\left\langle v,\sum_{i=1}^n\overline{f(v_i)}v_i\right\rangle=\langle v,v_f\rangle.
+		\]
+
+		Veamos la unicidad: sean $v_f,v_f'\in V$ tales que $\langle
+		v,v_f\rangle=f(v)=\langle v,v_f'\rangle$ para todo $v\in V$. Entonces, como 
+		$\langle v,v_f-v_f'\rangle=0$ para todo $v\in v$, se concluye que $v_f-v_f'=0$. 
+	\end{proof}
+\end{thm}
+
+\begin{block}
+	\index{Adjunta}
+    Sean $V$ y $W$ espacios vectoriales con producto interno. Una
+    transformación lineal $g\in\hom(W,V)$ es una \textbf{adjunta} para
+    $f\in\hom(V,W)$ si $\langle f(v),w\rangle=\langle v,g(w)\rangle$ para todo
+    $v\in V$ y $w\in W$. Observemos que, de existir, la adjunta es única. Si
+    $g_1,g_2\hom(W,V)$ son adjuntas para $f$ entonces, para cada $v\in V$
+    se tiene que 
+	\[
+		\langle v,g_1(w)-g_2(w)\rangle=\langle v,g_1(w)\rangle-\langle v,g_2(w)\rangle=\langle f(v),w\rangle-\langle f(v),w\rangle=0,
+	\]
+	y se concluye que $g_1(w)=g_2(w)$ para todo $w\in W$. 
+\end{block}
+
+\begin{example}
+	Si $V$ es un espacio vectorial con producto interno entonces
+	$\id_V^*=\id_V\colon V\to V$ pues entonces $\langle
+	v,\id_V(w)\rangle=\langle v,w\rangle=\langle \id_V(v),w\rangle$ para todo
+	$v,w\in V$.
+\end{example}
+
+\begin{thm}
+    \label{thm:adjunta:existencia}
+    Sean $V$ y $W$ espacios vectoriales con producto interno y de dimensión
+    finita y sea $f\in\hom(V,W)$. Entonces existe una única adjunta de $f$, que
+    será denotada por $f^*$. 
+
+	\begin{proof}
+		Para cada $w\in W$ definimos 
+		\[
+			\phi_w\colon V\to\K,
+			\quad
+			v\mapsto\langle f(v),w\rangle.
+		\]
+		Como $\phi_w\in V^*$, el teorema de representación de Riesz,
+		teorema~\ref{thm:interno:Riesz}, implica que existe un único vector
+		$f^*(w)\in V$ tal que $\langle f(v),w\rangle=\langle v,f^*(w)\rangle$ para todo $v\in V$.
+		Para completar la demostración del teorema necesitamos ver que
+		$f^*\in\hom(W,V)$. Si $v\in V$ y $w_1,w_2\in W$ entonces
+		\begin{align*}
+			\langle v,f^*(w_1&+w_2)-f^*(w_1)-f^*(w_2)\rangle\\
+			&=\langle v,f^*(w_1+w_2)\rangle-\langle v,f^*(w)\rangle-\langle v,f^*(w_2)\rangle\\
+			&=\langle f(v),w_1+w_2\rangle-\langle f(v),w_1\rangle-\langle f(v),w_2\rangle=0.
+		\end{align*}
+		Luego $f^*(w_1+w_2)-f^*(w_1)-f^*(w_2)=0$
+        para todo $w_1,w_2\in W$.
+        Similarmente, si $v\in V$, $w\in W$ y
+		$\lambda\in\K$, entonces 
+		\begin{align*}
+			\langle v,f^*(\lambda w)-\lambda f^*(w)\rangle=0
+		\end{align*}
+		y luego $f^*(\lambda w)=\lambda f(w)$ para todo $w\in W$ y $\lambda\in\K$. 
+	\end{proof}
+\end{thm}
+
+\begin{example}
+	Mostraremos que en espacios de dimensión finita no siempre existe la
+	adjunta de una transformación lineal. Sea $V=\R[X]$ con el producto interno 
+    \[
+        \left\langle \sum_{i=0}^na_iX^i,\sum_{j=0}^mb_jX^j\right\rangle=\sum_{i=0}^{r}a_ib_i,
+        \quad
+        r=\min\{n,m\}.
+    \]
+    En particular, si $p=\sum_{i=0}^na_iX^i$, entonces 
+    \[
+        \langle p,X^m\rangle=\langle X^m,p\rangle=\begin{cases}
+            0 & \text{si $n< m$,}\\
+            a_m & \text{si $n\geq m$}.
+        \end{cases}
+    \]
+    Vamos a demostrar que la transformación lineal $f\colon V\to V$ definida en
+    la base canónica de $\R[X]$ por
+    \[
+        f(X^k)=1+X+\cdots+X^k,\quad k\geq0,
+    \]
+    no tiene adjunta. En efecto, si existiera $f^*\colon V\to V$, entonces,
+    para todo $k,l\geq0$, tendríamos
+    \[
+        \langle X^k, f^*(X^l)\rangle
+        =\langle f(X^k),X^l\rangle
+        =\langle 1+X+\cdots+X^k,X^l\rangle
+        =\begin{cases}
+            1 & \text{si $k\geq l$,}\\
+            0 & \text{si $k<l$.}
+        \end{cases}
+    \]
+    Luego $f^*(X^l)=X^l+X^{l+1}+\cdots\not\in\R[X]$, una contradicción.
+\end{example}
+
+\begin{prop}
+	Sean $V$ y $W$ espacios vectoriales con producto interno y de dimensión
+	finita y sea $f\in\hom(V,W)$. Si $\cB_V$ es una base ortonormal de $V$ y
+	$\cB_W$ es una base ortonormal de $W$
+	\[
+		[f^*]_{\cB_W,\cB_V}=[f]_{\cB_V,\cB_W}^*.
+	\]
+
+	\begin{proof}
+		Supongamos que 
+		\[
+		\cB_V=\{v_1,\dots,v_n\},
+		\quad
+		\cB_W=\{w_1,\dots,w_m\}.
+		\]
+		Supongamos además que 
+		$[f]_{\cB_V,\cB_W}=(a_{ij})$ y que 
+		$[f^*]_{\cB,\cB}=(b_{ij})$. Entonces
+		\begin{align*}
+			\langle f(v_i),w_j\rangle
+			=\left\langle \sum_{k=1}^m a_{ki}w_k,w_j\right\rangle
+			=\sum_{k=1}^ma_{ki}\delta_{kj}
+			=a_{ji}.
+		\end{align*}
+		Por otro lado, 
+		\begin{align*}
+			\langle v_i,f^*(w_j)\rangle
+			=\left\langle v_i,\sum_{k=1}^n b_{kj}v_k\right\rangle
+			=\sum_{k=1}^n\overline{b_{kj}}\delta_{ik}=\overline{b_{ij}}.
+		\end{align*}
+		Luego $a_{ij}=\overline{b_{ji}}$ pues $\langle
+		f(v_i),w_j\rangle=\langle v_i,f^*(w_j)\rangle$ para todo $i,j$.
+	\end{proof}
+\end{prop}
+
+\begin{xca}
+	Sea $V$ un espacio vectorial con producto interno. Sean $f,g\in\hom(V,V)$
+	y supongamos que existen las transformaciones adjuntas de $f$ y de $g$.
+	Demuestre las siguientes afirmaciones:
+	\begin{enumerate}
+		\item $(f+g)^*=f^*+g^*$.
+		\item $(fg)^*=g^*f^*$.
+		\item $(\lambda f)^*=\overline{\lambda}f^*$ para todo $\lambda\in\K$. 
+		\item $f^{**}=f$. 
+	\end{enumerate}
+\end{xca}
+
+\begin{xca}
+	Sean $V$ y $W$ espacios vectoriales con producto interno y sea
+	$f\in\hom(V,W)$ tal que existe $f^*$. Demuestre que valen las siguientes
+	afirmaciones:
+	\begin{enumerate}
+		\item $\ker f^*=(\im f)^\perp$.
+		\item $\im f^*\subseteq(\ker f)^\perp$ y vale la igualdad si $V$ y $W$ son de 
+			dimensión finita.
+	\end{enumerate}
+\end{xca}
+
+\begin{xca}
+	\label{xca:autoadjunta:iso}
+	Sean $V$ y $W$ dos espacios vectoriales con producto interno y de dimensión
+	finita. Si $f\in\hom(V,W)$ es un isomorfismo entonces $f^*$ es un
+	isomorfismo y vale que $(f^*)^{-1}=(f^{-1})^*$.
+\end{xca}
+
+%\begin{solution}[ejercicio~\ref{xca:autoadjunta:iso}]
+%	
+%\end{solution}
+
+\section{El teorema de Schur}
+
+\begin{thm}[Schur]
+	\index{Schur!teorema de}
+	\index{Teorema!de Schur}
+	Sea $V$ un espacio vectorial con producto interno y de dimensión finita y
+	sea $f\in\hom(V,V)$. Si $\chi_f$ tiene todas sus raíces en $\K$, entonces
+	existe una base ortonormal de $V$ tal que la matriz de $f$ en esa base es
+	triangular superior.
+
+	\begin{proof}
+		Procederemos por inducción en $n=\dim V$. 
+        
+        Como el caso $n=1$ es trivial, suponemos que el resultado es válido
+        para todo endomorfismo de un espacio vectorial de dimensión $n-1$. Sean
+        $\lambda\in\K$ y $v\in V$ tal que $\|v\|=1$ y $f(v)=\lambda v$. Entonces $f^*(v)=\overline{\lambda}v$. 
+        Si $S=\langle v\rangle$ entonces $V=S\oplus
+        S^\perp$.  Además $S^\perp$ es $f$-invariante pues si $w\in S^\perp$
+        entonces
+		\[
+			\langle f(w),\mu v\rangle
+			=\langle w,f^*(\mu v)\rangle
+			=\langle w,\mu f^*(v)\rangle
+			=\overline{\mu}\langle w,\lambda v\rangle
+			=\overline{\mu\lambda}\langle w,v\rangle
+			=0
+		\]
+		para todo $\mu\in\K$. Sea $g=f|_{S^\perp}$. Como $\chi_{g}$ divide a
+		$\chi_f$ entonces $\chi_{g}$ también tiene a todas sus raíces en $\K$. 
+		Entonces, como $\dim S^\perp=n-1$, por hipótesis inductiva, existe una
+		base ortonormal de $S^\perp$ tal que la matriz de $g$ en esa base es
+		triangular superior.
+	\end{proof}
+\end{thm}
+
+\begin{cor}
+    \framebox{P}
+	Toda matriz cuadrada compleja es semejante a una matriz triangular
+	superior.
+
+	\begin{proof}
+		Es consecuencia inmediata del teorema de Schur.
+	\end{proof}
+\end{cor}
+
+\begin{block}
+	\index{Matriz!hermitiana}
+	\index{Matriz!unitaria}
+    Recordemos que una matriz $A\in\C^{n\times n}$ es \textbf{hermitiana} si
+    $A^*=A$, donde $(A^*)_{ij}=\overline{A_{ji}}$ para todo $i,j$. Una matriz
+    $A\in\C^{n\times n}$ es \textbf{unitaria} si $AA^*=A^*A=I$. 
+\end{block}
+
+\begin{example}
+	Las matrices
+	$
+	\begin{pmatrix}
+		1 & -i\\
+		i & 1\\
+	\end{pmatrix}
+	$
+	y 
+	$
+	\begin{pmatrix}
+		0 & -i\\
+		i & 0
+	\end{pmatrix}
+	$
+	son hermitianas. 
+	La matriz $\begin{pmatrix} 1 & 0\\ 0 & i\end{pmatrix}$ 
+	es unitaria. 
+\end{example}
+
+%%%
+%Sea $\{v_1,\dots,v_n\}$ una base ortonormal de $V$. Si $\{e_1,\dots,e_n\}$ es
+%la base canónica de $\R^n$, escribimos $v_j=\sum_{i=1}^n a_{ij}e_i$. Luego
+%\begin{align*}
+%	\delta_{ij}=\langle v_i,v_j\rangle=\sum_{k=1}^n\sum_{j=1}^na_{??}\overline{a_{??}}\langle e_i,e_j\rangle.
+%\end{align*}
+
+\begin{cor}
+    \label{cor:Schur}
+	Sea $A\in\C^{n\times n}$ una matriz hermitiana. Entonces existe una matriz
+	unitaria $P$ tal que $PAP^{-1}$ es diagonal. 
+
+	\begin{proof}
+		Por el teorema de Schur, existe una matriz unitaria $P$ tal que $PAP^*$
+		es triangular superior. Como $PAP^*=(PAP^*)^*$ es también
+		triangular inferior, concluimos que $PAP^*$ es diagonal.
+	\end{proof}
+\end{cor}
+
+%\begin{block}
+%    Recordemos que una matriz $A\in\R^{n\times n}$ es \textbf{simétrica} si
+%    $A=A^T$.  Una matriz $A\in\R^{n\times n}$ es \textbf{ortogonal} si
+%    $AA^T=A^TA=I$. 
+%\end{block}
+%
+%\begin{cor}
+%    Sea $A\in\R^{n\times n}$ una matriz simétrica. Entonces existe una matriz
+%    ortogonal $P$ tal que $PAP^{-1}$ es diagonal. 
+%
+%	\begin{proof}
+%        Es consecuencia inmediata del corolario~\ref{cor:Schur}.
+%	\end{proof}
+%\end{cor}
+
+\section{Transformaciones lineales autoadjuntas}
+
+\begin{block}
+	\label{Transformación lineal!autoadjunta}
+	Sea $V$ un espacio vectorial con producto interno. Una transformación
+	lineal $f\in\hom(V,V)$ es \textbf{autoadjunta} si existe la adjunta $f^*$
+	de $f$ y vale $f^*=f$. 
+\end{block}
+
+\begin{xca}
+	\label{xca:autoadjunta}
+	Sea $V$ un espacio vectorial con producto interno y de dimensión finita.
+	Demuestre que si $f\in\hom(V,V)$ y $\cB$ es una base ortonormal de $V$
+	entonces $f$ es autoadjunta si y sólo si $[f]_{\cB}=[f]_{\cB}^*$. En
+	particular, si $\K=\R$ (resp. $\K=\C$) entonces $f$ es autoadjunta si y
+	sólo si $[f]_{\cB}$ es simétrica (resp. hermitiana).
+\end{xca}
+
+\begin{prop}
+	Sea $V$ un espacio vectorial con producto interno y de dimensión finita.
+	Sea $p\colon V\to V$ un proyector.  Entonces $p$ es un proyector ortogonal
+	si y sólo si $p$ es autoadjunto.
+
+	\begin{proof}
+		Supongamos que $p$ es un proyector ortogonal. Como $V=\ker p\oplus \im p$, 
+		si $v,w\in V$ entonces $v=v_1+v_2$ y $w=w_1+w_2$ con
+		$v_1,w_1\in\ker p$ y $v_2,w_2\in\im p$. En particular, $p(v)=v_2$ y
+		$p(w)=w_2$. Como $\ker p\perp\im p$, 
+		\begin{align*}
+			&\langle p(v),w\rangle=\langle v_2,w_1+w_2\rangle=\langle v_2,w_2\rangle
+			=\langle v_1+v_2,w_2\rangle=\langle v,p(w)\rangle.
+		\end{align*}
+		
+		Recíprocamente, supongamos que $p$ es un proyector autoadjunto. Si $v\in\ker p$ y
+		$w\in\im p$, entonces $p(v)=0$ y $p(w)=w$. Luego
+		\[
+			0=\langle 0,w\rangle=\langle p(v),w\rangle=\langle v,p(w)\rangle=\langle v,w\rangle,
+		\]
+		tal como se quería demostrar.
+	\end{proof}
+\end{prop}
+
+\begin{prop}
+	\label{pro:autoadjunta}
+	Sea $V$ un espacio vectorial con producto interno y sea $f\in\hom(V,V)$.
+	Supongamos que $f$ es autoadjunta.  Entonces:
+	\begin{enumerate}
+		\item Todo autovalor de $f$ es real.
+		\item Si $v,w\in V$ son autovectores de $v$ de autovalores distintos
+			entonces $\langle v,w\rangle=0$.
+	\end{enumerate}
+
+	\begin{proof}
+		Demostremos la primera afirmación. Sean $\lambda\in\K$ y $v\in
+		V\setminus\{0\}$ tales que $f(v)=\lambda v$. Como 
+		\[
+		\lambda\langle v,v\rangle
+		=\langle\lambda v,v\rangle
+		=\langle f(v),v\rangle
+		=\langle v,f^*(v)\rangle
+		=\langle v,f(v)\rangle
+		=\langle v,\lambda v\rangle
+		=\overline{\lambda}\langle v,v\rangle,
+		\]
+		y $v\ne 0$, entonces $\lambda\in\R$ pues $\lambda=\overline{\lambda}$. 
+
+		Demostremos ahora la segunda afirmación. Sean $\lambda,\mu\in\K$
+		autovalores distintos con autovectores $v,w\in V$. Entonces, como
+		$\lambda$ y $\mu$ son números reales, 
+		\[
+			\lambda\langle v,w\rangle
+			=\langle \lambda v,w\rangle
+			=\langle f(v),w\rangle
+			=\langle v,f^*(w)\rangle
+			=\langle v,f(w)\rangle
+			=\langle v,\mu w\rangle
+			=\mu\langle v,w\rangle.
+		\]
+		Como $\lambda\ne\mu$, entonces $\langle v,w\rangle=0$.
+	\end{proof}
+\end{prop}
+
+\begin{prop}
+    Sea $V$ un espacio vectorial con producto interno y de dimensión finita.
+    Toda $f\in\hom(V,V)$ autoadjunta tiene al menos un autovalor. 
+
+	\begin{proof}
+		Supongamos que $V$ es un espacio vectorial real, ya que si $V$ fuera un espacio vectorial complejo el resultado es válido
+		gracias al teorema fundamental del álgebra. 
+		Sea $\cB=\{v_1,\dots,v_n\}$ una base ortonormal de $V$, sea
+		$A=[f]_{\cB,\cB}\in\R^{n\times n}$ y sea $g\colon\C^n\to\C^n$ definida por $g(x)=Ax$.
+		Como $f$ es autoadjunta, $A$ es simétrica y $g$ es autoadjunta. El polinomio
+		característico $\chi_g$ de $g$ tiene grado $n$, se factoriza
+		linealmente en $\C$ y luego existe un autovalor $\lambda$ de $g$. Como
+		$g$ es autoadjunta, $\spec f=\spec g\subseteq\R$. 
+	\end{proof}
+\end{prop}
+
+\begin{thm}
+	Sea $V$ un espacio vectorial con producto interno y de dimensión finita.
+	Sea $f\in\hom(V,V)$ autoadjunta. Entonces existe una base ortonormal $\cB$
+	tal que $[f]_{\cB}$ es diagonal.
+
+	\begin{proof}
+        Es consecuencia inmediata del corolario~\ref{cor:Schur} y del
+        ejercicio~\ref{xca:autoadjunta}.
+	\end{proof}
+\end{thm}
+
+\begin{xca}
+	Sea $V$ un espacio vectorial con producto interno y de dimensión finita.
+	Sea $f\in\hom(V,V)$. Demuestre que $f$ es autoadjunta si y sólo si existe
+	una base ortonormal de autovectores con autovalores reales.
+\end{xca}
+
+\section{Descomposición en valores singulares}
+
+\begin{thm}
+    \label{thm:valores_singulares}
+    \index{Valores singulares!descomposición}
+    Sean $V$ y $W$ espacios vectorial con producto interno y de dimensión
+    finita. Sea $f\in\hom(V,W)$ y sean $n=\dim V$ y $m=\dim W$. Entonces
+    existen $k\leq\min\{n,m\}$, escalares $\sigma_1,\dots,\sigma_k\in\R_{>0}$ y
+    bases ortonormales $\{v_1,\dots,v_n\}$ de $V$ y $\{w_1,\dots,w_m\}$ de $W$
+    tales que 
+    \[
+        f(v_i)=\begin{cases}
+            \sigma_i w_i & \text{si $i\in\{1,\dots,k\}$},\\
+            0 & \text{en otro caso,}
+        \end{cases}
+        \quad
+        f^*(w_i)=\begin{cases}
+            \sigma_i v_i & \text{si $i\in\{1,\dots,k\}$},\\
+            0 & \text{en otro caso.}
+        \end{cases}
+    \]  
+    En particular, 
+    \begin{enumerate}
+        \item $\ker f=\langle v_{k+1},\dots,v_n\rangle$.
+        \item $\im f=\langle w_1,\dots,w_k\rangle$.
+        \item $\ker f^*=\langle w_{k+1},\dots,w_m\rangle$.
+        \item $\im f^*=\langle v_1,\dots,v_k\rangle$.
+        \item Para cada $v\in V$ se tiene que 
+        $f(v)=\sum_{i=1}^k\sigma_i\langle v,v_i\rangle w_i$.
+    \end{enumerate}
+
+    \begin{proof}
+        Si $f=0$ no hay nada para demostrar. Supongamos entonces que $f\ne0$.
+        Sea $g=f^*f$.  Como $g\in\hom(V,V)$ es autoadjunto, existe una base
+        ortonormal $\{v_1,\dots,v_n\}$ formada por autovectores $v_i$ de $g$ de
+        autovalor $\lambda_i$. Como $g$ es autoadjunta, los $\lambda_i$ son
+        reales y no negativos pues 
+        \[
+            \lambda_i
+            =\lambda_i\langle v_i,v_i\rangle
+            =\langle \lambda_iv_i,v_i\rangle
+            =\langle g(v_i),v_i\rangle
+            =\langle f(v_i),f(v_i)\rangle\geq0
+        \]
+        para todo $i\in\{1,\dots,n\}$. Sin pérdida de generalidad podemos suponer que
+        \[
+            \lambda_1\geq\lambda_2\geq\cdots\geq\lambda_k>0,
+            \quad
+            \lambda_{k+1}=\cdots=\lambda_n=0.
+        \]
+        Para cada $i\in\{1,\dots,k\}$ sean $\sigma_i=\sqrt\lambda_i$ y
+        $w_i=\sigma_i^{-1}f(v_i)\in W$. Si $i\ne j$ entonces 
+        \begin{align*}
+            \langle w_i,w_j\rangle
+            &=(\sigma_i\sigma_j)^{-1}\langle f(v_i),f(v_j)\rangle\\
+            &=(\sigma_i\sigma_j)^{-1}\langle g(v_i),v_j\rangle
+            =(\sigma_i\sigma_j)^{-1}\lambda_i\langle v_i,v_j\rangle=0.
+        \end{align*}
+        Además 
+        \begin{align*}
+            \langle w_i,w_i\rangle
+            =\sigma_i^{-2}\langle f(v_i),f(v_i)\rangle
+            =\sigma_i^{-2}\langle g(v_i),v_i\rangle
+            =\sigma_i^{-2}\lambda_i\langle v_i,v_i\rangle=1.
+        \end{align*}
+        Luego $\{w_1,\dots,w_k\}$ es un conjunto ortonormal. 
+
+        Por construcción $f(v_i)=\sigma_iw_i$ para todo $i\in\{1,\dots,k\}$. Además 
+        \[
+        f^*(w_i)=f^*(\sigma_i^{-1}f(v_i))=\sigma_i^{-1}g(v_i)=\sigma_i^{-1}\lambda_iv_i=\sigma_iv_i
+        \]
+        para todo $i\in\{1,\dots,k\}$. 
+
+        Si $i\in\{k+1,\dots,n\}$ entonces $g(v_i)=0$ y, como 
+        \[
+            0=\langle g(v_i),v_i\rangle=\langle f(v_i),f(v_i)\rangle,
+        \]
+        se concluye que $v_i\in\ker f$. Esto demuestra la fórmula que queríamos
+        para los $f(v_i)$. Si $k<m$, sea $\{w_{k+1},\dots,w_m\}$ una base
+        ortonormal de $\ker f^*$. Entonces, como $\ker f^*=(\im f)^\perp$, el
+        conjunto $\{w_1,\dots,w_k,w_{k+1},\dots,w_m\}$ es una base ortonormal
+        de $W$. 
+    \end{proof}
+\end{thm}
+
+\begin{block}
+    \index{Valor singular}
+    Los escalares $\sigma_1\geq\sigma_2\geq\cdots\geq\sigma_k$ del
+    teorema~\ref{thm:valores_singulares} se denominan \textbf{valores
+    singulares} de $f$.
+\end{block}
+
+\begin{cor}
+    Sea $A\in\C^{m\times n}$. Entonces existe $k\in\min\{n,m\}$ y existen
+    matrices unitarias $P\in\C^{m\times m}$, $Q\in\C^{n\times n}$ y una matriz
+    diagonal real $D=\diag(\sigma_1,\dots,\sigma_k,0,\dots,0)\in\R^{m\times n}$, donde
+    $\sigma_1\geq\sigma_2\geq\cdots\geq\sigma_k$ son los valores singulares de
+    $A$, tales que 
+    \[
+    A=PDQ^*.
+    \]
+    Más aún, valen las siguientes afirmaciones:
+    \begin{enumerate}
+        \item Las primeras $k$ columnas de $P$ dan una base ortonormal de $\rg
+            A$.
+        \item Las últimas $m-k$ columnas de $P$ dan una base ortonormal de
+            $\ker A^*$.
+        \item Las primeras $k$ columnas de $Q$ dan una base ortonormal de $\rg
+            A^*$.
+        \item Las últimas $n-k$ columnas de $Q$ dan una base ortonormal de
+            $\ker A$.
+    \end{enumerate}
+
+	\begin{proof}
+		Sea $V=\K^{n\times1}$, $W=\K^{m\times 1}$ y $f\colon V\to W$ dado por
+		$x\mapsto Ax$. La descomposición en valores singulares aplicada a $f$
+		nos dice que existe una base ortonormal $\cB_V=\{v_1,\dots,v_n\}$ de
+		$V$ y una base ortonormal $\cB_W=\{w_1,\dots,w_m\}$ de $W$ tal que
+		\[
+		[f]_{\cB_V,\cB_W}=\diag(\sigma_1,\dots,\sigma_k,0,\dots,0)=D,
+		\]
+		donde $\sigma_1,\dots,\sigma_k$ son los valores singulares de $f$. Si
+		$\cE_V$ y $\cE_W$ son las bases canónicas de $V$ y $W$,
+		respectivamente, entonces la matriz $f$ con respecto a estas bases es
+		$A$. Las matrices  
+		\[
+		P=C(\cB_W,\cE_W)=(w_1|\cdots|w_m),
+		\quad
+		Q=C(\cB_V,\cE_V)=(v_1|\cdots|v_n),
+		\]
+		son unitarias y vale que 
+		\[
+		A=PDQ^*,
+		\]
+		tal como se quería demostrar.
+	\end{proof}
+\end{cor}
+
+\begin{example}
+	\label{exa:valores_singulares}
+	Sea 	
+	\[
+	A=\left(\begin{array}{ccc}
+		3 & 1 & 1\\
+		-1 & 3 & 1
+	\end{array}\right)\in\mathbb{R}^{2\times3}.
+	\]
+	Vamos a encontrar la descomposición en valores singulares de $A$. 
+	Queremos entonces $P\in\mathbb{R}^{2\times2}$ ortogonal ,
+	$Q\in\mathbb{R}^{3\times3}$ ortogonal y $D\in\mathbb{R}^{2\times3}$ tales
+	que $A=PDQ^T$, donde 
+	\[
+	D=\left(\begin{array}{ccc}
+		\sigma_{1} & 0 & 0\\
+		0 & \sigma_{2} & 0
+	\end{array}\right),
+	\]
+	con $\sigma_{1}\geq\sigma_{2}\geq0$, es la matriz de valores singulares
+	de $A$. Como $A$ 
+	tiene rango dos, tendremos dos valores singulares no nulos, es decir
+	$\sigma_{1}\geq\sigma_{2}>0$. Empecemos por calcular la matriz $Q$.
+	Calculemos entonces los autovalores de la matriz 
+	\[
+	A^{T}A=\begin{pmatrix}
+		10 & 0 & 2\\
+		0 & 10 & 4\\
+		2 & 4 & 2
+	\end{pmatrix}.
+	\]
+	Los autovalores de $A^TA$ son las soluciones de la ecuación
+	\[
+	0=\det(A^{T}A-\lambda I)=-\lambda^{3}+22\lambda^{2}-120\lambda=-(\lambda-12)(\lambda-10)\lambda.
+	\]
+	Luego $\lambda$ es autovalor de $A^TA$ si y sólo si
+	$\lambda\in\{12,10,0\}$.  Los valores singulares no nulos de $A$ serán
+	entonces $\sigma_{1}=\sqrt{12}$ y $\sigma_{2}=\sqrt{10}$. Calculemos los
+	autovectores asociados a estos autovalores. Por ejemplo, para $\lambda=12$
+	tenemos que resolver el sistema 
+	\[
+	(A^{T}A-4I)\left(\begin{array}{c}
+		x_{1}\\
+		x_{2}\\
+		x_{3}
+	\end{array}\right)=\left(\begin{array}{ccc}
+		-2 & 0 & 2\\
+		0 & -2 & 4\\
+		2 & 4 & 0
+	\end{array}\right)\left(\begin{array}{c}
+		x_{1}\\
+		x_{2}\\
+		x_{3}
+	\end{array}\right)=\left(\begin{array}{c}
+		0\\
+		0\\
+		0
+	\end{array}\right).
+	\]
+	La solución de este sistema es el espacio vectorial generado por el vector
+	$(1,2,1)$. Análogamente, el autoespacio asociado al autovalor $\lambda=10$
+	es el espacio generado por $(2,-1,0)$ y el autoespacio asociado al
+	autovalor $\lambda=0$ está generado por el vector $(1,2,-5)$.  Ahora usamos
+	el proceso de ortonormalización de Gram-Schmidt en cada autoespacio de
+	$A^{T}A$. Dejamos como ejercicio chequear que de esta forma obtenemos la
+	base ortonormal 
+	\[
+	\left\{ w_{1}=\frac{1}{\sqrt{6}}(1,2,1),w_{2}=\frac{1}{\sqrt{5}}(2,-1,0),w_{3}=\frac{1}{\sqrt{30}}(1,2,-5)\right\} 
+	\]
+	y la diagonalización ortogonal de la matriz $A^{T}A$:
+	\[
+	A^{T}A=Q\begin{pmatrix}
+		12 & 0 & 0\\
+		0 & 10 & 0\\
+		0 & 0 & 0
+	\end{pmatrix}Q^{T},\quad Q=(w_{1}|w_{2}|w_{3})=\begin{pmatrix}
+		\frac{1}{\sqrt{6}} & \frac{2}{\sqrt{5}} & \frac{1}{\sqrt{30}}\\
+		\frac{2}{\sqrt{6}} & \frac{-1}{\sqrt{5}} & \frac{2}{\sqrt{30}}\\
+		\frac{1}{\sqrt{6}} & 0 & \frac{-5}{\sqrt{30}}
+	\end{pmatrix}.
+	\]
+
+	Para obtener entonces la descomposición en valores singulares necesitamos
+	hacer algo similar para la matriz $AA^{T}$.  Los autovalores de la matriz 
+	\[
+	AA^{T}=\begin{pmatrix}
+		11 & 1\\
+		1 & 11
+	\end{pmatrix}
+	\]
+	son $\lambda=12$ y $\lambda=10$. Tal como hicimos antes, calculamos una
+	base de autovectores para $AA^{T}$ y usamos Gram-Schmidt en cada
+	autoespacio para obtener una matriz ortogonal $P$ que diagonalice
+	ortogonalmente a la matriz $AA^{T}$:
+	\[
+	AA^{T}=P\begin{pmatrix}
+		12 & 0\\
+		0 & 10
+	\end{pmatrix}P^{T},\quad P=\begin{pmatrix}
+		\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}\\
+		\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}
+	\end{pmatrix}.
+	\]
+	La descomposición en valores singulares de la matriz $A$ es
+	\[
+	A=P\left(\begin{array}{ccc}
+		\sqrt{12} & 0 & 0\\
+		0 & \sqrt{10} & 0
+	\end{array}\right)Q^{T}.
+	\]
+\end{example}
+
+\begin{example}
+	La descomposición en valores singulares de una matriz $A$ nos da bases
+	ortonormales para los subespacios: $\ker(A)$, $\im(A^{T})$, $\im(A)$ y
+	$\ker(A^{T})$.  Por lo visto en el ejemplo~\ref{exa:valores_singulares}, si
+	\[
+	A=\left(\begin{array}{ccc}
+		3 & 1 & 1\\
+		-1 & 3 & 1
+	\end{array}\right)\in\mathbb{R}^{2\times3}
+	\]
+	entonces 
+	\begin{align*}
+		&\left\{ \frac{1}{\sqrt{2}}(1,1),\frac{1}{\sqrt{2}}(1,-1)\right\} \text{ es una base ortonormal de }\im (A),\\
+		&\left\{ \frac{1}{\sqrt{6}}(1,2,1),\frac{1}{\sqrt{5}}(2,-1,0)\right\} \text{ es una base ortonormal de }\im (A^{T}),\\
+		&\left\{ \frac{1}{\sqrt{30}}(1,2,-5)\right\} \text{ es una base ortonormal de }\ker (A),
+	\end{align*}
+	y $\ker (A^{T})=\{0\}$. 
+\end{example}
+
+\begin{cor}[descomposición polar]
+	\index{Descomposición polar}
+	Si $A\in\K^{n\times n}$ entonces $A$ se escribe como $A=BC$, donde
+	$B\in\K^{n\times n}$ es unitaria y $C\in\K^{n\times n}$ es autoadjunta con
+	autovalores no negativos. 
+	%Más aún, si $A$ es inversible, las matrices $B$ y
+	%$C$ están unívocamente determinadas.
+
+	\begin{proof}
+		Por la descomposición en valores singulares,
+		teorema~\ref{thm:valores_singulares}, $A=PDQ^*$, donde $P$ y $Q$ son
+		matrices unitarias. Si $B=PQ^*$ y $C=QDQ^*$ entonces $B$ es
+		unitaria, $C$ es autoadjunta con autovalores no negativos y 
+		\[
+			A=(PQ^*)(QDQ^*),
+		\]
+		tal como se quería demostrar.
+%
+%		Demostremos ahora que si $A$ es inversible y $A=BC=B_1C_1$ con
+%		$B,B_1\in\K^{n\times n}$ unitarias y $C,C_1\in\K^{n\times n}$
+%		autoadjuntas con autovalores no negativos, entonces $B=B_1$ y $C=C_1$.
+%		Como $A$ es inversible, $B_1$ y $C$ son también inversibles. Entonces
+%		\[
+%			B_1^{-1}B=C_1C^{-1}.
+%		\]
+%		Como $B_1$ y $B$ son unitarias y $(B_1^*)^{-1}=(B^{-1})^*$, 
+%		\[
+%		(B_1^{-1}B)(B_1^{-1}B)^*=B_1^{-1}BB^*(B_1^{-1})^*=B_1^{-1}(B_1^*)^{-1}=(B_1^*B_1)^{-1}=I,
+%		\]
+%		lo que demuestra que $B_1^{-1}B=C_1C^{-1}$ es unitaria. Luego, como
+%		\[
+%			I=(C_1C^{-1})^*(C_1C^{-1})=C^{-1}C_1^2C^{-1},
+%		\]
+%		se concluye que $C^2=C_1^2$.\framebox{COMPLETAR}
+	\end{proof}
+\end{cor}
+
+\section{Transformaciones lineales normales}
+
+\begin{block}
+	Sean $V$ un espacio vectorial con producto interno y $f\in\hom(V,V)$ que
+	una transformación lineal que admite adjunta. Diremos que $f$ es
+	\textbf{normal} si $f^*f=ff^*$.
+\end{block}
+
+\begin{example}
+    Sea $\theta\in\R$ tal que $\theta$ no es un múltiplo entero de $\pi$. Si
+    $f\colon \R^2\to\R^2$ está dada por 
+    \[
+        f(x,y)=
+            \begin{pmatrix}           
+            \cos\theta & \sin\theta\\
+            -\sin\theta & \cos\theta
+        \end{pmatrix}
+        \colvec{2}{x}{y}
+    \]
+    entonces $f$ es normal pues $f^*f=f^*f=\id$ y no es autoadjunta. 
+\end{example}
+
+\begin{lem}
+	\label{lem:normales}
+    Sea $V$ un espacio vectorial con producto interno y de dimensión finita y
+    sea $f\in\hom(V,V)$ una transformación lineal normal. Entonces $v$ es
+    autovector de $f$ de autovalor $\lambda$ si y sólo si $v$ es autovector de
+    $f^*$ de autovalor $\overline{\lambda}$. 
+
+	\begin{proof}
+		Sea $\lambda\in\K$ y sea $g=f-\lambda\id_V$. Como $f$ es normal, $g$ es
+		normal. Además $g^*=f^*-\overline{\lambda}\id_V$ y si $v\in V$ entonces 
+		\begin{align*}
+			\|g(v)\|^2&=\langle g(v),g(v)\rangle
+			=\langle v,g^*g(v)\rangle\\
+			&=\langle v,g^*g(v)\rangle
+			=\langle g^*(v),g^*(v)\rangle
+			=\|g^*(v)\|^2.
+		\end{align*}
+		Luego $g(v)=0$ si y sólo si $g^*(v)=0$, es decir $v$ es autovector de
+		$f$ de autovalor $\lambda$ sólo si $v$ es autovector de $f^*$ de
+		autovalor $\overline{\lambda}$. 
+	\end{proof}
+\end{lem}
+
+\begin{thm}
+	\label{thm:normales:diagonal}
+	Sea $V$ un espacio vectorial complejo con producto interno y de dimensión
+	finita y sea $f\in\hom(V,V)$ una transformación lineal normal. Entonces
+	existe una base ortonormal de $V$ tal que $[f]_{\cB,\cB}$ es diagonal. 
+
+	\begin{proof}
+		Procederemos por inducción en $n=\dim V$. 
+		
+		El caso $n=1$ es trivial, así que supongamos que el resultado es válido
+		para todo endomorfismo normal de un espacio vectorial de dimensión
+		$n-1$.  Como estamos sobre los números complejos, existe un autovalor
+		$\lambda\in\C$. Sea $v\in V$ un autovector de $f$ de autovalor
+		$\lambda$. Como $v\ne 0$, sin pérdida de generalidad podemos suponer
+		que $\|v\|=1$. Por el lema~\ref{lem:normales} sabemos que
+		$f^*(v)=\overline{\lambda}v$. Sea $S=\langle v\rangle^\perp$. Entonces
+		$S$ es $f$-invariante pues si $w\in S$ entonces
+		\[
+		\langle f(w),v\rangle=\langle w,f^*(v)\rangle=\langle w,\overline{\lambda} v\rangle=\lambda\langle w,v\rangle=0.
+		\]
+		Similarmente demostramos que $f^*$ invariante pues si $w\in S$ entonces 
+		\[
+		\langle f^*(w),v\rangle=\langle w,f(v)\rangle=\langle w,\lambda v\rangle=\overline{\lambda}\langle w,v\rangle=0.
+		\]
+		Las restricciones $f|_S$ y $f^*|_S$ son entonces endomorfismos de $S$.
+		Además $f|_S$ es normal pues $f^*|_S=(f|_S)^*$.  Como $\dim S=\dim
+		V-1$, la hipótesis inductiva en $f|_S$ implica que existe una base
+		ortonormal de $S$ tal que la matriz de $f|_S$ en esa base es diagonal.
+		De aquí se deduce el teorema.
+	\end{proof}
+\end{thm}
+
+\begin{cor}
+	Sea $V$ un espacio vectorial complejo con producto interno y de dimensión
+	finita y sea $f\in\hom(V,V)$. Entonces $f$ es normal si y sólo si existe
+	una base ortonormal formada por autovectores de $f$.
+
+	\begin{proof}
+		Una de las implicaciones es el teorema anterior. Recíprocamente, si
+		existe una base ortonormal $\cB$ tal que $[f]_{\cB,\cB}$ es diagonal,
+		la matriz $[f^*]_{\cB,\cB}=[f]_{\cB,\cB}^*$ es también diagonal. Luego
+		$[f]_{\cB,\cB}$ y $[f^*]_{\cB,\cB}$ conmutan, lo que implica que $f$ y
+		$f^*$ conmutan.
+	\end{proof}
+\end{cor}
+
+\begin{thm}[teorema espectral]
+	\label{thm:espectral}
+    Sea $V$ un espacio vectorial complejo con producto interno y de dimensión
+    finita y sea $f\in\hom(V,V)$ una transformación lineal normal. Supongamos que
+    $\chi_f=\prod_{i=1}^k(X-\lambda_i)^{m_i}$ con $\lambda_i\ne\lambda_j$ si
+    $i\ne j$. Para cada $i\in\{1,\dots,k\}$ sean $V_i=\ker (f-\lambda_i\id_V)$
+    y $p_i\colon V\to V$ el proyector ortogonal con $\im p_i=V_i$. Entonces:
+    \begin{enumerate}
+        \item $V=V_1\oplus\cdots\oplus V_k$ con $V_i\perp V_j$ si $i\ne j$. 
+		\item $p_1+\cdots+p_k=\id_V$ con $p_ip_j=0$ si $i\ne j$.
+        \item $f=\lambda_1p_1+\cdots+\lambda_kp_k$.
+    \end{enumerate}
+
+    \begin{proof}
+		Veamos la primera afirmación. 
+		Sean $i,j\in\{1,\dots,n\}$ con $i\ne j$ y sean $v_i\in
+		V_i\setminus\{0\}$ y $v_j\in V_j\setminus\{0\}$. Entonces, por el lema~\ref{lem:normales}, 
+		\[
+			\lambda_i\langle v_i,v_j\rangle
+			=\langle \lambda_iv_i,v_j\rangle
+			=\langle f(v_i),v_j\rangle
+			=\langle v_i,f^*(v_j)\rangle
+			=\langle v_i,\overline{\lambda_j}v_j\rangle
+			=\lambda_j\langle v_i,v_j\rangle
+		\]
+		y luego $\langle v_i,v_j\rangle=0$ pues $\lambda_i\ne\lambda_j$. Por el
+		teorema~\ref{thm:normales:diagonal}, existe una base de $V$ formada
+		por autovalores, luego $V=V_1\oplus\cdots\oplus V_k$. 
+
+		Para demostrar la segunda afirmación, sea $v\in V$. Como, por el ítem
+		anterior,  $v=v_1+\cdots+v_k$ con $v_j\in V_j$ para todo
+		$j\in\{1,\dots,k\}$, entonces $p_i(v)=p_i(v_i)=v_i$ para todo
+		$i\in\{1,\dots,k\}$. Luego
+		\[
+		(p_1+\cdots+p_k)(v)=\sum_{i=1}^k\sum_{j=1}^k p_i(v_j)=v_1+\cdots+v_k=v.
+		\]
+		Para ver que $p_ip_j=0$ si $i\ne j$ se usa el ejercicio~\ref{xca:pSpT}.
+
+		Como $p_i|_{V_j}=0$ si $i\ne j$ y $p_i|_{V_i}=\id_{V_i}$, se tiene que 
+		\[
+		(\lambda_1p_1+\cdots+\lambda_kp_k)|_{V_{j}}=\lambda_k\id_{V_j}=f|_{V_j}.
+		\]
+		Como $V=V_1\oplus\cdots\oplus V_k$, esto implica que
+		$f=\lambda_1p_1+\cdots+\lambda_kp_k$. 
+    \end{proof}
+\end{thm}
+
+\begin{lem}
+	\label{lem:normal:polinomio}
+	Sea $V$ un espacio vectorial y sean $p_1,\dots,p_n\colon V\to V$
+	proyectores tales que $p_1+\cdots+p_n=\id_V$ y $p_ip_j=0$ si $i\ne j$. Si 
+    \[
+    f=\lambda_1p_1+\cdots+\lambda_np_n,
+    \] 
+    donde $\lambda_1,\dots,\lambda_n\in\K$, entonces, para cada $p\in\K[X]$, se
+    tiene que 
+    \[
+        p(f)=p(\lambda_1)p_1+\cdots+p(\lambda_n)p_n. 
+    \]
+
+	\begin{proof}
+		Basta demostrar el lema para $p\in\{X^m:m\geq0\}$. Para esto, procederemos por
+		inducción en $m$.
+
+		El caso $m=1$ es trivial pues $f=\lambda_1p_1+\cdots+\lambda_np_n$.
+		Supongamos entonces que el resultado es válido para $p=X^{m-1}$ y veamos que
+		vale para $p=X^m$. La hipótesis inductiva, $p_i^2=p_i$ para todo
+		$i\in\{1,\dots,n\}$ y $p_ip_j=0$ si $i\ne j$ implican que 
+		\begin{align*}
+		f^{m+1}&=f^mf=\left(\sum_{i=1}^n\lambda_i^mp_i\right)\left(\sum_{j=1}^n\lambda_jp_j\right)\\
+		&=\sum_{i=1}^n\sum_{j=1}^n\lambda_i^m\lambda_jp_ip_j=\sum_{i=1}^m\lambda_i^{m+1}p_i,
+		\end{align*}
+		que demuestra el lema.	
+	\end{proof}
+\end{lem}
+
+\begin{thm}
+    Sea $V$ un espacio vectorial complejo con producto interno y de dimensión
+    finita. Sea $f\in\hom(V,V)$. Entonces $f$ es normal si y sólo si existe
+    $p\in\C[X]$ tal que $f^*=p(f)$. 
+
+	\begin{proof}
+		\framebox{FIXME}
+		Si $f^*=p(f)$ para algún $p\in\C[X]$ entonces $f$ es normal pues $p(f)$
+		conmuta con $f$. Supongamos entonces que $f$ es normal. Por
+		el teorema espectral, teorema~\ref{thm:espectral}, existen
+		$\lambda_1,\dots,\lambda_k\in\C$ con $\lambda_i\ne\lambda_j$ si $i\ne
+		j$ y proyectores $p_1,\dots,p_k\colon V\to V$ tales que
+		$f=\lambda_1p_1+\cdots+\lambda_kp_k$ y $p_ip_j=0$ si $i\ne j$. Sea
+		$p\in\C[X]$ un polinomio de grado $k$ tal que
+		$p(\lambda_i)=\overline{\lambda_i}$ para todo $i\in\{1,\dots,k\}$.
+		Por el lema~\ref{lem:normal:polinomio},
+		\[
+		p(f)=\sum_{i=1}^kp(\lambda_i)p_i=\sum_{i=1}^k\overline{\lambda_i}p_i.
+		\]
+		Por otro lado, como 
+		\[
+		f^*=(\lambda_1p_1+\cdots+\lambda_kp_k)^*=\overline{\lambda_1}p_1+\cdots+\overline{\lambda_k}p_k, 
+		\]
+		se tiene $p(f)=f^*$, tal como quería demostrar.
+	\end{proof}
+\end{thm}
+
+\section{Clasificación de transformaciones ortogonales}
+
+\begin{block}
+    Sea $V$ un espacio vectorial real. Diremos que $f\in\hom(V,V)$ es 
+    \textbf{ortogonal} si exite la adjunta de $f$ y además $f^*f=f^*f=\id_V$. 
+\end{block}
+
+\begin{xca}
+    \label{xca:ortogonal}
+    Sea $V$ un espacio vectorial real con producto interno y de dimensión
+    finita. Demuestre que son equivalentes:
+    \begin{enumerate}
+        \item $\|f(v)\|=\|v\|$ para todo $v\in V$.
+        \item $\langle f(v),f(w)\rangle=\langle v,w\rangle$ para todo $v,w\in
+            V$.
+        \item Si $\{v_1,\dots,v_n\}$ es base ortonormal de $V$ entonces
+            $\{f(v_1),\dots,f(v_n)\}$ es base ortonormal de $V$.
+        \item $f^*f=\id_V$.
+    \end{enumerate}
+\end{xca}
+
+\begin{lem}
+    \label{lem:ortogonal}
+    Sea $V$ un espacio vectorial real con producto interno y de dimensión
+    finita. Sea $f\in\hom(V,V)$ una transformación ortogonal. Valen las
+    siguientes afirmaciones:
+    \begin{enumerate}
+        \item Si $\lambda$ es autovalor de $f$ entonces $\lambda\in\{-1,1\}$.
+        \item Si $S\subseteq V$ es un subespacio $f$-invariante entonces
+            $S^\perp$ es $f$-invariante.
+    \end{enumerate}
+
+    \begin{proof}
+        Para demostrar la primera afirmación observamos que si $v$ es
+        autovector de autovalor $\lambda$ entonces, 
+        \[
+        |\lambda|\langle v,v\rangle=\lambda\overline{\lambda}\langle v,v\rangle=\langle f(v),f(v)\rangle=\langle v,f^*f(v)\rangle=\langle v,v\rangle.
+        \]
+        Como $v\ne0$, se obtiene que $|\lambda|=1$. Luego, como $\lambda\in\R$,
+        se concluye que $\lambda\in\{-1,1\}$. 
+
+        Demostremos ahora la segunda afirmación: si $v\in S^\perp$ y $w\in S$
+        entonces $\langle v,w\rangle=0$.  Como $f^*f=ff^*=\id_V$, $f$ es
+        sobreyectiva. En particular, la restricción $f|_S\colon S\to S$ es también
+        sobreyectiva. Luego $w$ puede escribirse como $w=f(s)$ para algún $s\in
+        S$. Tenemos entonces que $f(v)\in S^\perp$ pues 
+        \[
+        \langle f(v),w\rangle=\langle f(v),f(s)\rangle=\langle v,f^*f(s)\rangle=\langle v,s\rangle=0,
+        \]
+        que es lo que se quería demostrar.
+    \end{proof}
+\end{lem}
+
+\begin{block}
+    Sea $V$ un espacio vectorial real con producto interno y de dimensión
+    finita.  Una \textbf{rotación} de $V$ es una transformación lineal $V\to V$
+    tal que $\det f=1$. Si $S\subseteq V$ es un \textbf{hiperplano} (es decir,
+    un subespacio de dimensión $\dim V-1$) entonces $f\colon V\to V$ es una
+    \textbf{simetría} respecto de $S$ si $f|_S=\id_S$ y
+    $f|_{S^\perp}=-\id_{S^\perp}$. 
+\end{block}
+
+\begin{prop}
+    \label{pro:ortogonales:dim=2}
+    Sea $V$ un espacio vectorial real con producto interno y tal que $\dim
+    V=2$. Sea $f\colon V\to V$ una transformación ortogonal. Entonces $f$ es
+    una simetría o una rotación. 
+
+   \begin{proof}
+		Como $f$ es ortogonal, entonces $f^*f=ff^*=\id_V$. Si $\cB=\{v_1,v_2\}$
+		es una base ortonormal de $V$ entonces $\{f(v_1),f(v_2)\}$ es una base
+		ortonormal de $V$ pues
+        \[
+        \langle f(v_i),f(v_j)\rangle=\langle v_i,f^*f(v_j)\rangle=\langle v_i,v_j\rangle=\delta_{ij}
+        \]
+        para todo $i,j$. Sean $a,b,c,d\in\R$ tales que 
+        \[
+            f(v_1)=av_1+bv_2,\quad
+            f(v_2)=cv_1+dv_2.
+        \]
+        Entonces $\{(a,b),(c,d)\}$ es una base ortonormal de $\R^2$ pues
+        \[
+            a^2+b^2=c^2+d^2=1,\quad
+            ac+bd=0. 
+        \]
+        Esto implica que $a^2+b^2=1$ y $(c,d)\in\{(-b,a),(b,-a)\}$. En efecto, 
+		como $a^2+b^2=1$, entonces, al multiplicar por $c^2$, se tiene que 
+		$(ac)^2+(bc)^2=c^2$. Luego, como $ac=-bd$, 
+		\[
+		b^2=b^2(d^2+c^2)=(bd)^2+(bc)^2=c^2,
+		\]
+		o bien $c\in\{-b,b\}$. Luego, si $c=\pm b$, entonces
+		$(c,d)\in\{(-b,a),(b,-a)\}$ tal como habíamos afirmado.
+		
+		Se tienen
+        entonces dos posibilidades:
+
+        Si $(c,d)=(-b,a)$ entonces 
+        \[
+        [f]_{\cB,\cB}=\begin{pmatrix}
+            a & -b\\
+            b & a
+        \end{pmatrix},\quad
+        \chi_f=X^2-2aX+1. 
+        \]
+		Si $\chi_f$ tiene raíces reales, entonces las raíces están en
+		$\{-1,1\}$. Esto implica que $(a,b)\in\{(1,0),(-1,0)\}$ y luego
+		$f=\pm\id_V$. Supongamos entonces que $\chi_f$ no tiene raíces reales. Esto implica que $(2a)^2-4a<0$ y 
+		entonces, como $a\in[-1,1]$, se tiene que $a\in(0,1)$. 
+		Existe entonces $\theta\in[0,2\pi)$ tal que $a=\cos\theta$ y
+		$b=\sin\theta$. Luego
+        \[
+        [f]_{\cB,\cB}=\begin{pmatrix}
+            \cos\theta & -\sin\theta\\
+            \sin\theta & \cos\theta
+        \end{pmatrix}
+        \]
+        y $f$ es una rotación de ángulo $\theta$. 
+
+        Si $(c,d)=(b,-a)$ entonces, como 
+        \[
+        [f]_{\cB,\cB}=\begin{pmatrix}
+            a & b\\
+            b & -a
+        \end{pmatrix}
+		\]
+		es una matriz simétrica y $\chi_f=X^2-1$, existe una base ortonormal en
+		cuya base la matriz de $f$ es $\diag(1,-1)$, es decir, $f$ es una
+		simetría.  
+   \end{proof}
+\end{prop}
+
+\begin{prop}
+    \label{pro:ortogonales:dim=3}
+    Sea $V$ un espacio vectorial real con producto interno y tal que $\dim
+    V=3$. Sea $f\colon V\to V$ una transformación ortogonal. Entonces $f$ es
+    una simetría, una rotación, o una composición de una simetría y una
+    rotación. 
+
+    \begin{proof}
+        Como $\chi_f$ es de grado tres, entonces tiene una raíz real, es decir
+        $f$ tiene un autovalor real. Por el lema~\ref{lem:ortogonal}
+        sabemos que este autovalor está en $\{-1,1\}$. 
+
+        Si $\lambda=1$ es autovalor de $f$, sea $v_1\in V$ autovector de
+        autovalor $\lambda=1$ tal que $\|v_1\|=1$. Sea $S=\langle v_1\rangle$.
+        Como $v_1$ es autovector, $S$ es $f$-invariante. Además $S^\perp$ es
+        $f$-invariante por el lema~\ref{lem:ortogonal}. La restricción
+        $f|_{S^\perp}\colon S^\perp\to S^\perp$ es una transformación ortogonal
+        si consideramos a $S^\perp$ con el producto interno inducido por el
+        producto interno de $V$. Como $\dim S^\perp=2$, la
+        proposición~\ref{pro:ortogonales:dim=2} implica que existe una base
+        ortonormal $\{v_2,v_3\}$ de $S^\perp$ tal que, en esa base, la matriz
+        de $f|_{S^\perp}$ es 
+        \[
+        \begin{pmatrix}
+            1 & 0\\
+            0 & -1
+        \end{pmatrix}
+        \text{ o bien }
+        \begin{pmatrix}
+            \cos\theta & -\sin\theta\\
+            \sin\theta & \cos\theta
+        \end{pmatrix}
+        \text{ para algún $\theta\in[0,2\pi)$.}
+        \]
+        Luego $\cB=\{v_1,v_2,v_3\}$ es una base ortonormal de $V$ y vale que 
+         \[
+         [f]_{\cB,\cB}=
+         \begin{pmatrix}
+            1 & 0 & 0\\
+            0 & 1 & 0\\
+            0 & 0 & -1
+        \end{pmatrix},
+        \]
+        lo que significa que $f$ es una simetría con respecto al subespacio
+        $\langle v_1,v_2\rangle$, o bien que 
+        \[
+         [f]_{\cB,\cB}=
+        \begin{pmatrix}
+            1 & 0 & 0\\
+            0 & \cos\theta & -\sin\theta\\
+            0 & \sin\theta & \cos\theta
+        \end{pmatrix}
+        \]
+        para algún $\theta\in[0,2\pi)$.
+
+        Si $1$ no es autovalor de $f$ entonces, por lo visto anteriormente,
+        $\lambda=-1$ es autovalor de $f$. Sea $v_1\in V$ un autovector de
+        autovalor $\lambda=-1$ tal que $\|v_1\|=1$. Tal como se hizo en el caso
+        anterior, se demuestra que existe una base ortonormal
+        $\cB=\{v_1,v_2,v_3\}$ de $V$ tal que 
+        \[
+         [f]_{\cB,\cB}=
+        \begin{pmatrix}
+            -1 & 0 & 0\\
+            0 & \cos\theta & -\sin\theta\\
+            0 & \sin\theta & \cos\theta
+        \end{pmatrix}
+        \]
+        para algún $\theta\in[0,2\pi)$. El teorema queda demostrado al observar que
+        \[
+        [f]_{\cB,\cB}=
+        \begin{pmatrix}
+            -1 & 0 & 0\\
+            0 & \cos\theta & -\sin\theta\\
+            0 & \sin\theta & \cos\theta
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            -1 & 0 & 0\\
+            0 & 1 & 0\\
+            0 & 0 & 1
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 & 0 & 0\\
+            0 & \cos\theta & -\sin\theta\\
+            0 & \sin\theta & \cos\theta
+        \end{pmatrix},
+        \]
+        es decir que $[f]_{\cB,\cB}$ es la composición de una simetría y una
+        rotación. 
+    \end{proof}
+\end{prop}
+
+\begin{thm}
+    Sea $V$ un espacio vectorial real y de dimensión finita. Sea $f\colon V\to V$
+    una transformación ortogonal. Entonces 
+       existe una base ortonormal $\cB$ de $V$ y 
+    existen $\theta_1,\dots,\theta_k\in[0,\pi)$ tales que 
+    \[
+    [f]_{\cB,\cB}=\begin{pmatrix}
+        I_r\\
+        &-I_s\\
+        &&R_{\theta_1}\\
+        &&&\ddots\\
+        &&&&R_{\theta_k}
+    \end{pmatrix},
+    \]
+    donde $r,s\in\N_0$, $I_r$ es la matriz identidad de $r\times r$, $I_s$ es
+    la matriz identidad de $s\times s$, $\theta_1,\dots,\theta_k\in[0,2\pi)$ y
+    para cada $j\in\{1,\dots,k\}$ 
+    \[
+    R_{\theta_j}=
+    \begin{pmatrix}
+        \cos\theta_j & -\sin\theta_j\\
+        \sin\theta_j & \cos\theta_j
+    \end{pmatrix}.
+    \]
+
+    \begin{proof}
+        Procederemos por inducción en $n=\dim V$.
+
+        El caso $n=2$ fue demostrado en la
+        proposición~\ref{pro:ortogonales:dim=2}. Supongamos entonces que $n>2$
+        y que el resultado es válido para transformaciones ortogonales
+        definidas en espacios de dimensión $<n$. Sea $V$ un espacio de
+        dimensión $n$ y sea $f\colon V\to V$ una transformación ortogonal.  Por
+        el lema~\ref{lem:ortogonal} hay tres casos a considerar:
+
+        Supongamos que $\lambda=1$ es autovalor de $f$. Sea $v_1\in V$
+        autovector de autovalor $\lambda=1$ tal que $\|v_1\|=1$. Entonces
+        $S=\langle v_1\rangle$ es un subespacio $f$-invariante y $S^\perp$ es
+        también $f$-invariante por. Como $\dim S^\perp=n-1$, la hipótesis
+        inductiva aplicada a la restricción $f|_{S^\perp}\colon S^\perp\to
+        S^\perp$ implica que existe una base ortonormal $\{v_2,\dots,v_n\}$ de
+        $S^\perp$ tal que, en esa base, la matriz de $f|_{S^\perp}$ es de la
+        forma deseada.  Observemos que $\{v_1,v_2,\dots,v_n\}$ es una base
+        ortonormal de $V$ y que, en esa base, la matriz de $f$ es de la forma
+        buscada.
+        
+        Si $1$ no es autovalor de $f$ y $-1$ es autovalor de $f$, se tiene un
+        autovector $v_1$ de autovalor $-1$ y tal que $\|v_1\|=1$. En este caso
+        se procede como se hizo en el caso anterior. 
+
+        Si $f$ no tiene autovalores reales entonces $m_f=p_1\cdots p_k$, donde
+        para cada $i\in\{1,\dots,k\}$ se tiene que $p_i\in\R[X]$ es irreducible
+        de grado dos. Sea $q=p_2\cdots p_k$. Entonces $q$ divide a $m_f$ y
+        además, como $q\ne m_f$, existe $w\in V$ tal que $q(f)(w)\ne0$. Si
+        $v=q(f)(w)$ entonces 
+        \[
+        0=m_f(f)(w)=((p_1q)(f))(w)=p_1(f)(q(f)(w))=p_1(f)(v).
+        \]
+        Si $S=\langle v,f(v)\rangle$ entonces $S$ es $f$-invariante pues
+        $p_1(f)(v)=0$ y $\deg p_1=2$; además, como $v$ no es autovector de $f$,
+        se tiene que $\dim S=2$. Luego, como la restricción $f|_S\colon S\to S$ es
+        ortogonal, existe una base ortonormal de $S$ tal que, en esa base, la
+        matriz de $f|_S$ es de la forma $R_{\theta_1}$ para algún $\theta_1\in[0,2\pi)$.
+        Como $S^\perp$ es $f$-invariante y $\dim S^\perp=n-2$, por hipótesis
+        inductiva, existe una base ortonormal $\{v_3,\dots,v_n\}$ de $S^\perp$
+        tal que, en esa base, la matriz de $f|_{S^\perp}$ es
+        \[
+        \begin{pmatrix}
+            R_{\theta_2}\\
+            &\ddots\\
+            &&R_{\theta_k}
+        \end{pmatrix},
+        \]
+        donde $\theta_2,\dots,\theta_k\in[0,2\pi)$. (Sabemos que las
+        restricción $f|_{S^\perp}$ no tiene autovalores reales pues el
+        polinomio característico de $f|_{S^\perp}$ divide $\chi_f$.) 
+        El conjunto $\cB=\{v,f(v),v_3,\dots,v_n\}$ es ortonormal y la matriz de
+        $f$ en la base $\cB$ es de la forma deseada.
+    \end{proof}
+\end{thm}
+ 

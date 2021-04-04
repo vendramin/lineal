@@ -1,0 +1,1050 @@
+\chapter{Diagonalización}
+
+%\framebox{$f\in\K[X]$ y $A,B\in\K^{n\times n}$ tal que $f(AB)=0$ entonces $g(BA)=0$ para $g=Xf$}
+
+\section{Autovalores y autovectores}
+
+\begin{block}
+    Sean $V$ un espacio vectorial y $f\in\hom(V,V)$. Un escalar $\lambda\in\K$
+    es un \textbf{autovalor} de $f$ si existe $v\in V\setminus\{0\}$ tal que
+    $f(v)=\lambda v$. El vector $v$ se denomina \textbf{autovector} de
+    autovalor $\lambda$. 
+\end{block}
+
+\begin{examples}\
+    \begin{enumerate}
+        \item Si $\ker f\ne\{0\}$ entonces $\lambda=0$ es un autovalor pues
+            para cada $v\in\ker f\setminus\{0\}$ se tiene $f(v)=0v$. 
+        \item Si $f$ es un proyector no nulo entonces $\lambda=1$ es autovalor
+            pues para cada $v\im f\setminus\{0\}$ se tiene que $f(v)=1v$. 
+        \item Si $V=C^{\infty}(\R)$ y $\partial\colon V\to V$ es la aplicación $f\mapsto f'$ entonces
+            todo $\lambda\in\R$ es autovalor pues $e^{\lambda x}\ne0$ para todo $x\in\R$ y 
+            $\partial(e^{\lambda x})=\lambda e^{\lambda x}$. 
+    \end{enumerate}
+\end{examples}
+
+\begin{prop}
+	\label{pro:autovalores}
+    Sean $V$ un espacio vectorial de dimensión finita sobre $\K$, $f\in\hom(V,V)$ y $\lambda\in\K$. 
+    Las siguientes afirmaciones son equivalentes:
+    \begin{enumerate}
+        \item $\lambda$ es autovalor de $f$.
+        \item $\lambda\id_V-f$ no es un isomorfismo.
+		\item $\det(\lambda\id_V-f)=0$.
+        %\item Si $\cB$ es una base de $V$ y $A=[f]_{\cB,\cB}$ entonces
+        %    $\det(\lambda I-A)=0$.
+    \end{enumerate} 
+
+    \begin{proof}
+		Para demostrar que $(1)$ implica $(2)$ basta observar que, por
+		definición, como $\lambda$ es autovalor, existe $v\in V\setminus\{0\}$
+		tal que $f(v)=\lambda v$. Luego
+		$v\in\ker(\lambda\id_V-f)\setminus\{0\}$ y entonces $\lambda\id_V-f$ no
+		es un isomorfismo.
+
+		Demostremos que $(2)$ implica $(3)$. Sean $\cB$ una base de $V$ y
+		$A=[f]_{\cB,\cB}$. Si $\lambda\id_V-f$ no es un isomorfismo entonces la
+		matriz 
+		\[
+			\lambda I-A=[\lambda\id_V-f]_{\cB,\cB}
+		\]
+		es no inversible por el corolario~\ref{cor:iso<=>|f|inversible}.  Luego
+		$\det(\lambda I-A)=0$ por el
+		corolario~\ref{cor:no_inversible<=>detA=0}. 
+
+		Demostremos que $(3)$ implica $(1)$. Supongamos que
+		$\cB=\{v_1,\dots,v_n\}$. Como $\lambda I-A$ no es inversible, existen
+		$\alpha_1,\dots,\alpha_n\in\K$ no todos cero tales que 
+		\[
+			(\lambda I-A)\colvec{3}{\alpha_1}{\vdots}{\alpha_n}=\colvec{3}{0}{\vdots}{0}.
+		\]
+		Luego $v=\sum_{i=1}^n\alpha_iv_i$ es no nulo y $f(v)=\lambda v$. 
+    \end{proof}
+\end{prop}
+
+\begin{block}
+	Sea $V$ un espacio vectorial y sea $f\in\hom(V,V)$. 
+     El \textbf{espectro} $\spec f$ de $f$ es el conjunto 
+    formado por los autovalores de $f$. 
+\end{block}
+
+%\begin{examples}
+%	Sea $A=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$
+%\end{examples}
+%
+%\begin{xca}
+%	Demuestre que $\spec A=\spec A^T$. 
+%\end{xca}
+
+\begin{xca}
+    \label{xca:spec(fg)=spec(gf)}
+    Sea $V$ un espacio vectorial de dimensión finita. Demuestre que si
+    $f,g\in\hom(V,V)$ entonces $\spec(fg)=\spec(gf)$.
+\end{xca}
+
+\begin{example}
+    Retomemos el ejemplo~\ref{exa:det:fibonacci} y 
+    calculemos los autovalores de la matriz
+    $A=\begin{pmatrix}0&1\\1&1\end{pmatrix}$. El polinomio característico es 
+    \[
+        \det(XI-A)=\det\begin{pmatrix}
+        X & -1\\
+        -1 & X-1
+        \end{pmatrix}
+        =X^2-X-1.
+    \]
+    Las raíces del polinomio $X^2-X-1$, son \[
+        \lambda_1=(1+\sqrt{5})/2,
+        \quad
+        \lambda_2=(1-\sqrt{5})/2.
+    \]
+    Tenemos entonces que $\spec
+    A=\{\lambda_1,\lambda_2\}$. Calculemos ahora el autoespacio del
+    autovalor $\lambda_i$. Si a la matriz $\lambda_iI-A$ le aplicamos la
+    operación de filas $F_1+\lambda_iF_2\to F_2$ vemos 
+    que el conjunto
+    \[
+        \left\{\colvec{2}{1}{\lambda_1},\colvec{2}{1}{\lambda_2}\right\}
+    \]
+    es una base de $\K^{2\times1}$ formada por autovectores de $A$. Entonces
+    $A=CDC^{-1}$, donde 
+    \begin{align*}
+        C=\begin{pmatrix}
+            1 & 1\\
+            \lambda_1 & \lambda_2
+        \end{pmatrix},
+        &&
+        D=\begin{pmatrix}
+            \lambda_1 & 0\\
+            0 & \lambda_2
+        \end{pmatrix},
+        &&
+        C^{-1}=\frac{1}{\sqrt{5}}\begin{pmatrix}
+            -\lambda_2 & 1\\
+            \lambda_1 & -1
+        \end{pmatrix}.
+    \end{align*}
+    En particular, como $A^n=(CDC^{-1})^n=CD^nC^{-1}$, se obtiene una fórmula
+    cerrada para la sucesión de Fibonacci:
+    \[
+    F_n=\frac{1}{\sqrt{5}}\left(\lambda_1^n-\lambda_2^n\right)
+    \quad
+    \text{para todo $n\geq1$}.
+    \]
+\end{example}
+
+\section{El polinomio característico}
+
+%\begin{block}
+%    Sea $V$ un espacio vectorial de dimensión finita y sea $f\in\hom(V,V)$.
+%    Sean $\cB$ y $\cB'$ bases ordenadas de $V$ y sean $A=[f]_{\cB,\cB}$ y
+%    $B=[f]_{\cB',\cB'}$. Sea $C=C(\cB,\cB')$. Como $B=CAC^{-1}$,
+%    \[
+%    \det(XI-A)=\det(C(XI-A)C^{-1})=\det(XI-B).
+%    \]
+%    Tiene sentido entonces definir el \textbf{polinomio característico} de $f$
+%    como el polinomio $\chi_f=\det(XI-A)\in\K[X]$, donde $A=[f]_{\cB,\cB}$ y
+%    $\cB$ es alguna base de $V$. Luego $\lambda\in\K$ es autovalor de $f$ si y
+%    sólo si $\lambda$ es raíz de $\chi_f$.
+%\end{block}
+%
+
+\begin{block}
+    Se define el \textbf{polinomio característico} de una matriz
+    $A\in\K^{n\times n}$ como
+    \[
+        \chi_A=\det(XI-A)\in\K[X].
+    \]
+    De la definición es evidente que $\chi_f$ es un polinomio mónico de grado
+    $n$ y que $\chi_A(0)=(-1)^n\det A$. 
+\end{block}
+
+\begin{lem}
+    \label{lem:chiA=chiB}
+    Sean $A,B\in\K^{n\times n}$. Si $A$ y $B$ son semejantes entonces
+    \[
+		\chi_A=\chi_B. 
+	\]
+
+    \begin{proof}
+		Si existe $C\in\K^{n\times n}$ inversible tal que $B=CAC^{-1}$ entonces
+		$\chi_A=\det(XI-A)=\det(C(XI-A)C^{-1})=\det(XI-B)=\chi_B$.
+    \end{proof}
+\end{lem}
+
+\begin{block}
+    Sean $V$ un espacio vectorial de dimensión finita y $f\in\hom(V,V)$.  El
+    lema~\ref{lem:chiA=chiB} afirma que matrices semejantes tienen el mismo
+    polinomio característico. Tiene sentido entonces definir el
+    \textbf{polinomio característico} de $f$ como el polinomio característico
+    de la matriz $[f]_{\cB,\cB}$, donde $\cB$ es alguna base ordenada de $V$. 
+\end{block}
+
+\begin{remark}
+	En la proposición~\ref{pro:autovalores} se demostró entonces lo siguiente:
+	si $V$ es un espacio vectorial de dimensión finita y $f\in\hom(V,V)$
+	entonces $\lambda\in\K$ es autovalor de $f$ si y sólo si $\lambda$ es raíz
+	del polinomio característico de $f$, es decir: $\chi_f(\lambda)=0$.
+\end{remark}
+
+\begin{example}
+	Sea $f\colon\R^2\to\R^2$ dada por $f(x,y)=(-y,x)$. Entonces el polinomio
+	característico $\chi_f=1+X^2$ no tiene raíces reales y $\spec f=\emptyset$. 
+\end{example}
+
+\begin{example}
+	Sea $V$ un espacio vectorial complejo de dimensión finita $n$ y sea
+	$f\in\hom(V,V)$.  Entonces, por el teorema fundamental del álgebra, $f$
+	tiene exactamente $n$ autovalores (contados con multiplicidad).
+\end{example}
+
+\begin{example}
+	Sea $V$ un espacio vectorial real de dimensión finita $n=2k+1$ y sea
+	$f\in\hom(V,V)$.  Entonces $f$ tiene al menos un autovalor.
+\end{example}
+
+\begin{lem}
+	Sean $V$ un espacio vectorial finita. Sea $f\in\hom(V,V)$ y sean
+	$\lambda_1,\dots,\lambda_r\in\K$ autovalores de $f$ tales que
+	$\lambda_i\ne\lambda_j$ si $i\ne j$. Sean $v_1,\dots,v_r$ tales que
+	$f(v_i)=\lambda_i v_i$ para todo $i\in\{1,\dots,r\}$. Entonces
+	$\{v_1,\dots,v_r\}$ es linealmente independiente.
+
+	\begin{proof}
+		Procederemos por inducción en $r$. Si $r=1$ el resultado es evidente
+		pues $v_1\ne0$. Si suponemos que el resultado es válido para un cierto
+		$r\geq1$ demostremos que es válido para $r+1$. Sean
+		$\lambda_1,\dots,\lambda_{r+1}\in\K$ autovalores distintos entre sí y
+		sean $v_1,\dots,v_{r+1}\in V$ tales que $f(v_i)=\lambda_i v_i$ para
+		todo $i$. Supongamos que $\alpha_1v_1+\cdots+\alpha_{r+1}v_{r+1}=0$. Si
+		$\alpha_{r+1}=0$ entonces $\alpha_1v_1+\cdots+\alpha_rv_r=0$ y luego
+		$\alpha_i=0$ para todo $i$ por hipótesis inductiva. En cambio, si
+		$\alpha_{r+1}\ne0$, entonces $v_{r+1}\in\langle v_1,\dots,v_r\rangle$
+		pues 
+		\[
+		v_{r+1}=\beta_1v_1+\cdots+\beta_rv_r=\left(-\frac{\alpha_1}{\alpha_{r+1}}\right)v_1+\cdots+\left(-\frac{\alpha_r}{\alpha_{r+1}}\right)v_r.
+		\]
+		si $\beta_i=-\alpha_i/\alpha_{r+1}$.
+		Como $f(v_{r+1})=\lambda_{r+1}v_{r+1}$, se tiene que 
+		\[
+		\beta_1(\alpha_1-\alpha_{r+1})v_1+\cdots+\beta_r(\alpha_r-\alpha_{r+1})v_r=0,
+		\]
+		y luego $\beta_i=0$ para todo $i$. Luego $\alpha_i=0$ para todo
+		$i\in\{1,\dots,r\}$ y por lo tanto $\alpha_{r+1}v_{r+1}=0$, una
+		contradicción.
+	\end{proof}
+\end{lem}
+
+\begin{block}
+	Si $V$ es de dimensión finita, $f\in\hom(V,V)$ y $\lambda\in\K$ es
+	autovalor de $f$ entonces se define el \textbf{autoespacio} de $f$ asociado
+	al autovalor $\lambda$ como 
+    \[
+        S(\lambda)=\{v\in V:f(v)=\lambda v\}.
+    \]
+    
+	Queda como ejercicio demostrar que $S(\lambda)$ es un subespacio de $V$.
+	Se define la
+    \textbf{multiplicidad algebraica} de $\lambda$ como el mayor entero
+    positivo $k$ tal que $(X-\lambda)^k$ divide a $\chi_f$.  La
+    \textbf{multiplicidad geométrica} es el número $\dim S(\lambda)$. 
+\end{block}
+
+\begin{example}
+	Sea $f\colon\R^3\to\R^3$ definida por $f(x,y,z)=(x,x+y,2z)$.  El polinomio
+	característico de $f$ es $\chi_f=(X-1)^2(X-2)$. Queda como ejercicio
+	demostrar que $S(1)=\langle(0,1,0)\rangle$ y $S(2)=\langle(0,0,1)\rangle$.
+	La multiplicidad algebraica del autovalor $1$ es $2$ y la
+	multiplicidad geométrica es $\dim S(1)=1$. 
+\end{example}
+
+\begin{lem}
+	Sean $V$ un espacio vectorial finita. Sea $f\in\hom(V,V)$ y sean
+	$\lambda_1,\dots,\lambda_r\in\K$ autovalores de $f$ tales que
+	$\lambda_i\ne\lambda_j$ si $i\ne j$. Entonces
+	\[
+		S(\lambda_1)+\cdots+S(\lambda_r)=S(\lambda_1)\oplus\cdots\oplus S(\lambda_r).
+	\]
+\end{lem}
+\begin{lem}
+	Sean $V$ un espacio vectorial de dimensión finita, $f\in\hom(V,V)$ y
+	$\lambda$ un autovalor de $f$. Sea $m$ la multiplicidad algebraica de
+	$\lambda$. Entonces 
+	\[
+		\dim S(\lambda)\leq m.
+	\]
+	\begin{proof}
+		Supongamos que $x_f=(X-\lambda)^mq$, donde $q\in\K[X]$ y
+		$q(\lambda)\ne0$. Si $\dim S(\lambda)=r\geq m+1$, sea
+		$\{v_1,\dots,v_r\}$ una base de $S(\lambda)$. La extendemos a una base
+		$\cB=\{v_1,\dots,v_r,v_{r+1},\dots,v_n\}$ de $V$ y consideramos la
+		matriz de $f$ con respecto a $\cB$:
+		\[
+		[f]_{\cB,\cB}=
+		\left(
+			\begin{array}{c|c}
+			\lambda I & \star\\
+			\hline
+			0 & B
+		\end{array}
+		\right),
+		\]
+		donde $\lambda I$ es una matriz de $r\times r$ y $B$ es una matriz de
+		$(n-r)\times(n-r)$. Entonces
+		\[
+		\chi_f=\det(X-\lambda)^r\det(XI-B)=(X-\lambda)^m(X-\lambda)^{r-m}\det(XI-B),
+		\]
+		donde $r-m\geq1$. Luego $(X-\lambda)^{r-m}\det(XI-B)$ es un polionimo
+		que se anula en $\lambda$, una contradicción.
+	\end{proof}
+\end{lem}
+
+\begin{example}
+    Sea $f\colon\R^{3\times1}\to\R^{3\times1}$ dada por 
+    \[
+        \colvec{3}{x}{y}{z}\mapsto\begin{pmatrix}
+            1 & 0 & 0\\
+            1 & 1 & 0\\
+            0 & 0 & 2
+        \end{pmatrix}
+        \colvec{3}{x}{y}{z}=\colvec{3}{x}{x+y}{2z}.
+    \]
+    Entonces $X_f=(X-1)^2(X-2)$ y además
+    \begin{align*}
+        & S(1)=\{(x,y,z)^T\in\R^{3\times1}:x=z=0\}=\langle (0,1,0)^T\rangle,\\
+        & S(2)=\{(x,y,z)^T\in\R^{3\times1}:x=y=0\}=\langle (0,0,1)^T\rangle.
+    \end{align*}
+    Luego $\dim S(1)=\dim S(2)=1$. 
+    \framebox{VER}
+\end{example}
+
+\begin{example}
+    \label{exa:f_diagonalizable}
+    Sea $f\colon\R^{3\times1}\to\R^{3\times1}$ dada por     
+    \[
+        \colvec{3}{x}{y}{z}\mapsto\begin{pmatrix}
+            1 & 0 & 0\\
+            0 & 0 & 1\\
+            0 & 0 & -1
+        \end{pmatrix}
+        \colvec{3}{x}{y}{z}=\colvec{3}{x}{z}{-z}.
+    \]
+    entonces $x_f=X(X-1)(X+1)$ y 
+    \begin{align*}
+        &S(0)=\langle (0,1,-1)^T\rangle,
+        &&S(1)=\langle (0,1,0)^T\rangle,
+        &&S(-1)=\langle (1,0,0)^T\rangle.
+    \end{align*}
+    \framebox{VER}
+\end{example}
+
+\begin{block}
+    Sean $V$ un espacio vectorial de dimensión finita y $f\in\hom(V,V)$. Se
+    dice que $f$ es \textbf{diagonalizable} si existe una base $\cB$ de $V$ tal
+    que $[f]_{\cB,\cB}$ es una matriz diagonal. 
+\end{block}
+
+\begin{example}
+    La transformación lineal del ejemplo~\ref{exa:f_diagonalizable} es
+    diagonalizable ya que si $\cB=\{(0,1,-1)^T,(0,1,0)^T,(1,0,0)^T\}$ entonces
+    \[
+    [f]_{\cB}=\begin{pmatrix}
+        0 & 0 & 0\\
+        0 & 1 & 0\\
+        0 & 0 & -1
+    \end{pmatrix}
+    \]
+\end{example}
+
+\begin{thm}
+    Sea $V$ un espacio vectorial de dimensión finita sobre $\K$, sea
+    $f\in\hom(V,V)$ y sean $\lambda_1,\dots,\lambda_k$ autovalores distintos de
+    $f$. Entonces $f$ es diagonalizable si y sólo si $\dim S(\lambda_i)=m_i$
+    para todo $i\in\{1,\dots,k\}$ y
+    \[
+        \chi_f=(X-\lambda_1)^{m_1}\cdots(X-\lambda_k)^{m_k}.
+    \]
+
+	\begin{proof}
+		Supongamos primero que $\dim S(\lambda_i)=m_i$ para todo
+		$i\in\{1,\dots,k\}$ y que 
+		\[
+		\chi_f=(X-\lambda_1)^{m_1}\cdots(X-\lambda_k)^{m_k}.
+		\]
+		Sean $\cB_1=\{u_{i},\dots,u_{m_1}\}$ una base de $S(\lambda_1)$,
+		$\cB_2=\{v_1,\dots,v_{m_2}\}$ una base de $S(\lambda_2)$\ldots y
+		$\cB_k=\{w_1,\dots,w_{m_k}\}$ una base de $S(\lambda_k)$. Vamos a
+		demostrar que $\cB_1\cup\cdots\cup\cB_k$ es base de $V$, y para esto,
+		como $m_1+\cdots+m_k=n$, basta ver que $\cB_1\cup\cdots\cup\cB_k$ es un
+		conjunto linealmente independiente. Supongamos que 
+		\[
+		\alpha_1u_1+\cdots+\alpha_{m_1}u_{m_1}+\beta_1v_1+\cdots+\beta_{m_2}v_{m_2}+\cdots+\gamma_1 w_1+\cdots+\gamma_{m_k}w_{m_k}=0.
+		\]
+		Observemos que 
+		\begin{align*}
+		&\alpha_1u_1+\cdots+\alpha_{m_1}u_{m_1}\in S(\lambda_1),\\
+		&\beta_1v_1+\cdots+\beta_{m_2}v_{m_2}\in S(\lambda_2),\\
+		&\quad\vdots\\
+		&\gamma_1 w_1+\cdots+\gamma_{m_k}w_{m_k}\in S(\lambda_k).
+		\end{align*}
+		Luego, como los $S(\lambda_i)$ están en suma directa, $\alpha_i=0$ para todo $i$, 
+		$\beta_j=0$ para todo $j$\ldots, y $\gamma_k=0$ para todo $k$.
+
+		Recíprocamente, si $f$ es diagonalizable, existe una base
+		$\{v_1,\dots,v_n\}$ de $V$ tal que la matriz de $f$ en esa base es
+		diagonal. Al agrupar los autovalores iguales  se obtiene
+		$X_f=\prod_{i=1}^r (X-\lambda_i)^{m_i}$. Es claro que $\dim
+		S(\lambda_i)\geq m_i$. Por otro lado, siempre vale que $\dim
+		S(\lambda_i)\leq m_i$. Luego $\dim S(\lambda_i)=m_i$. 
+	\end{proof}
+\end{thm}
+
+\begin{block}
+	Una matriz $A\in\K^{n\times n}$ es \textbf{diagonalizable} si la
+	transformación lineal $f\colon\K^{n\times 1}\to\K^{n\times1}$ dada por
+	$x\mapsto Ax$ es diagonalizable.
+\end{block}
+
+\begin{xca}
+	\label{xca:matriz_diagonalizable}
+	Sea $A\in\K^{n\times n}$. Demuestre que las siguientes afirmaciones son equivalentes:
+	\begin{enumerate}
+		\item $A$ es diagonalizable.
+		\item $\chi_A=\prod_{i=1}^r(X-\lambda_i)^{m_i}$ y $m_i=n-\rg(\lambda_iI-A)$. 
+		\item $A$ es semejante a una matriz diagonal.
+	\end{enumerate}
+\end{xca}
+
+\section{Polinomios e ideales}
+
+\begin{thm}[Algoritmo de división]
+	Sean $f,d\in\K[X]$ con $d\ne0$. Entonces existen únicos $q,r\in\K[X]$ tales
+	que $f=dq+r$ y además $r=0$ o bien $\deg r<\deg d$. 
+%
+%	\begin{proof}
+%		Para la demostración referimos por ejemplo a la página 315 del libro de
+%		Gentile.
+%	\end{proof}
+\end{thm}
+
+\begin{block}
+	Sean $f,g\in\K[X]$. Recordemos que $g$ \textbf{divide} a $f$ (o que $f$ es
+	\textbf{divisible} por $g$, o que $g$ es un \textbf{múltiplo} de $f$) si
+	existe $h\in\K[X]$ tal que $f=gh$. Un escalar $\lambda\in\K$ es
+	\textbf{raíz} (o \textbf{cero}) de $f$ si $f(\lambda)=0$. 
+\end{block}
+
+\begin{cor}
+	Sea $f\in\K[X]$ y sea $\lambda\in\K$. Entonces $f$ es divisible por
+	$X-\lambda$ si y sólo si $f(\lambda)=0$.
+
+	\begin{proof}
+		Si $f$ es divisible por $X-\lambda$ entonces $f=(X-\lambda)q$ para
+		algún $q\in\K[X]$. Al evaluar en $\lambda$ se obtiene entonces
+		$f(\lambda)=0$. Recíprocamente, si utilizamos el algoritmo de división,
+		existen únicos $q,r\in\K[X]$ tales que $f=(X-\lambda)q+r$. Como
+		$f(\lambda)=0$, entonces $r(\lambda)=0$ y luego $r=0$. 
+	\end{proof}
+\end{cor}
+
+\begin{cor}
+	Sea $f\in\K[X]$ de grado $n$. Entonces $f$ tiene a lo sumo $n$ raíces en
+	$\K$.
+
+	\begin{proof}
+		Procedemos por inducción en $n$. Si $n=1$ entonces el resultado es
+		trivialmente válido. Suponemos entonces que el resultado vale para
+		algún $n\geq1$ y sea $f$ es un polinomio de grado $n+1$. Si $f$ no
+		tiene raíces en $\K$ entonces no hay nada que demostrar.  Si
+		$x_0\in\K$ es raiz de $f$, existe $g\in\K[X]$ con $\deg g=n$ tal
+		que $f=(X-x_0)g$. Por hipótesis inductiva $g$ tiene a lo sumo $n$
+		raíces y entonces $f$ tiene a lo sumo $n+1$ raíces en $\K$. 
+	\end{proof}
+\end{cor}
+
+\begin{block}
+	Un \textbf{ideal} de $\K[X]$ es un subespacio $I\subseteq\K[X]$ tal que
+	$fg\in I$ si $f\in I$ y $g\in\K[X]$.
+\end{block}
+
+\begin{examples}
+    El subespacio $\{0\}$ es un ideal de $\K[X]$. Si $g\in\K[X]$ entonces
+    el conjunto 
+    \[
+        \{fg:f\in\K[X]\}
+    \]
+    es un ideal de $\K[X]$ que se denota por $(g)$ y se denomina el ideal
+    generado por $g$.  Más generalmente, si $g_1,\dots,g_n\in\K[X]$, el conjunto
+    \[
+    (g_1,\dots,g_n)=\left\{\sum_{i=1}^n f_ig_i:f_1,\dots,f_n\in\K[X]\right\}
+    \]
+    es un ideal de $\K[X]$ que se denomina \textbf{ideal generado} por
+    $g_1,\dots,g_n$.
+\end{examples}
+
+\begin{example}
+	Demostremos que el ideal 
+    \[
+        I=(X-8,X^2+8X+5)\subseteq\R[X]
+    \]
+	es igual $\R[X]$.  Como $I$ es un ideal, $X^2-8X=X(X-8)\in I$. De la misma
+	forma, como los polinomios $X^2-8X$ y $X^2+8X+5$ son elementos de $I$, se
+	tiene que $5=X^2-8X-(X^2+8X+5)\in I$. Luego, como $1=(1/5)5\in I$, se tiene
+	que $I=\R[X]$ ya que para todo $f\in\R[X]$ tenemos $f=f1\in I$. 
+\end{example}
+
+\begin{thm}
+	Sea $I\subseteq\K[X]$ un ideal no nulo. Entonces existe un único polinomio
+	mónico $g\in\K[X]$ tal que $I=(g)$. 
+
+    \begin{proof}
+		Demostremos la existencia.  Como $I\ne\{0\}$, existe un polinomio no
+		nulo que pertenece a $I$. Sea entonces $g$ el polinomio mónico de grado
+		mínimo tal que $g\in I$. Para demostrar que $I=(g)$ sea $f\in I$. Como
+		$g$ tiene grado mínimo entre los polinomios de $I$, $\deg f\geq \deg g$
+		y entonces, por el algoritmo de división, existen $h,r\in\K[X]$ tal que
+		$f=gh+r$ donde $r=0$ o $\deg r<\deg g$. Como $I$ es un ideal,
+		$r=f-gh\in I$.  La minimalidad del grado de $g$ implica que $r=0$ y
+		entonces $f=gh\in(g)$. 
+
+		Demostremos la unicidad. Si $I=(g_1)=(g_2)$, existen $h_1,h_2\in\K[X]$
+		tales que $g_1=h_1g_2$ y $g_2=h_2g_1$. Entonces $g_1=(h_1h_2)g_2$. Como
+		$g_1$ y $g_2$ tienen el mismo grado, $0=\deg(h_1h_2)=\deg h_1+\deg h_2$
+		y entonces $\deg h_1=\deg h_2=0$.  Como $g_1$ y $g_2$ son mónicos,
+		$h_1=h_2=1$.
+    \end{proof}
+\end{thm}
+
+\begin{block}
+	Recordemos que si $f,g\in\K[X]$ entonces se define el \textbf{máximo común
+	divisor} entre $f$ y $g$ como el único polinomio mónico $h\in\K[X]$ tal que 
+	\begin{enumerate}
+		\item $h$ divide a $f$, $h$ divide a $g$,
+		\item $h$ es múltiplo de cada polinomio que divida a $f$ y a $g$. 
+	\end{enumerate}
+
+	El máximo común divisor entre $f$ y $g$ se denota por $(f:g)$. 
+
+	Similarmente se define el \textbf{mínimo común múltiplo} de $f$ y $g$ como
+	el único polinomio mónico $h\in\K[X]$ tal que: 
+	\begin{enumerate}
+		\item $f$ divide a $h$, $g$ divide a $h$,
+		\item $h$ divide a cada polinomio que es múltiplo de $f$ y de $g$.
+	\end{enumerate}
+
+	El mínimo común múltiplo entre $f$ y $g$ se denota por $[f:g]$. 
+	
+	Observemos
+	que vale 
+	\[
+		fg=(f:g)[f:g].
+	\]
+\end{block}
+
+\begin{xca}
+	Sean $f_1,\dots,f_n\in\K[X]$.  Demuestre que el generador $g$ del ideal
+	$(f_1,\dots,f_n)$ es el \textbf{máximo común divisor} de los polinomios
+	$f_1,\dots,f_n$, es decir: $g\in\K[X]$ es el único polinomio mónico tal que
+	\begin{enumerate}
+		\item $g\in(f_1,\dots,f_n)$,
+		\item $g$ divide a cada $f_i$,
+		\item $g$ es divisible por todo polinomio que divida a cada uno de los $f_i$.
+	\end{enumerate}
+\end{xca}
+
+%%% FIXME: igualdad del minimal y caracteristico no implica semejanza
+
+\section{El polinomio minimal}
+
+\begin{block}
+	Dados un polinomio $p\in\K[X]$, 
+	\[
+		p=a_0+a_1X+\cdots+a_dX^d=\sum_{i=0}^d a_iX^i, 
+	\]
+	y una matriz $A\in\K^{n\times n}$ se define 
+	\[
+		p(A)=a_0I+a_1A+\cdots+a_nA^n\in\K^{n\times n}.
+	\]
+	
+	Es evidente que si $p,q\in\K[X]$ y $A\in\K^{n\times n}$ entonces
+	\begin{align*}
+		&(p+q)(A)=p(A)+q(A),\\
+		&(pq)(A)=p(A)q(A)=q(A)p(A),
+	\end{align*}
+	para todo $p,q\in\K[X]$ y $A\in\K^{n\times n}$. Más generalmente, puede
+	demostrarse que el conjunto
+	\[
+	\{B\in\K^{n\times n}:B=p(A)\text{ para algún $p\in\K[X]$}\}
+	\]
+	es un anillo conmutativo con unidad. 
+\end{block}
+
+\begin{examples}
+	Sea $A\in\K^{n\times n}$. 
+	Si $p=X^2+1\in\K[X]$ entonces 
+	\[
+	p(A)=A^2+I.
+	\]
+	Si $q=X^3+2X^2-3X+4$ entonces 
+	\[
+	q(A)=A^3+2A^2-3A+4I.
+	\]
+\end{examples}
+
+\begin{lem}
+    Sea $A\in\K^{n\times n}$. Entonces existe $p\in\K[X]$ no nulo tal que
+    $p(A)=0$. 
+\end{lem}
+
+\begin{proof}
+    El conjunto $\{I,A,A^2,\dots,A^{n^2}\}\subseteq\K^{n\times n}$ tiene
+    $n^2+1$ elementos. Como $\dim\K^{n\times n}=n^2$, el conjunto $S$ es
+    linealmente dependiente. Luego existen escalares $a_0,\dots,a_{n^2}\in\K$,
+    no todos cero, tales que $a_0I+a_1A+\cdots+a_{n^2}A^{n^2}=0$.  En
+    conclusión, si $p=\sum_{i=0}^{n^2}a_iX^i\in\K[X]$, entonces $p\ne0$ y
+    $p(A)=0$.
+\end{proof}
+
+\begin{block}
+	Sea $A\in\K^{n\times n}$. El conjunto 
+	\[
+		\{p:p\in\K[X]\text{ tal que $p(A)=0$}\}
+	\]
+	es un ideal de $\K[X]$ y entonces existe un único polinomio mónico que lo
+	genera, es decir: existe un único polinomio mónico $m_A$ que lo genera. 
+	Este polinomio se denomina \textbf{polinomio minimal} de $A$. 
+\end{block}
+
+\begin{xca}
+	\label{xca:minimal}
+	Sea $A\in\K^{n\times n}$ y sea $m\in\{1,\dots,n\}$ el único entero que
+	satisface que $\{I,A,\dots,A^{m-1}\}$ es linealmente independiente y que
+	$A^m\in\langle I,A,\dots,A^{m-1}\rangle$. Sean $a_0,a_1,\dots,a_{m-1}\in\K$
+	los únicos escalares tales que $A^m=a_0I+a_1A+\cdots+a_{m-1}A_{m-1}$.
+	Demuestre que el polinomio \[
+        X^m-\sum_{i=0}^{m-1}a_iX^i
+    \]
+    es el polinomio minimal de $A$.
+\end{xca}
+
+\begin{examples}
+	Es fácil verificar que $m_0=X$ y que $m_I=X-1$. Si $A=\lambda I$ entonces
+	$m_A=X-\lambda$. Si $A\not\in\{0,I\}$ satisface que $A^2=A$ entonces
+	$m_A=X^2-X$.
+\end{examples}
+
+\begin{example}
+	Calculemos el polinomio minimal de 
+	\[
+		A=\begin{pmatrix}-1&0\\1&-1\end{pmatrix}\in\R^{2\times2}.
+	\]
+	Primero observemos que el conjunto $\{I,A\}$ es linealmente independiente.
+	Buscamos entonces $p=X^2+bX+c\in\R[X]$ que anule a la matriz $A$. Un
+	cálculo sencillo muestra que $A^2+bA+cI=0$ si y sólo si $b=2$ y $c=1$.
+	Luego $m_A=X^2+2X+1$. 
+\end{example}
+
+\begin{remark}
+	\label{rem:m_A|p}
+    De la definición de polinomio minimal se obtiene inmediatamente que si
+    $A\in\K^{n\times n}$ y $p\in\K[X]$ entonces $p(A)=0$ si y sólo si $m_A$
+    divide a $p$.
+%
+%	\begin{proof}
+%		Si $p(A)=0$ entonces por definición $p\in(m_A)$ y luego existe
+%		$q\in\K[X]$ tal que $p=m_Aq$. Luego $m_A$ divide a $p$. Recíprocamente,
+%		si $m_A$ divide a $p$, $p=m_Aq$ para algún $q\in\K[X]$. Luego
+%		$p(A)=m_A(A)q(A)=0q(A)=0$.
+%	\end{proof}
+\end{remark}
+
+\begin{lem}
+	\label{lem:A_sem_B=>p(A)_sem_p(B)}
+	Sean $A,B\in\K^{n\times n}$ y $p\in\K[X]$. Si $A$ y $B$ son semejantes
+	entonces $p(A)$ y $p(B)$ son semejantes. En particular, si $A$ y $B$ son
+	semejantes entonces $p(A)=0$ si y sólo si $p(B)=0$.
+
+	\begin{proof}
+		Supongamos que $p=\sum_{i=0}^d a_iX^i$ y que $A=CBC^{-1}$ para alguna
+		matriz inversible $C\in\K^{n\times n}$. Como $(CBC^{-1})^i=CB^iC^{-1}$
+		para todo $i\geq0$, 
+		\begin{align*}
+			p(A)&=p(CBC^{-1})=\sum_{i=0}^d a_i(CBC^{-1})^i\\&=\sum_{i=0}^d a_iCB^iC^{-1}
+			=C\left(\sum_{i=0}^d a_iB^i\right)C^{-1}=Cp(B)C^{-1}.
+		\end{align*}
+		Luego $p(A)$ y $p(B)$ son semejantes. Si $A$ y $B$ son semejantes y
+		entonces $p(A)$ y $p(B)$ son semejantes y luego, en particular,
+		$p(A)=0$ si y sólo si $p(B)=0$. 
+	\end{proof}
+\end{lem}
+
+\begin{prop}
+	Sean $A,B\in\K^{n\times n}$. Si $A$ y $B$ son semejantes entonces $m_A=m_B$.
+
+	\begin{proof}
+        Por el lema~\ref{lem:A_sem_B=>p(A)_sem_p(B)}, las matrices $m_A(A)$ y
+        $m_B(A)$ son semejantes y entonces, como $0=m_A(A)$, se obtiene que
+        $m_B(A)=0$. La observación~\ref{rem:m_A|p} implica que $m_A$ divide a
+        $m_B$.  Similarmente se demuestra que $m_B$ divide a $m_A$ y luego,
+        como $m_A$ y $m_B$ son mónicos, $m_A=m_B$.
+	\end{proof}
+\end{prop}
+
+\begin{block}
+	La proposición anterior nos permite definir el \textbf{polinomio minimal}
+	de una transformación lineal $f\colon V\to V$, donde $V$ es un espacio
+	vectorial de dimensión finita. En efecto, basta tomar $m_f$ como
+	$m_{[f]_{\cB}}$ donde $\cB$ es alguna base de $V$.
+\end{block}
+
+\begin{prop}
+	Sea $A\in\K^{n\times n}$. Entonces $\lambda$ es autovalor de $A$ si y sólo
+	si $\lambda$ es raíz de $m_A$.
+
+	\begin{proof}
+		Supongamos primero que $\lambda$ es autovalor de $A$. Entonces existe
+		$v\ne0$ tal que $Av=\lambda v$. Por el algoritmo de división, existen
+		$q,r\in\K[X]$ tales que $m_A=(X-\lambda)q+r$, donde $r=0$ o bien
+		$\deg(r)=0$. Al evaluar en la matrix $A$ obtenemos $0=m_A(A)=(A-\lambda
+		I)q(A)+rI$ y en particular $0=(A-\lambda I)q(A)v+rv$. Como $A-\lambda
+		I$ y $q(A)$ conmutan, $rv=0$. Como $v\ne0$ entonces $r=0$.
+
+		Recíprocamente, si $m_A(\lambda)=0$ entonces $m_A=(X-\lambda)q$ para
+		algún $q\in\K[X]$. Como $\deg(q)<\deg(m_A)$, $q(A)\ne0$. Existe
+		entonces $w\in\K^n$ tal que $q(A)w\ne0$. Sea $v=q(A)w$. Entonces
+		$(A-\lambda I)v=0$.
+	\end{proof}
+\end{prop}
+
+\section{El polinomio minimal de un vector}
+
+\begin{block}
+	Sean $A\in\K^{n\times n}$ y $v\in\K^{n\times1}$. Para cada polinomio
+	$p\in\K[X]$ se define $p(v)=p(A)v$. En particular, diremos que el polinomio
+	$p$ se anula (con respecto a la matriz $A$) en $v$ si $p(v)=0$.  El
+	conjunto 
+	\[
+		\{p\in\K[X]:p(v)=0\}
+	\]
+	es un ideal de $\K[X]$ y entonces está generado por un único polinomio
+	mónico $m_v$. Este polinomio se denomina el \textbf{polinomio minimal} del
+	vector $v$ con respecto a la matriz $A$. Observar que $m_v$ es el polinomio
+	mónico de menor grado que especializado en $A$ se anula en $v$.
+\end{block}
+
+\begin{example}
+	Sean $A\in\K^{n\times n}$ y $v\in\K^{n\times1}$. Entonces $m_v=X-\lambda$ si y sólo si $v$ es
+	autovector de $A$ de autovalor $\lambda$. 
+\end{example}
+
+\begin{example}
+	Sean $v=(1,0)^T$ y 
+	\[
+		A=\begin{pmatrix}
+			-1 & 0\\
+			1 & -1
+		\end{pmatrix}\in\R^{2\times2}.
+	\]
+	Calculemos el polinomio minimal de $v$ con respecto a la matriz $A$.
+	Primero buscamos $p=X+c\in\R[X]$ tal que $p(v)=0$.  Esto equivale a
+	resolver la ecuación $Av^T=-cv^T$, que no tiene solución.  Buscamos
+	entonces un polinomio $X^2+bX+c\in\R[X]$ que anula al vector $v$. Un
+	cálculo sencillo muestra que $p(v)=0$ si y sólo si $b=2$ y $c=1$.  Luego
+	$m_v=X^2+2X+1$. 
+\end{example}
+
+\begin{remark}
+    \label{rem:m_v|m_A}
+	De la definición se obtiene inmediatamente que si $A\in\K^{n\times n}$,
+	$v\in\K^{n\times1}$ y $p\in\K[X]$ entonces $p(v)=0$ si y sólo si $m_v$
+	divide a $p$.  En particular, $m_v$ divide a $m_A$.
+\end{remark}
+
+%\begin{prop}
+%	\label{prop:m_v|m_A}
+%	Sean $A\in\K^{n\times n}$, $v\in\K^n$ y $p\in\K[X]$. Entonces $p(v)=0$ si y
+%	sólo si $m_v$ divide a $p$. En particular, $m_v$ divide a $m_A$.
+%
+%	\begin{proof}
+%		Por el algoritmo de división existen $p,r\in\K[X]$ tales que $p=m_vq+r$,
+%		donde $r=0$ o bien $\deg(r)<\deg(m_v)$. Luego, si suponemos que $p(v)=0$,
+%		entonces  $0=p(v)=r(A)v=r(v)$, y la minimalidad del grado de $m_v$ implica
+%		que $r=0$. Recíprocamente, si $p=m_vq$ para algún $q\in\K[X]$ entonces
+%		$p(v)=0$.
+%	\end{proof}
+%\end{prop}
+
+\begin{prop}
+	\label{pro:mA=mcm}
+	Sean $A\in\K^{n\times n}$ y $\{v_1,\dots,v_n\}$ una base de
+	$\K^{n\times1}$.  Entonces $m_A=\lcm(m_{v_1},\dots,m_{v_n})$. 
+	
+	\begin{proof}
+		Sea $p=\lcm(m_{v_1},\dots,m_{v_n})$. La observación~\ref{rem:m_v|m_A}
+		implica que $m_{v_i}$ divide a $m_A$ para todo $i\in\{1,\dots,n\}$ y
+		entonces $p$ divide a $m_A$.  Por otro lado, cada $m_{v_i}$ divide a
+		$p$ y entonces $p(A)v_i=p(v_i)=0$ para todo $i\in\{1,\dots,n\}$. Como
+		$\{v_1,\dots,v_n\}$ es una base de $\K^{n\times1}$, entonces $p(A)=0$ y
+		luego $m_A$ divide a $p$.  Como $p$ y $m_A$ son polinomios mónicos,
+		$p=m_A$. 
+	\end{proof}
+\end{prop}
+
+%\begin{xca}
+%	\label{xca:m_A=m_v=chi_A}
+% 	Sea $A\in\K^{n\times n}$ y sea $v\in\K^{n\times1}$ no nulo. Demuestre que si 
+%	$\{v,Av,\dots,A^{n-1}v\}$ es una base de $\K^{n\times1}$ entonces
+%	$m_v=m_A=\chi_A$.
+%\end{xca}
+
+\begin{xca}
+	Sea $\{e_1,e_2,e_3\}$ la base canónica de $\R^{3\times1}$ y sea
+	\[
+		A=\begin{pmatrix}
+			1 & 0 & 0\\
+			1 & 1 & 0\\
+			0 & 0 & 2
+		\end{pmatrix}\in\R^{3\times3}.
+	\]
+	Demuestre que $m_{e_1}=X^2-2X+1$, $m_{e_2}=X-1$, $m_3=X-2$ y concluya que
+	$m_A=(X-1)^2(X-2)$. ¿Es $A$ diagonalizable?
+\end{xca}
+
+\begin{prop}
+	\label{pro:minimal_diagonalizable}
+	Sea $A\in\K^{n\times n}$. Entonces $A$ es diagonalizable si y sólo si 
+	%$V$ un espacio vectorial de dimensión finita y sea $f\in\hom(V,V)$.
+	%Entonces $f$ es diagonalizable si y sólo si 
+	\[
+		m_A=(X-\lambda_1)\cdots(X-\lambda_r) 
+	\]
+	donde $\lambda_i\ne\lambda_j$ si $i\ne j$. 
+
+	\begin{proof}
+		Supongamos que $A$ es diagonalizable. Entonces existe una base
+		$\{v_1,\dots,v_n\}$ de $\K^{n\times1}$ y existen
+		$\lambda_1,\dots,\lambda_n\in\K$ tales que $Av_i=\lambda_i v_i$ para
+		todo $i$. Luego $m_{v_i}=X-\lambda_i$ para todo $i$. La
+		proposición~\ref{pro:mA=mcm} implica que $m_A$ tiene la forma deseada. 
+
+		Supongamos ahora que $m_A=(X-\lambda_1)\cdots(X-\lambda_r)$ donde los
+		$\lambda_i$ son todos distintos entre sí.  Entonces
+		$\lambda_1,\dots,\lambda_r$ son raíces distintas de $\chi_f$ y por lo
+		tanto son autovalores de $f$. Luego 
+		\[
+			S(\lambda_1)+\cdots+S(\lambda_r)=S(\lambda_1)\oplus\cdots\oplus S(\lambda_r).
+		\]
+		Vamos a demostrar que $V=\oplus_{i=1}^r S(\lambda_i)$. Para cada $j\in\{1,\dots,r\}$ definimos
+		\[
+			p_j=\frac{1}{X-\lambda_j}\prod_{i=1}^r(X-\lambda_i).
+		\]
+		Como $(p_1:\cdots:p_r)=1$, existen $h_1,\dots,h_r\in\K[X]$ tales que
+		$1=\sum_{i=1}^rh_ip_i$. Si evaluamos en la matriz $A$ obtenemos
+		\[
+			I=\sum_{i=1}^r h_i(A) p_i(A).
+		\]
+		Al multiplicar a izquierda por $v$ obtenemos $v=\sum_{i=1}^r h_i(A)p_i(A)v$.
+		Veamos que $h_j(A)p_j(A)v\in\ker(A-\lambda_jI)$. Como $(X-\lambda_j)p_j=m_A$, entonces 
+		$(X-\lambda_j)h_jp_j=h_jm_A$. Al evaluar en $A$ y utilizar que $m_A(A)=0$, 
+		\[
+			(A-\lambda_jI)h_j(A)p_j(A)=h_j(A)m_A(A)=0.
+		\]
+		Luego $(A-\lambda_jI)h_j(A)p_j(A)v=0$ y entonces $h_j(A)p_j(A)v\in
+		S(\lambda_j)$.
+	\end{proof}
+\end{prop}
+
+\begin{example}
+	Sea $\{e_1,e_2,e_3\}$ la base canónica de $\R^{3\times1}$ y sea
+	\[
+		A=\begin{pmatrix}
+			1 & 1 & 1\\
+			0 & 0 & -1\\
+			0 & 0 & 0
+		\end{pmatrix}.
+	\]
+
+	Calculemos $m_{e_1}$, $m_{e_2}$ y $m_{e_3}$. Como $Ae_1=e_1$ entonces
+	$m_{e_1}=X-1$. Además $Ae_2=e_1$ y $A^2e_2=Ae_1=e_1=Ae_2$ y entonces
+	$m_{e_2}=X^2-X$. Como $Ae_3=e_1-e_2$ entonces $A^2e_3=0$ y luego
+	$m_{e_3}=X^2$. Observemos que $m_A=[m_{e_1}:m_{e_2}:m_{e_3}]=X^2(X-1)$ y
+	entonces $A$ no es diagonalizable.
+\end{example}
+
+\begin{example}
+	\label{exa:A^k=I}
+	Sea $A\in\C^{n\times n}$ y supongamos que existe $k\in\N$ tal que $A^k=I$.
+	Entonces $A$ es diagonalizable. En efecto, como el polinomio $X^k-1$ anula
+	a la matriz $A$, sabemos que $m_A$ divide a $X^k-1$. Como todas las raíces
+	de $X^k-1$ son simples, todas las raíces de $m_A$ también son simples.
+	Luego $A$ es diagonalizable por la
+	proposición~\ref{pro:minimal_diagonalizable}.
+\end{example}
+
+\begin{example}
+	El resultado del ejemplo~\ref{exa:A^k=I} no vale para matrices reales. Sea 
+	\[
+		A=\begin{pmatrix}
+			0 & 0 & 1\\
+			1 & 0 & 0\\
+			0 & 1 & 0
+		\end{pmatrix}\in\R^{3\times3}.
+	\]
+	Entonces $A^3=I$ pero $A$ no es diagonalizable ya que 
+	\[
+		m_A=(X-1)(X^2+X+1)\in\R[X]. 
+	\]
+\end{example}
+
+
+\begin{xca}
+	Sea $V$ un $\C$-espacio vectorial de dimensión finita y sea
+	$f\in\hom(V,V)$. Demuestre que $f$ es diagonalizable si y sólo si $m_f$ y
+	$m'_{f}$ son coprimos.
+\end{xca}
+
+\section{El teorema de Cayley--Hamilton}
+
+\framebox{como ejercicio y para endomorfismos}
+
+\begin{thm}[Cayley--Hamilton]
+	\label{thm:Hamilton_Cayley}
+    Si $A\in\K^{n\times n}$ entonces $\chi_A(A)=0$, es decir: $m_A$ divide a
+    $\chi_A$. 
+\end{thm}
+
+\begin{proof}
+	Sea $T\colon\K^{n\times1}\to\K^{n\times1}$ la transformación lineal
+	definida por $x\mapsto Ax$ y sea $v\in\K^{n\times1}$.  Tomemos $k\in\N$ tal
+	que $\{v,Av,\dots,A^kv\}$ sea un conjunto linealmente independiente y
+	$A^{k+1}v$ sea combinación lineal de $v,Av,\dots,A^kv$, digamos 
+	\[
+	A^{k+1}v=-a_0v-a_1Av-\cdots-a_kA^kv, 
+	\]
+	donde $a_0,\dots,a_k\in\K$.
+	Extendemos el conjunto $\{v,Av,\dots,A^kv\}$ a una base 
+	\[
+	\cB=\{v,Av,\dots,A^kv,w_1,\dots,w_m\}
+	\]
+	de $V$, donde $k+1+m=n$. La matriz de $T$ con respecto a la base $\cB$ es
+	una matriz por bloques
+	\[
+	[T]_{\cB,\cB}=\left(\begin{array}{c|c}
+		C & \star\\
+		\hline
+		0 & M
+	\end{array}\right),\qquad
+	C=\left(\begin{array}{ccccc}
+		0 &  &  &  & -a_{0}\\
+		1 & 0 &  &  & -a_{1}\\
+		& 1 & \ddots &  & \vdots\\
+		&  & \ddots & 0 & -a_{k-1}\\
+		&  &  & 1 & -a_{k}
+	\end{array}\right).
+	\]
+	El polinomio característico de $A$ es 
+	\[
+	\chi_A=\chi_{[T]_{\cB,\cB}}=\chi_C\chi_M.
+	\]
+	Pero sabemos que $\chi_C=X^{k+1}+a_{k}X^{k}+\cdots+a_1X+a_0$. Además, por
+	definición, tenemos que $\chi_C=m_v$.  Luego $\chi_A=m_v\chi_M$ y entonces
+	$m_v$ divide a $\chi_A$ para cualquier $v\in\K^n$. 
+	
+	Si $\{e_1,\dots,e_n\}$ es la base canónica de $\K^{n\times1}$, en particular, tenemos
+	que $m_{e_i}$ divide a $\chi_A$ para cada $i\in\{1,\dots,n\}$. En
+	consecuencia, \[
+		m_A=\lcm(m_{e_1},\dots,m_{e_n})
+	\]
+	divide a $\chi_A$, que es lo
+	que queríamos probar.
+\end{proof}
+
+\begin{block}
+	Sea $A\in\K^{n\times n}$. Como corolario del teorema de Hamilton--Cayley 
+	se obtienen fácilmente las siguientes afirmaciones:
+	\begin{enumerate}
+		\item $\deg m_A\leq n$.
+		\item Si $\deg m_A=n$ entonces $m_A=\chi_A$.
+		\item Si existe $v\in\K^{n\times1}$ tal que $\deg m_v=n$ entonces $m_v=m_A=\chi_A$.
+	\end{enumerate}
+\end{block}
+
+\begin{example}
+	Vamos a utilizar el teorema de Hamilton--Cayley para calcular 
+	las potencias de una matriz. Sea 
+	\[
+		A=\begin{pmatrix}
+		0 & -1\\
+		1 & 2
+	\end{pmatrix}\in\R^{2\times2}.
+	\]
+	Entonces $\chi_A=(X-1)^2$. Por el algoritmo de división sabemos que existen $q\in\R[X]$ y $a_{n},b_n\in\R$ tales que
+	\[
+		X^n=(X-1)^2q+(a_nX+b_n)
+	\]
+	para todo $n\in\N$. Al evaluar en $X=1$ se obtiene $a_n+b_n=1$. Al derivar 
+	\[
+		nX^{n-1}=2(X-1)q+(X-1)^2q'+a_n
+	\]
+	y al evaluar esto en $X=1$, $a_n=n$ para todo $n\in\N$. Luego
+	\[
+		X^n=(X-1)^2q+nX+(1-n)
+	\]
+	para todo $n\in\N$. Si evaluamos este polinomio en $A$ y utilizamos el teorema de 
+	Hamilton--Cayley, que implica que $(A-I)^2=0$, obtenemos 
+	\[
+		A^n=nA+(1-n)I=\begin{pmatrix}
+			1-n & -n\\
+			n & n+1
+		\end{pmatrix}.
+	\]
+\end{example}
+
+\begin{cor}
+	Sea $A\in\K^{n\times n}$ una matriz inversible. Entonces $A^{-1}$ es
+	combinación lineal de las matrices $I,A,A^2,\dots,A^{n-1}$.
+
+	\begin{proof}
+		Supongamos que \[
+			\chi_A=X^n+a_{n-1}X^{n-1}+\cdots+a_1X+a_0.
+		\]
+		Sabemos que
+		\[
+			a_0=\chi_A(0)=\det(0I-A)=\det(-A)=(-1)^n\det A
+		\]
+		es distinto de cero pues $A$ es inversible. Sea 
+		\[
+		B=\frac{-1}{a_0}\left(A^{n-1}+a_{n-1}A^{n-2}+\cdots+a_2A+a_1\right).
+		\]
+		Como $\chi_A(A)=0$, se tiene entonces que $AB=BA=I$. Luego $A^{-1}=B$.
+	\end{proof}
+\end{cor}
+
+\begin{example}
+	Sea $C$ la matriz compañera del polinomio
+	\[
+		p=X^n+a_{n-1}X^{n-1}+\cdots+a_1X+a_0\in\K[X].
+	\]
+	Demostremos que $m_C=p$. Sea $\{e_1,\dots,e_{n}\}$ la base canónica de
+	$\K^{n\times1}$. Por inducción se demuestra fácilmente que
+	\[
+		e_k=Ce_{k-1}=C^{k-1}e_1,\quad
+		k\in\{2,\dots,n\}.
+	\]
+	Tenemos entonces que $\{e_1,ce_1,\dots,C^{n-1}e_1\}$ es un conjunto
+	linealmente independiente y luego $\{I,A,\dots,A^{n-1}\}$ es también
+	linealmente independiente. Esto nos dice que $\deg m_A\geq n$. Como
+	$\chi_A$ es un polinomio de grado $n$, el minimal $m_A$ divide al
+	característico $\chi_A$ por el teorema de Cayley--Hamilton, y $m_A$ y
+	$\chi_A$ son polinomios mónicos, $m_A=\chi_A=p$.
+%	
+%	Por el teorema de Cayley--Hamilton, $\chi_A=p(A)=0$. Luego
+%	\[
+%		A^ne_1=-a_{n-1}A^{n-1}-\cdots-a_1A-a_0.
+%	\]
+%	\begin{align*}
+%		p(A)(e_1)&=(A^n+a_{n-1}A^{n-1}+\cdots+a_1A+a_0)e_1\\
+%		&=A^ne_1+a_{n-1}e_n+\cdots+a_1e_2+a_0e_1.
+%	\end{align*}
+\end{example}
+

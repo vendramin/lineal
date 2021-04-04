@@ -1,0 +1,236 @@
+\chapter{Cocientes}
+
+\section{Espacio cociente}
+
+\begin{block}
+	Sea $V$ un espacio vectorial sobre $\K$ y sea $S\subseteq V$ un subespacio.
+	Se define la relación de equivalencia en $V$ dada por
+    \[
+        u\equiv v\bmod S\Leftrightarrow u-v\in S.
+    \]
+    Si $u\equiv v\bmod S$ diremos que $u$ y $v$ son \textbf{equivalentes módulo
+    $S$}. Cada clase de equivalencia módulo $S$ de $V$ es de la forma $v+S$ con $v\in V$ pues
+    \begin{align*}
+        \{u\in V:\; &u\equiv v\bmod S\}\\
+        &=\{u\in V:u-v\in S\}\\
+        &=\{u\in V:u=v+s\text{ para algún $s\in S$}\}\\
+        &=\{v+s:s\in S\}.
+    \end{align*}
+    Las clases de equivalencia de $V$ módulo $S$ se denominan \textbf{coclases}
+    de $S$ en $V$. El conjunto de coclases de $S$ en $V$ se denota por
+    $V/S=\{v+S:v\in V\}$.
+\end{block}
+
+\begin{block}
+    \label{block:V/S}
+   Si $S\subseteq V$ es un subespacio entonces en $V/S$ pueden definirse las
+   siguientes operaciones:
+   \begin{align*}
+       &(u+S)+(v+S)=(u+v)+S, && u,v\in V,\\
+       &\lambda(v+S)=\lambda v+S, && v\in V,\;\lambda\in\K.
+   \end{align*}
+
+   Veamos que las operaciones están bien definidas. 
+
+   Supongamos que $u_1+S=u_2+S$ y sea $\lambda\in\K$. Entonces $u_1-u_2\in
+   S$ y, como $S$ es un subespacio, $\lambda u_1-\lambda
+   u_2-\lambda(u_1-u_2)\in S$. Luego $\lambda u_1+S=\lambda u_2+S$ y
+   entonces la multiplicación por escalares en $V/S$ está bien definida. 
+
+   Supongamos ahora que $u_1+S=u_2+S$ y que $v_1+S=v_2+S$. Entonces
+   $u_1-u_2\in S$ y $v_1-v_2\in S$ y, como $S$ es un subespacio, 
+   \[
+   (u_1-u_2)+(v_1-v_2)=(u_1+v_1)-(u_2+v_2)\in S.
+   \]
+   Luego $u_1+v_1+S=u_2+v_2+S$ y entonces la suma en $V/S$ está bien
+   definida. 
+\end{block}
+
+\begin{xca}
+    Demostrar que con la suma y el producto por escalares definidos
+    en~\ref{block:V/S}, el cociente $V/S$ es un espacio vectorial. 
+\end{xca}
+
+\begin{examples}
+	Es evidente que $V/\{0\}\simeq V$ y que $V/V\simeq\{0\}$. 
+	\begin{enumerate}
+		\item $V/0\simeq V$.
+		\item $V/V\simeq 0$.
+		\item $\R^2/\langle(1,1)\rangle$.
+	\end{enumerate}
+\end{examples}
+
+\section{Teoremas de isomorfismo}
+
+\begin{prop}
+    Sea $S\subseteq V$ un subespacio. La función 
+    \[
+        p_S\colon V\to V/S,\quad v\mapsto v+S
+    \]
+    es un epimorfismo y $\ker p_S=S$. La
+    transformación lineal $p_S$ se denomina el \textbf{epimorfismo canónico} de
+    $V$ en $V/S$.
+
+    \begin{proof}
+        La función $p_S$ es una transformación lineal pues 
+        \begin{align*}
+            &p_S(u+v)=(u+v)+S=(u+S)+(v+S)=p_S(u)+p_S(v),\\
+            &p_S(\lambda v)=(\lambda v)+S=\lambda(v+S)=\lambda p_S(v),
+        \end{align*}
+        para todo $u,v\in V$ y $\lambda\in\K$. Es evidente que $p_S$ es un
+        epimorfismo. Calculemos $\ker(p_S)$. Es claro que
+        $S\subseteq\ker(p_S)$, y si $v\in\ker(p_S)$ entonces $p_S(v)=v+S=S$ y
+        luego $v\in S$. 
+    \end{proof}
+\end{prop}
+
+\begin{cor}
+    Sea $V$ un espacio vectorial de dimensión finita. Entonces $V/S$ es también
+    de dimensión finita y 
+    \[
+    \dim(V/S)=\dim(V)-\dim(S).
+    \]
+    La dimensión de $V/S$ se denomina \textbf{codimensión} de $S$ en $V$ y se
+    denota por $\codim(S)$.
+
+    \begin{proof}
+        Si $V$ es de dimensión finita entonces, por el teorema de la dimensión
+        aplicado al epimorfismo canónico $p_S$, 
+        \[
+            \dim(V)=\dim\ker(p_S)+\dim\im(p_S)=\dim(S)+\dim(V/S), 
+        \]
+        que es equivalente a lo que se quería demostrar.
+    \end{proof}
+\end{cor}
+
+\begin{cor}
+    Sea $V$ un espacio vectorial y sean $S,T\subseteq V$ subespacios tales que
+    $V=S\oplus T$. Entonces $T\simeq V/S$, es decir: todo complemento de $S$ en
+    $V$ es isomorfo a $V/S$.
+
+    \begin{proof}
+        Sea $f\colon T\to V/S$ la transformación lineal dada por $t\mapsto
+        t+S$. Veamos que $f$ es monomorfismo:
+        \[
+        \ker f=\{t\in T:f(t)=S\}=\{t\in T:t\in S\}=S\cap T=\{0\}
+        \]
+        pues $V=S\oplus T$. Veamos que $f$ es epimorfismo: 
+        \[
+        \im f=\{f(t):t\in T\}=\{t+S:t\in T\}=\{v+S:v\in V\}
+        \]
+        pues todo $v\in V$ se escribe unívocamente como $v=s+t$ con $s\in S$ y
+        $t\in T$. Luego $T\simeq V/S$.
+    \end{proof}
+\end{cor}
+
+\begin{thm}[teorema de la correspondencia de subespacios]
+   Sea $S\subseteq V$ un subespacio. La función
+   \begin{align*}
+        \{\text{subespacios de $V$ que contienen a $S$}\} \to \{\text{subespacios de $V/S$}\}, 
+    \end{align*}
+    dada por $T \mapsto p(T)$, donde $p\colon V\to V/S$ es el epimorfismo canónico, es biyectiva.
+
+    \begin{proof}
+		Observemos que si $T$ es un subespacio de $V$ y $S\subseteq
+		T$ entonces $p(T)$ es un subespacio de $V/S$ y así la
+		función $T\mapsto p(T)$ del enunciado está bien definida.  Veamos que la función
+   		\begin{align*}
+    	    \{\text{subespacios de $V$ que contienen a $S$}\} &\to \{\text{subespacios de $V/S$}\}\\
+			p^{-1}(L) & \mapsfrom L
+	    \end{align*}
+		está bien definida: 
+		si
+		$L\subseteq V/S$ es un subespacio, $p^{-1}(L)$ es un subespacio
+		de $V$ que contiene a $S$ pues si $s\in S$ entonces $p(s)=0\in L$.
+
+		Veamos que $p^{-1}(L)\mapsfrom L$ es la inversa de $T\mapsto p(T)$.
+		Primero observemos que $p(p^{-1}(L))=L$ pues $p$ es sobreyectiva.  Por
+		otro lado, debemos demostrar que $p^{-1}(p(T))=T$.  Como es evidente
+		que $p^{-1}(p(T))\supseteq T$, basta demostrar que
+		$p^{-1}(p(T))\subseteq T$.  Si $v\in p^{-1}(p(T))$, como entonces
+		$p(v)\in p(T)$, se tiene que $p(v)=p(t)$ para algún $t\in T$. Luego
+		$v-t\in\ker p=S\subseteq T$ y por lo tanto $v\in T$. 
+    \end{proof}
+\end{thm}
+
+\begin{thm}[propiedad universal del cociente]
+    \label{thm:propiedad_universal}
+    Sean $V$ y $W$ espacios vectoriales, $f\in\hom(V,W)$ y $S\subseteq\ker f $
+    un subespacio. Entonces existe una única $g\in\hom(V/S,W)$ tal que
+    $gp_S=f$, es decir: existe una única $g\in\hom(V/S,W)$ que hace que el
+    siguiente diagrama conmute:
+    \[
+    \xymatrix{ V\ar[r]^f\ar[d]_{p_S} & W\\ V/S\ar@{-->}[ru]_g & }
+    \]
+    Más aún, $\ker g=\ker f/S$ y
+    $\im g=\im f$.
+
+    \begin{proof}
+        Definimos a $g$ como $g(v+S)=f(v)$. Veamos que está bien definida: si
+        $v_1+S=v_2+S$ entonces $v_1-v_2\in S$. Como $S\subseteq\ker f$,
+        $f(v_1-v_2)=0$ y luego $g(v_1+S)=f(v_1)=f(v_2)=g(v_2+S)$
+
+        Como $f$ es una transformación lineal, es fácil ver que $g$ es también
+        una transformación lineal. 
+        Calculemos la imagen de $g$: 
+        \begin{align*}
+            \im g=\{g(v+S):v\in V\}=\{f(v):v\in V\}=\im f.
+        \end{align*}
+        Calculemos ahora el núcleo de $g$:
+        \begin{align*}
+            \ker g&=\{v+S:g(v+S)=0\}\\
+            &=\{v+S:f(v)=0\}=\{v+S:v\in\ker f\}=\ker f+S.
+        \end{align*}
+
+        Queda demostrar la unicidad: si $h\in\hom(V/S,W)$ cumple que $hp_S=f$
+        entonces $h(v+S)=hp_S(v)=f(v)=gp_S(v)=g(v+S)$ y luego $h=g$.
+    \end{proof}
+\end{thm}
+
+\begin{cor}[primer teorema de isomorfismo]
+    Sea $f\in\hom(V,W)$. Entonces la transformación lineal $V/\ker f\to W$,
+    $v+\ker f\mapsto f(v)$, es inyectiva. En particular $V/\ker f\simeq \im f$.
+
+    \begin{proof}
+        Es consecuencia de la propiedad universal del cociente,
+        teorema~\ref{thm:propiedad_universal}, aplicada al subespacio $S=\ker
+        f$.
+    \end{proof}
+\end{cor}
+
+\begin{cor}[segundo teorema de isomorfismo]
+    Sean $S,T\subseteq V$ subespacios. Entonces 
+    \[
+    \frac{S+T}{T}\simeq \frac{S}{S\cap T}.
+    \]
+
+    \begin{proof}
+        Sea $f\colon S+T\to S/S\cap T$ dada por $f(s+t)=s+(S\cap T)$. Primero
+        debemos demostrar que $f$ está bien definida: si $s+t=s'+t'$ con
+        $s,s'\in S$ y $t,t'\in T$ entonces $s'-s\in S\cap T$ y $s+(s'-s)=s'$.
+        Luego $f(s+t)=f(s'+t')$. Como
+        \[
+            \ker f=\{s+t: s+S\cap T=S\cap T\}=\{s+t:s\in S\cap T\}=\{t+S\cap T\}=T,
+        \]
+        y $f$ es un epimorfismo, el primer teorema de isomorfismo demuestra el
+        corolario.
+    \end{proof}
+\end{cor}
+
+\begin{cor}[tercer teorema de isomorfismo]
+    Sean $S\subseteq T\subseteq V$ subespacios. Entonces
+    \[
+        \frac{V/S}{T/S}\simeq \frac{V}{T}.
+    \]
+
+    \begin{proof}
+        Sea $f\colon V/S\to T/S$ dada por $v+S\mapsto v+T$. Veamos la buena
+        definición: si $v_1+S=v_2+S$ entonces $v_1-v_2\in S$ y luego, como
+        $S\subseteq T$, $v_1+T=v_2+T$. Como
+        \[
+            \ker f=\{v+S:v+T=T\}=\{v+S:v\in T\}=T,
+        \]
+        y $f$ es epimorfismo, el primer teorema de isomorfismo nos da el
+        isomorfismo que queríamos demostrar.
+    \end{proof}
+\end{cor}
